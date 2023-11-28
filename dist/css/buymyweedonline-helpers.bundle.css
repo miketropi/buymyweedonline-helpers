@@ -1,3 +1,53 @@
+.ic-cart-sidebar-wrapper .ic-cart-sidebar-wrapper_header span {
+  font-weight: bold;
+  color: black;
+}
+.ic-cart-sidebar-wrapper .show-free-shiping-wrapper {
+  box-shadow: none;
+  border-radius: 3px;
+  border: solid 1px #63b722;
+  background: rgba(99, 183, 34, 0.0588235294);
+  margin: 1em 0 0;
+  width: 100%;
+}
+.ic-cart-sidebar-wrapper .cart_list.product_list_widget .attachment-woocommerce_thumbnail {
+  box-shadow: none !important;
+  border-radius: 1px !important;
+  border-color: #eee !important;
+  width: 80px !important;
+  height: auto !important;
+}
+.ic-cart-sidebar-wrapper .cart_list.product_list_widget .ic-mini-cart-count-price {
+  padding-left: 1em;
+}
+.ic-cart-sidebar-wrapper .cart_list.product_list_widget .ic-mini-cart-count-price .name-product {
+  font-weight: bold;
+  color: black;
+  padding-right: 3em;
+}
+.ic-cart-sidebar-wrapper .cart_list.product_list_widget .ic-mini-cart-count-price .amount {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: black;
+}
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__total.total {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__total.total .woocommerce-Price-amount.amount {
+  font-weight: bold;
+  color: black;
+}
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__buttons.buttons a {
+  font-weight: bold !important;
+  text-transform: uppercase;
+  font-size: 0.7em !important;
+  border-radius: 1px !important;
+  box-shadow: none !important;
+  padding: 1em !important;
+}
+
 .free-gift {
   margin-top: 2em;
   padding-top: 2em;

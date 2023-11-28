@@ -1,0 +1,17 @@
+body .select2-container .select2-selection--single {
+  height: auto !important;
+}
+
+body .select2-container .select2-selection--single .select2-selection__arrow {
+  top: 1px !important;
+} 
+
+.acf-table > thead > tr > th {
+  background: #ebebeb !important;
+}
+
+.acf-table > tbody > tr > td {
+  border-color: #eeeeee !important;
+  border-width: 1px 0 0 1px !important;
+  border-style: solid !important;
+}

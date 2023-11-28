@@ -6,7 +6,7 @@
  * Version:     1.0.0
  * Plugin URI:  #
  * Description: #
- * Author:      Beplu
+ * Author:      Beplus
  * Author URI:  #
  * Text Domain: b-helpers
  */
@@ -29,6 +29,8 @@
   require(B_HELPERS_DIR . '/inc/hooks.php');
   require(B_HELPERS_DIR . '/inc/ajax.php');
   require(B_HELPERS_DIR . '/inc/template-tags.php');
+
+  require(B_HELPERS_DIR . '/inc/woo-helpers.php');
 }
 
 {

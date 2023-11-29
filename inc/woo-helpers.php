@@ -23,22 +23,22 @@ function b_helpers_free_gift_message() {
   }
 
   $the_rest_of_amount = wc_price($rest['the_rest_of_amount']);
-  $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';
-
+  $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';   
+ 
   $dynamic_text = [
     'first' => __('more to your cart a Free gift', 'b_helpers'),
-    'next' => __('more to unlock the next Free gift', 'b_helpers'),
+    'next' => __('more to unlock the next Free gift', 'b_helpers'), 
   ];
 
   $text = sprintf(__('Add %s %s!<br />Only 1 gift per cart.', 'b_helpers'), $the_rest_of_amount, $dynamic_text[$message_type]);
   return apply_filters('B_HELPERS:FREE_GIFT_MESSAGE', $text, $the_rest_of_amount, $message_type);
 }
 
-function b_helpers_get_the_rest_of_amount() {
+function b_helpers_get_the_rest_of_amount() { 
   $freegift_products = get_field('bh_freegift_products', 'option');
-  $unlock_amount_arr = array_map(function($item) {
-    return (int) $item['unlock_amount'];
-  }, $freegift_products);
+  $unlock_amount_arr = array_map(function($item) { 
+    return (int) $item['unlock_amount']; 
+  }, $freegift_products);  
 
   sort($unlock_amount_arr);
   $cart_total = WC()->cart->total;
@@ -49,8 +49,8 @@ function b_helpers_get_the_rest_of_amount() {
   foreach($unlock_amount_arr as $__index => $__item) {
     if($__item > $cart_total) {
       $number_unlocked = $__index;
-      $the_rest_of_amount = $__item - $cart_total;
-      break;
+      $the_rest_of_amount = $__item - $cart_total; 
+      break; 
     }
   }
 

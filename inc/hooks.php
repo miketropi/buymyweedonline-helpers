@@ -10,7 +10,7 @@ add_filter('acf/load_field/name=select_product_for_freegift', 'b_helpers_acf_fie
 
 function b_helpers_acf_field_choices_for_freegift_products($field) {
   // Reset choices
-  $field['choices'] = b_helpers_get_woo_products_choices();
+  $field['choices'] = b_helpers_get_woo_products_choices(); 
   return $field;
 }
 

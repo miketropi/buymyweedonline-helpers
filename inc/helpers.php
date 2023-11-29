@@ -9,7 +9,7 @@ function b_helpers_load_template($name, $require_once = false) {
 
 function b_helpers_get_woo_products_choices() {
   $choices = [];
-  $args = [
+  $args = [ 
     'post_type'       => 'product',
     'posts_per_page'  => -1,
     'post_status'     => 'publish'

@@ -33,7 +33,7 @@ $cart_total = WC()->cart->total;
             <div class="free-gift__product-unlock-status">
               <?php 
               if($unlocked == true) {
-                ?>
+                ?> 
                 <a 
                   href="#" 
                   class="free-gift__product-add-to-cart" 
@@ -41,10 +41,10 @@ $cart_total = WC()->cart->total;
                   data-product-parent="<?php echo $parent_id; ?>" 
                   data-product-id="<?php echo $_product->get_id() ?>"> 
                   <?php _e('Add to Cart', 'b_helpers'); ?>
-                </a>
+                </a> 
                 <?php
               } else {
-                echo '<span class="free-gift__product-lock-icon">'. $lock_icon .'</span>';
+                echo '<span class="free-gift__product-lock-icon">'. $lock_icon .'</span>'; 
               }
               ?>
             </div>

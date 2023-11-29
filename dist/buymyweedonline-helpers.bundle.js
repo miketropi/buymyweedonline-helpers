@@ -5,15 +5,79 @@
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_freegift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/freegift */ "./src/modules/freegift.js");
+/* harmony import */ var _modules_freegift__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_modules_freegift__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Scripts
  */
 
+
 ;
 (function () {
   'use strict';
+})(window, jQuery);
+
+/***/ }),
+
+/***/ "./src/modules/freegift.js":
+/*!*********************************!*\
+  !*** ./src/modules/freegift.js ***!
+  \*********************************/
+/***/ (() => {
+
+/**
+ * Free Gift
+ */
+
+;
+(function (w, $) {
+  'use strict';
+
+  var addToCartGift = function addToCartGift() {
+    $('body').on('click', '.free-gift__product-add-to-cart', function (e) {
+      e.preventDefault();
+      var $thisbutton = $(this);
+      var _this$dataset = this.dataset,
+        productType = _this$dataset.productType,
+        variationId = _this$dataset.variationId,
+        productId = _this$dataset.productId;
+      var data = {
+        action: 'b_helpers_woocommerce_ajax_add_to_cart_free_gift',
+        product_id: parseInt(productId),
+        quantity: 1,
+        variation_id: parseInt(variationId ? variationId : 0)
+      };
+      $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
+      $.ajax({
+        type: 'post',
+        url: wc_add_to_cart_params.ajax_url,
+        data: data,
+        beforeSend: function beforeSend(response) {
+          $thisbutton.removeClass('added').addClass('loading');
+        },
+        complete: function complete(response) {
+          $thisbutton.addClass('added').removeClass('loading');
+        },
+        success: function success(response) {
+          if (response.error && response.product_url) {
+            // window.location = response.product_url;
+            console.log(response);
+            return;
+          } else {
+            $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);
+          }
+        }
+      });
+    });
+  };
+  var init = function init() {
+    addToCartGift();
+  };
+  $(init);
 })(window, jQuery);
 
 /***/ }),
@@ -103,6 +167,30 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
 /******/ 		};
 /******/ 	})();
 /******/ 	

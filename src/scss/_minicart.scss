@@ -32,6 +32,14 @@
 
   .cart_list.product_list_widget  {
 
+    .__free-gift-item {
+
+      .quantity {
+        opacity: .3;
+        pointer-events: none;
+      }
+    }
+
     .attachment-woocommerce_thumbnail {
       box-shadow: none !important;
       border-radius: 1px !important;

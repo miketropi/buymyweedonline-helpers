@@ -16,7 +16,9 @@ $cart_total = WC()->cart->total;
           $type = $_product->get_type();
           $unlocked = $cart_total <= $_p['unlock_amount'] ? false : true;
           $classes = ['free-gift__product-item', $unlocked ? '__unlocked' : ''];
-          $parent_id = ($type == 'variation') ? $_product->get_parent_id() : '';
+
+          $product_id = ($type == 'variation') ? $_product->get_parent_id() : $_product->get_id();
+          $variation_id = ($type == 'variation') ? $_product->get_id() : 0;
         ?>
         <li class="<?php echo implode(' ', $classes); ?>">
           <div class="free-gift__product">
@@ -35,11 +37,11 @@ $cart_total = WC()->cart->total;
               if($unlocked == true) {
                 ?> 
                 <a 
-                  href="#" 
+                  href="<?php echo $_product->add_to_cart_url(); ?>" 
                   class="free-gift__product-add-to-cart" 
                   data-product-type="<?php echo $type; ?>" 
-                  data-product-parent="<?php echo $parent_id; ?>" 
-                  data-product-id="<?php echo $_product->get_id() ?>"> 
+                  data-product-variation-id="<?php echo $variation_id ?>" 
+                  data-product-id="<?php echo $product_id ?>"> 
                   <?php _e('Add to Cart', 'b_helpers'); ?>
                 </a> 
                 <?php

@@ -22,6 +22,10 @@
 .ic-cart-sidebar-wrapper .show-free-shiping-wrapper .text-more-add-pr .text .price {
   color: #63b723;
 }
+.ic-cart-sidebar-wrapper .cart_list.product_list_widget .__free-gift-item .quantity {
+  opacity: 0.3;
+  pointer-events: none;
+}
 .ic-cart-sidebar-wrapper .cart_list.product_list_widget .attachment-woocommerce_thumbnail {
   box-shadow: none !important;
   border-radius: 1px !important;
@@ -124,6 +128,7 @@
   line-height: 1.3em;
   margin-bottom: 0.3em !important;
   display: block;
+  font-family: "Lato" !important;
 }
 .free-gift__product-price {
   font-size: 0.7em;

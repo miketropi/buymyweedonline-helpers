@@ -30,7 +30,7 @@
   require(B_HELPERS_DIR . '/inc/ajax.php');
   require(B_HELPERS_DIR . '/inc/template-tags.php');
 
-  require(B_HELPERS_DIR . '/inc/woo-helpers.php');
+  require(B_HELPERS_DIR . '/inc/woo-helpers.php'); 
 }
 
 {

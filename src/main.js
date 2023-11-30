@@ -2,6 +2,7 @@
  * Scripts
  */
 
+import './modules/minicart';
 import './modules/freegift';
 
 ;(() => {

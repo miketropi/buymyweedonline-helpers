@@ -1,3 +1,13 @@
+.b-helpers__loading {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__empty-message {
+  font-size: 0.9em;
+  text-decoration: underline;
+  color: #5f5f5f;
+}
 .ic-cart-sidebar-wrapper .ic-cart-sidebar-wrapper_header span {
   font-weight: bold;
   color: black;
@@ -13,14 +23,16 @@
 .ic-cart-sidebar-wrapper .show-free-shiping-wrapper .title-amount-shipping,
 .ic-cart-sidebar-wrapper .show-free-shiping-wrapper .text-more-add-pr {
   font-size: 0.9em;
+  font-weight: normal !important;
 }
 .ic-cart-sidebar-wrapper .show-free-shiping-wrapper .title-amount-shipping .text,
 .ic-cart-sidebar-wrapper .show-free-shiping-wrapper .text-more-add-pr .text {
-  color: black;
+  color: black !important;
+  font-weight: normal !important;
 }
-.ic-cart-sidebar-wrapper .show-free-shiping-wrapper .title-amount-shipping .text .price,
-.ic-cart-sidebar-wrapper .show-free-shiping-wrapper .text-more-add-pr .text .price {
-  color: #63b723;
+.ic-cart-sidebar-wrapper .show-free-shiping-wrapper .title-amount-shipping .price,
+.ic-cart-sidebar-wrapper .show-free-shiping-wrapper .text-more-add-pr .price {
+  color: #63b723 !important;
 }
 .ic-cart-sidebar-wrapper .cart_list.product_list_widget .__free-gift-item .quantity {
   opacity: 0.3;
@@ -62,6 +74,10 @@
   border-radius: 1px !important;
   box-shadow: none !important;
   padding: 1em !important;
+}
+.ic-cart-sidebar-wrapper .input-text.qty {
+  border: solid 1px #eee !important;
+  background: #f6f6f6 !important;
 }
 
 .free-gift {

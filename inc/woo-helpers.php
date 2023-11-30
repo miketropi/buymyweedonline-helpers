@@ -116,6 +116,8 @@ function b_helpers_woocommerce_ajax_add_to_cart_free_gift() {
     '__FREE_GIFT__' => [
       'custom_product_price' => 0, // free
       'custom_product_name' => $findProductInListFreeGift['name'],
+      'unlock_amount' => $findProductInListFreeGift['unlock_amount'],
+      'select_product_for_freegift' => $findProductInListFreeGift['select_product_for_freegift']
     ]
   ])) {
     
@@ -185,3 +187,35 @@ add_filter('woocommerce_update_cart_validation', function($passed, $cart_item_ke
 
   return $passed;
 }, 20, 4);
+
+function b_helpers_find_and_remove_free_gift_invalite($cart_updated) {
+  if($cart_updated) {
+    WC()->cart->calculate_totals();
+    $cart = WC()->cart;
+    $cart_total = WC()->cart->total;
+    // wp_send_json( [$cart_total] );
+    /**
+     * find and remove free gift invalite
+     */
+    foreach($cart->get_cart() as $cart_item_key => $cart_item) {
+      if(isset($cart_item['__FREE_GIFT__'])) {
+        if((int) $cart_item['__FREE_GIFT__']['unlock_amount'] > $cart_total) {
+          WC()->cart->remove_cart_item( $cart_item_key );
+        }
+      }
+    }
+
+    return $passed;
+  }
+
+  return $cart_updated;
+}
+
+add_filter('woocommerce_cart_item_removed', 'b_helpers_find_and_remove_free_gift_invalite', 20);
+add_filter('woocommerce_update_cart_action_cart_updated', 'b_helpers_find_and_remove_free_gift_invalite', 20);
+
+function b_helpers_mini_cart_nonce(){
+  wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce', false);
+}
+
+add_action('woocommerce_before_mini_cart_contents','b_helpers_mini_cart_nonce' );

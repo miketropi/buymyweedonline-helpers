@@ -46,13 +46,13 @@ __webpack_require__.r(__webpack_exports__);
       var $thisbutton = $(this);
       var _this$dataset = this.dataset,
         productType = _this$dataset.productType,
-        variationId = _this$dataset.variationId,
+        productVariationId = _this$dataset.productVariationId,
         productId = _this$dataset.productId;
       var data = {
         action: 'b_helpers_woocommerce_ajax_add_to_cart_free_gift',
         product_id: parseInt(productId),
         quantity: 1,
-        variation_id: parseInt(variationId ? variationId : 0)
+        variation_id: parseInt(productVariationId ? productVariationId : 0)
       };
       $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
       $.ajax({
@@ -67,8 +67,8 @@ __webpack_require__.r(__webpack_exports__);
         },
         success: function success(response) {
           if (response.error && response.product_url) {
-            // window.location = response.product_url;
-            console.log(response);
+            window.location = response.product_url;
+            // console.log(response)
             return;
           } else {
             $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $thisbutton]);

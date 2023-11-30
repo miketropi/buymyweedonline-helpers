@@ -78,8 +78,8 @@
 .ic-cart-sidebar-wrapper .input-text.qty {
   border: solid 1px #eee !important;
   background: #f6f6f6 !important;
+  padding: 0 !important;
 }
-
 .free-gift {
   margin-top: 2em;
   padding-top: 2em;

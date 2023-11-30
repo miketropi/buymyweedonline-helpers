@@ -48,4 +48,7 @@
   }
 
   $(init);
+  $(w).on('load', () => {
+    $(document.body).trigger('wc_fragment_refresh');
+  })
 })(window, jQuery)

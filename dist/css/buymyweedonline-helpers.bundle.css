@@ -1,6 +1,6 @@
 .b-helpers__loading {
-  opacity: 0.4;
-  pointer-events: none;
+  opacity: 0.4 !important;
+  pointer-events: none !important;
 }
 
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__empty-message {

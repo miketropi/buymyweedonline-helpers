@@ -6,10 +6,13 @@
   'use strict';
 
   const addToCartGift = () => {
-    $('body').on('click', '.free-gift__product-add-to-cart', function(e) {
+    $('body').on('click', '.free-gift__product-add-to-cart', async function(e) {
       e.preventDefault();
       const $thisbutton = $(this);
+      const $li = $thisbutton.closest('li.free-gift__product-item');
       const {productType, productVariationId, productId} = this.dataset;
+
+      $li.addClass('b-helpers__loading');
 
       const data = {
         action: 'b_helpers_woocommerce_ajax_add_to_cart_free_gift',
@@ -20,7 +23,7 @@
 
       $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
-      $.ajax({
+      await $.ajax({
         type: 'post',
         url: wc_add_to_cart_params.ajax_url,
         data: data,
@@ -40,6 +43,8 @@
           }
         },
       });
+
+      $li.removeClass('b-helpers__loading');
     })
   }
 

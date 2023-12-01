@@ -221,7 +221,10 @@ function b_helpers_mini_cart_nonce(){
 add_action('woocommerce_before_mini_cart_contents','b_helpers_mini_cart_nonce' );
 
 function b_helpers_minicart_offcanvas() {
-  // b_helpers_load_template('minicart');
+  $minicart_enable = get_field('bh_minicart_enable', 'option');
+  if($minicart_enable != true) return;
+  
+  b_helpers_load_template('minicart');
 }
 
 add_action('wp_head','b_helpers_minicart_offcanvas'); 

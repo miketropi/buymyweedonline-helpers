@@ -28,3 +28,13 @@ function b_helpers_add_modified_time( $src ) {
 
 add_filter( 'style_loader_src', 'b_helpers_add_modified_time', 99999999, 1 );
 add_filter( 'script_loader_src', 'b_helpers_add_modified_time', 99999999, 1 );
+
+function b_helpers_algolia_search_hit_wp_template() {
+  ?>
+  <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT">
+    <p>{{{ data.post_title }}}</p>
+  </script>
+  <?php 
+}
+
+add_action('wp_footer', 'b_helpers_algolia_search_hit_wp_template');

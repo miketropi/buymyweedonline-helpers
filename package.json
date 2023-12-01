@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "algoliasearch": "^4.20.0",
+    "instantsearch.js": "^4.60.0",
     "laravel-mix": "^6.0.49"
   },
   "devDependencies": {

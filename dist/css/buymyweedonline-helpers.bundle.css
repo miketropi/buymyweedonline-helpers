@@ -1,6 +1,21 @@
 .b-helpers__loading {
-  opacity: 0.4 !important;
   pointer-events: none !important;
+  position: relative;
+}
+.b-helpers__loading > * {
+  opacity: 0.4 !important;
+}
+.b-helpers__loading:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: url(../../images/loading.svg);
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__empty-message {

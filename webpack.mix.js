@@ -6,3 +6,6 @@ mix
   .sass('src/scss/main.scss', 'css/buymyweedonline-helpers.bundle.css')
   .sass('src/scss/admin.scss', 'css/admin.buymyweedonline-helpers.bundle.css')
   .setPublicPath('dist')
+  .options({
+    processCssUrls: false
+  })

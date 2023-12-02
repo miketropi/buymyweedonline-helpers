@@ -34,14 +34,39 @@ function b_helpers_free_gift_message() {
   return apply_filters('B_HELPERS:FREE_GIFT_MESSAGE', $text, $the_rest_of_amount, $message_type);
 }
 
+// add_action('wp_head', function() {
+//   global $woocommerce;  
+//   echo 'dev' . WC()->cart->total;
+//   echo 'dev' . WC()->cart->get_total_discount(); 
+//   echo 'dev' . WC()->cart->get_fee_total(); 
+//   echo 'dev' . WC()->cart->get_cart_discount_total(); 
+//   echo 'dev' . WC()->cart->get_cart_discount_tax_total(); 
+// });
+
+add_action('woocommerce_widget_shopping_cart_total', function() {
+  $fee = WC()->cart->get_fee_total();
+  ?> 
+  <?php if($fee && $fee != 0) { ?>
+  <p class="woocommerce-mini-cart__fee fee">
+		<strong><?php _e('Discount:', 'b_helpers') ?></strong> 
+    <?php echo wc_price($fee); ?> 
+  </p>
+  <?php  } ?>
+  <p class="woocommerce-mini-cart__total total __total">
+		<strong><?php _e('Total:', 'b_helpers') ?></strong> 
+    <?php echo wc_price(WC()->cart->total); ?> 
+  </p>
+  <?php  
+}, 15);
+
 function b_helpers_get_the_rest_of_amount() { 
   $freegift_products = get_field('bh_freegift_products', 'option');
   $unlock_amount_arr = array_map(function($item) { 
-    return (int) $item['unlock_amount']; 
+    return (float) $item['unlock_amount']; 
   }, $freegift_products);  
 
   sort($unlock_amount_arr);
-  $cart_total = WC()->cart->total;
+  $cart_total = (float) WC()->cart->total;
   
   $number_unlocked = 0;
   $the_rest_of_amount = 0;
@@ -53,7 +78,7 @@ function b_helpers_get_the_rest_of_amount() {
       break; 
     }
   }
-
+  // wp_send_json( [$the_rest_of_amount, $cart_total] );
   // passed all cases
   if($number_unlocked == 0 && $the_rest_of_amount == 0) {
     return true;
@@ -223,7 +248,7 @@ add_action('woocommerce_before_mini_cart_contents','b_helpers_mini_cart_nonce' )
 function b_helpers_minicart_offcanvas() {
   $minicart_enable = get_field('bh_minicart_enable', 'option');
   if($minicart_enable != true) return;
-  
+
   b_helpers_load_template('minicart');
 }
 

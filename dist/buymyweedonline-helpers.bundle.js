@@ -6443,9 +6443,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_freegift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/freegift */ "./src/modules/freegift.js");
 /* harmony import */ var _modules_freegift__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_freegift__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_algolia_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/algolia-search */ "./src/modules/algolia-search.js");
+/* harmony import */ var _modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/product-ajax-add-to-cart */ "./src/modules/product-ajax-add-to-cart.js");
+/* harmony import */ var _modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3__);
 /**
  * Scripts
  */
+
 
 
 
@@ -6665,6 +6668,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   $(w).on('load', function () {
     $(document.body).trigger('wc_fragment_refresh');
   });
+})(window, jQuery);
+
+/***/ }),
+
+/***/ "./src/modules/product-ajax-add-to-cart.js":
+/*!*************************************************!*\
+  !*** ./src/modules/product-ajax-add-to-cart.js ***!
+  \*************************************************/
+/***/ (() => {
+
+;
+(function (w, $) {
+  'use strict';
 })(window, jQuery);
 
 /***/ }),

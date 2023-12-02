@@ -20,7 +20,7 @@
         quantity: 1,
         variation_id: parseInt((productVariationId ? productVariationId : 0)),
       };
-
+ 
       $(document.body).trigger('adding_to_cart', [$thisbutton, data]);
 
       await $.ajax({

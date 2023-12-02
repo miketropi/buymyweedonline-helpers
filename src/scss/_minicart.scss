@@ -73,15 +73,29 @@
     }
   }
 
-  .woocommerce-mini-cart__total.total {
-    font-size: .8em;
-    font-weight: bold;
+  .woocommerce-mini-cart__total,
+  .woocommerce-mini-cart__fee {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    font-size: .8em !important;
+    font-weight: bold !important;
     text-transform: uppercase;
+    margin-bottom: 0;
+    line-height: normal !important;
 
     .woocommerce-Price-amount.amount {
       font-weight: bold;
       color: black;
     }
+  }
+
+  .__total {
+    padding-top: 1em;
+    border-top: solid 1px #eee;
+    margin-top: 1.5em;
   }
 
   .woocommerce-mini-cart__buttons.buttons {

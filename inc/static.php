@@ -9,8 +9,10 @@ function b_helpers_enqueue_scripts() {
 
 
   $algolia_app = get_field('bh_algolia_app', 'option');
+  $product_page_add_to_cart_ajax = get_field('bh_product_page_add_to_cart_ajax', 'option');
   wp_localize_script('b_helpers_js', 'B_HELPERS_DATA', [
     'ajax_url' => admin_url('admin-ajax.php'),
+    'product_page_add_to_cart_ajax' => $product_page_add_to_cart_ajax,
     'algolia_app' => [
       'APP_ID' => $algolia_app['application_id'],
       'API_KEY' => $algolia_app['search_only_api_key']

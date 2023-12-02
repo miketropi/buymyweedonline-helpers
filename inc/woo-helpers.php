@@ -18,6 +18,10 @@ add_action('woocommerce_after_mini_cart', 'b_helpers_free_gift');
 function b_helpers_free_gift_message() {
   $rest = b_helpers_get_the_rest_of_amount();
 
+  if($rest === false) {
+    return __('We currently do not have any giveaways, thank you!', 'b_helpers');
+  }
+
   if($rest === true) {
     return __('You are unlocked all Free gift!<br />Only 1 gift per cart', 'b_helpers');
   }
@@ -61,6 +65,11 @@ add_action('woocommerce_widget_shopping_cart_total', function() {
 
 function b_helpers_get_the_rest_of_amount() { 
   $freegift_products = get_field('bh_freegift_products', 'option');
+
+  if(!$freegift_products || count($freegift_products) <= 0) {
+    return false;
+  }
+
   $unlock_amount_arr = array_map(function($item) { 
     return (float) $item['unlock_amount']; 
   }, $freegift_products);  

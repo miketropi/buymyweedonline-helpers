@@ -6,6 +6,11 @@ import { hits, configure } from 'instantsearch.js/es/widgets';
   'use strict';
   const {algolia_app} = B_HELPERS_DATA;
   const {APP_ID, API_KEY} = algolia_app;
+
+  if(!APP_ID || !API_KEY) {
+    return;
+  }
+
   const searchClient = algoliasearch(APP_ID, API_KEY);
   const search = [];
   

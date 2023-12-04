@@ -19,17 +19,75 @@ import { hits, configure } from 'instantsearch.js/es/widgets';
       configure: {
         hitsPerPage: 6,
       },
-      onRender: () => {
-
-      },
+      onRender: () => { },
       instantsearch: instantsearch({
         indexName: 'wp_posts_product',
         searchClient,
       })
-    }
+    },
+    ALGOLIA_SEARCH_RESULT_CAT: {
+      configure: {
+        hitsPerPage: 4,
+      },
+      onRender: () => { },
+      instantsearch: instantsearch({
+        indexName: 'wp_terms_product_cat',
+        searchClient,
+      })
+    },
+    ALGOLIA_SEARCH_RESULT_PAGE: {
+      configure: {
+        hitsPerPage: 3,
+      },
+      onRender: () => { },
+      instantsearch: instantsearch({
+        indexName: 'wp_posts_page',
+        searchClient,
+      })
+    },
+    ALGOLIA_SEARCH_RESULT_POST: {
+      configure: {
+        hitsPerPage: 3,
+      },
+      onRender: () => { },
+      instantsearch: instantsearch({
+        indexName: 'wp_posts_post',
+        searchClient,
+      })
+    },
+  }
+
+  const searchResultActive = () => {
+    $(document.body).on('Algolia:SearchResultActive', (e, active) => {
+      if(active == true) {
+        document.body.classList.add('__algolia-search-result-active')
+      } else {
+        document.body.classList.remove('__algolia-search-result-active')
+      }
+    })
+  }
+
+  const searchFieldHandle = () => {
+    const $input = $('input.algolia-search__text-field');
+
+    $('body').on('input', 'input.algolia-search__text-field', function(e) {
+      e.preventDefault();
+    })
+
+    $input.on({
+      'focus': () => {
+        $(document.body).trigger('Algolia:SearchResultActive', [true])
+      },
+      'blur': () => {
+        $(document.body).trigger('Algolia:SearchResultActive', [false])
+      }
+    })
   }
 
   const init = () => {
+    searchResultActive();
+    searchFieldHandle();
+
     $.each(search_instant, (__index, __) => {
       const _S = __.instantsearch;
       const _ID = `${ __index }`;

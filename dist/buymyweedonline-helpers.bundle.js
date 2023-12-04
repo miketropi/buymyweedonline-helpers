@@ -6492,9 +6492,64 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
         indexName: 'wp_posts_product',
         searchClient: searchClient
       })
+    },
+    ALGOLIA_SEARCH_RESULT_CAT: {
+      configure: {
+        hitsPerPage: 4
+      },
+      onRender: function onRender() {},
+      instantsearch: instantsearch({
+        indexName: 'wp_terms_product_cat',
+        searchClient: searchClient
+      })
+    },
+    ALGOLIA_SEARCH_RESULT_PAGE: {
+      configure: {
+        hitsPerPage: 3
+      },
+      onRender: function onRender() {},
+      instantsearch: instantsearch({
+        indexName: 'wp_posts_page',
+        searchClient: searchClient
+      })
+    },
+    ALGOLIA_SEARCH_RESULT_POST: {
+      configure: {
+        hitsPerPage: 3
+      },
+      onRender: function onRender() {},
+      instantsearch: instantsearch({
+        indexName: 'wp_posts_post',
+        searchClient: searchClient
+      })
     }
   };
+  var searchResultActive = function searchResultActive() {
+    $(document.body).on('Algolia:SearchResultActive', function (e, active) {
+      if (active == true) {
+        document.body.classList.add('__algolia-search-result-active');
+      } else {
+        document.body.classList.remove('__algolia-search-result-active');
+      }
+    });
+  };
+  var searchFieldHandle = function searchFieldHandle() {
+    var $input = $('input.algolia-search__text-field');
+    $('body').on('input', 'input.algolia-search__text-field', function (e) {
+      e.preventDefault();
+    });
+    $input.on({
+      'focus': function focus() {
+        $(document.body).trigger('Algolia:SearchResultActive', [true]);
+      },
+      'blur': function blur() {
+        $(document.body).trigger('Algolia:SearchResultActive', [false]);
+      }
+    });
+  };
   var init = function init() {
+    searchResultActive();
+    searchFieldHandle();
     $.each(search_instant, function (__index, __) {
       var _S = __.instantsearch;
       var _ID = "".concat(__index);

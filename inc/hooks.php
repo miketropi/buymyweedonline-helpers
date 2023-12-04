@@ -15,25 +15,37 @@ function b_helpers_acf_field_choices_for_freegift_products($field) {
 }
 
 function b_helpers_add_modified_time( $src ) {
-  $clean_src = remove_query_arg( 'ver', $src );
-  $path      = wp_parse_url( $src, PHP_URL_PATH );
+  $clean_src = remove_query_arg('ver', $src);
+  $path      = wp_parse_url($src, PHP_URL_PATH);
 
-  if ( $modified_time = @filemtime( untrailingslashit( ABSPATH ) . $path ) ) {
-    $src = add_query_arg( 'ver', $modified_time, $clean_src );
+  if ( $modified_time = @filemtime(untrailingslashit(ABSPATH) . $path) ) {
+    $src = add_query_arg('ver', $modified_time, $clean_src);
   } else {
-    $src = add_query_arg( 'ver', time(), $clean_src );
+    $src = add_query_arg('ver', time(), $clean_src);
   }
   return $src;
 }
 
-add_filter( 'style_loader_src', 'b_helpers_add_modified_time', 99999999, 1 );
-add_filter( 'script_loader_src', 'b_helpers_add_modified_time', 99999999, 1 );
+add_filter('style_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
+add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
 
 function b_helpers_algolia_search_hit_wp_template() {
   ?>
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT">
     <p>{{{ data.post_title }}}</p>
-  </script>
+  </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT -->
+
+  <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_CAT">
+    <p>{{{ data.name }}}</p>
+  </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_CAT -->
+
+  <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_PAGE">
+    <p>{{{ data.post_title }}}</p>
+  </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_PAGE -->
+
+  <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_POST">
+    <p>{{{ data.post_title }}}</p>
+  </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_POST -->
   <?php 
 }
 

@@ -688,7 +688,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   padding: 0.7em 1em 0.7em 2.7em !important;
   color: black !important;
   font-size: 16px;
-  background: url(../../images/search.svg) no-repeat, white !important;
+  background: url(../../images/search.svg?ver=1) no-repeat, white !important;
   background-size: 22px !important;
   background-position: 13px center !important;
   border-color: #63b723 !important;
@@ -720,4 +720,27 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   visibility: hidden;
   transition: 0.3s ease;
   -webkit-transition: 0.3s ease;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.algolia-search__result-entry .col-1 {
+  width: 60%;
+}
+.algolia-search__result-entry .col-2 {
+  width: calc(40% - 40px);
+}
+.algolia-search__result-entry .result-entry-item li {
+  margin: 0;
+  padding: 0;
+}
+
+#ALGOLIA_SEARCH .algolia-search__result-entry .result-entry-item li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.__algolia-search-result-active .algolia-search__result-entry {
+  opacity: 1;
+  visibility: visible;
 }

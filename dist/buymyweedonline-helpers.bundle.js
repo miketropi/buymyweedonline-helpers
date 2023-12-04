@@ -6664,7 +6664,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }());
   };
+  var toggleMiniCart = function toggleMiniCart() {
+    $(document.body).on('added_to_cart', function () {
+      $(document.body).addClass('active-mini-cart');
+    });
+    $(document.body).on('click', '.over-lay-custom-mini-cart', function (e) {
+      $(document.body).removeClass('active-mini-cart');
+    });
+    $(document.body).on('click', '.inside-top-bar .et-cart-info', function (e) {
+      e.preventDefault();
+      $(document.body).addClass('active-mini-cart');
+    });
+    $(document.body).on('click', '.ic-cart-header-btn-close', function (e) {
+      $(document.body).removeClass('active-mini-cart');
+    });
+  };
   var init = function init() {
+    toggleMiniCart();
     updateQtyCartItem();
   };
   $(init);

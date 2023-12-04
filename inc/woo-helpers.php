@@ -28,7 +28,7 @@ function b_helpers_free_gift_message() {
 
   $the_rest_of_amount = wc_price($rest['the_rest_of_amount']);
   $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';   
- 
+
   $dynamic_text = [
     'first' => __('more to your cart a Free gift', 'b_helpers'),
     'next' => __('more to unlock the next Free gift', 'b_helpers'), 
@@ -262,3 +262,91 @@ function b_helpers_minicart_offcanvas() {
 }
 
 add_action('wp_head','b_helpers_minicart_offcanvas'); 
+
+function b_helpers_get_free_shipping_minimum($zone_name = 'England') {
+  if ( ! isset( $zone_name ) ) return null;
+
+  $result = null;
+  $zone = null;
+
+  $zones = WC_Shipping_Zones::get_zones();
+  foreach ( $zones as $z ) {
+    if ( $z['zone_name'] == $zone_name ) {
+      $zone = $z;
+    }
+  }
+
+  if ( $zone ) {
+    $shipping_methods_nl = $zone['shipping_methods'];
+    $free_shipping_method = null;
+    foreach ( $shipping_methods_nl as $method ) {
+      if ( $method->id == 'free_shipping' ) {
+        $free_shipping_method = $method;
+        break;
+      }
+    }
+
+    if ( $free_shipping_method ) {
+      $result = $free_shipping_method->min_amount;
+    }
+  }
+
+  return $result;
+}
+
+function b_helpers_action_woocommerce_before_mini_cart () {
+  global $woocommerce;
+  $free_shipping_en = b_helpers_get_free_shipping_minimum('Free Shipping');
+  $count = intval($woocommerce->cart->get_cart_contents_count());
+  $subtotal = $woocommerce->cart->get_cart_contents_total();
+
+  if ( $free_shipping_en ) {
+    $free_shipping_min = $free_shipping_en;
+    if($count > 0) {
+    ?>
+    <div class="show-free-shiping-wrapper">
+      <div class="title-amount-shipping">
+          <div class="title">
+            <?php 
+              if($subtotal < $free_shipping_min) {
+                ?>
+                <span class="text"><?php _e('Free Shipping', 'b_helpers') ?></span>
+                <span class="price"><?php echo wc_price($free_shipping_min) . '+' ?></span>
+                <?php
+              }else{
+                ?>
+                <p class="congra"><?php _e('Congratulations! You have received Free Shipping!', 'b_helpers') ?></p>
+                <?php
+              }
+            ?>   
+          </div>
+      </div>
+      <div class="inprogress-bar-free-shiping">
+        <?php 
+        $width = $subtotal / $free_shipping_min;
+        if ($width < 1) { $width_css = $width * 100; }
+        else { $width_css = 100; }
+        ?>
+        <div class="bar-prgress-all">
+          <span style="width:<?php echo $width_css . '%' ?>"></span>
+        </div>
+      </div>
+      <?php 
+        if($subtotal < $free_shipping_min) {
+          $number_change = $free_shipping_min - $subtotal;
+          ?>
+          <div class="text-more-add-pr">
+            <span class="text"><?php _e('Add', 'b_helpers') ?></span>
+            <span class="price"><?php echo wc_price($number_change); ?> </span>
+            <span class="text"><?php _e('For Free Shipping!', 'b_helpers') ?></span>
+          </div>
+          <?php
+        }
+      ?>
+    </div>
+    <?php
+    }
+  }
+}
+
+add_action( 'woocommerce_before_mini_cart', 'b_helpers_action_woocommerce_before_mini_cart', 10, 0);

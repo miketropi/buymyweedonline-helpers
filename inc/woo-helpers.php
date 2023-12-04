@@ -350,3 +350,13 @@ function b_helpers_action_woocommerce_before_mini_cart () {
 }
 
 add_action( 'woocommerce_before_mini_cart', 'b_helpers_action_woocommerce_before_mini_cart', 10, 0);
+
+function b_helpers_display_quantity_plus() {
+  echo '<button type="button" class="ic-item-quantity-btn plus __show-only-mini-cart" data-type="plus"> +</button>';
+}
+function b_helpers_display_quantity_minus() {
+  echo '<button type="button" class="ic-item-quantity-btn minus __show-only-mini-cart" data-type="minus">-</button>';
+} 
+
+add_action('woocommerce_after_quantity_input_field', 'b_helpers_display_quantity_plus');
+add_action('woocommerce_before_quantity_input_field', 'b_helpers_display_quantity_minus'); 

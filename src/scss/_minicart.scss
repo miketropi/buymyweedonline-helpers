@@ -13,6 +13,11 @@
 		}
 	}
 	.woocommerce-mini-cart {
+
+    .__show-only-mini-cart {
+      display: block !important;
+    }
+    
 		.woocommerce-mini-cart-item {
 			a {
 				img {
@@ -183,9 +188,9 @@ body.active-mini-cart {
   }
 
   .input-text.qty {
-    border: solid 1px #eee !important; 
-    background: #f6f6f6 !important;
-    padding: 0 !important;
+    // border: solid 1px #eee !important; 
+    // background: #f6f6f6 !important;
+    // padding: 0 !important;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -193,4 +198,8 @@ body.active-mini-cart {
       // appearance: none;
     }
   }
+}
+
+.__show-only-mini-cart {
+  display: none !important;
 }

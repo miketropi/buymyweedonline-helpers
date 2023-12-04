@@ -6734,9 +6734,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $(document.body).removeClass('active-mini-cart');
     });
   };
+  var btnQty = function btnQty() {
+    $(document.body).on('click', '.woocommerce-mini-cart .minus', function (e) {
+      e.preventDefault();
+      var qtyInput = $(this).parent().find('input[name=quantity]');
+      var min = 1;
+      var currentValue = parseInt(qtyInput.val());
+      var newValue = currentValue - 1;
+      newValue = newValue <= min ? min : newValue;
+      qtyInput.val(newValue).trigger('change');
+    });
+    $(document.body).on('click', '.woocommerce-mini-cart .plus', function (e) {
+      e.preventDefault();
+      var qtyInput = $(this).parent().find('input[name=quantity]');
+      // const min = parseInt(qtyInput.attr('min'));
+      var max = parseInt(qtyInput.attr('max'));
+      var currentValue = parseInt(qtyInput.val());
+      var newValue = currentValue + 1;
+      newValue = max && newValue >= max ? max : newValue;
+      qtyInput.val(newValue).trigger('change');
+    });
+  };
   var init = function init() {
     toggleMiniCart();
     updateQtyCartItem();
+    btnQty();
   };
   $(init);
   $(w).on('load', function () {

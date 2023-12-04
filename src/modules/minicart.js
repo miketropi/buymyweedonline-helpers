@@ -63,9 +63,37 @@
     });
   }
 
+  const btnQty = () => {
+    $(document.body).on('click', '.woocommerce-mini-cart .minus', function(e) {
+      e.preventDefault();
+      const qtyInput = $(this).parent().find('input[name=quantity]');
+      let min = 1;
+
+      const currentValue = parseInt(qtyInput.val());
+      let newValue = currentValue - 1;
+      newValue = (newValue <= min) ? min : newValue
+
+      qtyInput.val(newValue).trigger('change');
+    })
+
+    $(document.body).on('click', '.woocommerce-mini-cart .plus', function(e) {
+      e.preventDefault();
+      const qtyInput = $(this).parent().find('input[name=quantity]');
+      // const min = parseInt(qtyInput.attr('min'));
+      const max = parseInt(qtyInput.attr('max'));
+
+      const currentValue = parseInt(qtyInput.val());
+      let newValue = currentValue + 1;
+      newValue = (max && newValue >= max) ? max : newValue;
+
+      qtyInput.val(newValue).trigger('change');
+    })
+  }
+
   const init = () => {
     toggleMiniCart();
     updateQtyCartItem();
+    btnQty();
   }
 
   $(init);

@@ -584,6 +584,13 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   box-shadow: none !important;
   padding: 1em !important;
 }
+.ic-cart-sidebar-wrapper .input-text.qty {
+  padding: 0 !important;
+}
+.ic-cart-sidebar-wrapper .input-text.qty::-webkit-outer-spin-button, .ic-cart-sidebar-wrapper .input-text.qty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
 .__show-only-mini-cart {
   display: none !important;
 }

@@ -190,12 +190,16 @@ body.active-mini-cart {
   .input-text.qty {
     // border: solid 1px #eee !important; 
     // background: #f6f6f6 !important;
-    // padding: 0 !important;
+    padding: 0 !important;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
-      // -webkit-appearance: none;
-      // appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    @media(max-width:768px) {
+
     }
   }
 }

@@ -58,8 +58,8 @@
       $(document.body).addClass('active-mini-cart');  
     });
 
-    $('a.shopping-cart').on('click touchstart', e => {
-      e.preventDefault();
+    $('body').on('click touchend', '.uwcc-open-cart-4010401', e => {
+      e.preventDefault(); 
       $(document.body).addClass('active-mini-cart'); 
     })
     

@@ -6730,7 +6730,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       e.preventDefault();
       $(document.body).addClass('active-mini-cart');
     });
-    $('a.shopping-cart').on('click touchstart', function (e) {
+    $('body').on('click touchend', '.uwcc-open-cart-4010401', function (e) {
       e.preventDefault();
       $(document.body).addClass('active-mini-cart');
     });
@@ -6790,6 +6790,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     product_page_add_to_cart_ajax = _B_HELPERS_DATA.product_page_add_to_cart_ajax;
   $(function () {
     if (product_page_add_to_cart_ajax !== "1") return;
+    $('body.single-product').on('click touchstart', 'form.cart button[type="submit"]', function (e) {
+      e.preventDefault();
+      console.log(e);
+      $(this).closest('form').submit();
+    });
     $('body.single-product').on('submit', 'form.cart', /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
         var $form, action, data;

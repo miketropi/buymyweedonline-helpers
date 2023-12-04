@@ -261,7 +261,7 @@ function b_helpers_minicart_offcanvas() {
   b_helpers_load_template('minicart');
 }
 
-add_action('wp_head','b_helpers_minicart_offcanvas'); 
+add_action('wp_footer','b_helpers_minicart_offcanvas'); 
 
 function b_helpers_get_free_shipping_minimum($zone_name = 'England') {
   if ( ! isset( $zone_name ) ) return null;

@@ -6,6 +6,12 @@
   $(() => {
     if(product_page_add_to_cart_ajax !== "1") return;
 
+    $('body.single-product').on('click touchstart', 'form.cart button[type="submit"]', function(e) {
+      e.preventDefault();
+      console.log(e)
+      $(this).closest('form').submit();
+    })
+
     $('body.single-product').on('submit', 'form.cart', async function(e) {
       e.preventDefault();
       const $form = $(this);

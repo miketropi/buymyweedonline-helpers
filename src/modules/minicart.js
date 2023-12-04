@@ -58,10 +58,10 @@
       $(document.body).addClass('active-mini-cart');  
     });
 
-    $('a.shopping-cart').on('click touchstart', e => {
-      e.preventDefault();
-      $(document.body).addClass('active-mini-cart'); 
-    })
+    // $('a.shopping-cart').on('click touchstart', e => {
+    //   e.preventDefault();
+    //   $(document.body).addClass('active-mini-cart'); 
+    // })
     
     $(document.body).on('click', '.ic-cart-header-btn-close', (e) => {
       $(document.body).removeClass('active-mini-cart');

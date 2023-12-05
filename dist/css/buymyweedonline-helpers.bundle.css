@@ -796,20 +796,20 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 
 .algolia-search__text-field {
   border-radius: 50px !important;
-  padding: 0.7em 1em 0.7em 2.7em !important;
+  padding: 0.5em 1em 0.5em 2.5em !important;
   color: black !important;
   font-size: 16px;
   background: url(../../images/search.svg?ver=1) no-repeat, white !important;
   background-size: 22px !important;
-  background-position: 13px center !important;
+  background-position: 11px center !important;
   border-color: #63b723 !important;
   outline: none !important;
 }
 .algolia-search__text-field::-moz-placeholder {
-  color: black;
+  color: #a3a3a3;
 }
 .algolia-search__text-field::placeholder {
-  color: black;
+  color: #a3a3a3;
 }
 .algolia-search__result-entry {
   position: fixed;
@@ -854,4 +854,36 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .__algolia-search-result-active .algolia-search__result-entry {
   opacity: 1;
   visibility: visible;
+}
+
+.algolia-result-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.algolia-result-item .__thumb {
+  width: 55px;
+  min-width: 55px;
+  line-height: 0;
+}
+.algolia-result-item .__thumb img {
+  width: 100%;
+  border: solid 1px #eee;
+  border-radius: 1px;
+}
+.algolia-result-item .__entry {
+  width: calc(100% - 70px);
+}
+.algolia-result-item .__entry h4 {
+  line-height: normal;
+}
+
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item {
+  width: calc(50% - 20px);
 }

@@ -192,10 +192,10 @@ body.active-mini-cart {
     a {
       font-weight: bold !important;
       text-transform: uppercase;
-      font-size: 0.7em !important;
+      font-size: 0.6em !important;
       border-radius: 1px !important;
       box-shadow: none !important;
-      padding: 1em !important;
+      padding: .8em .2em !important;
     }
   }
 
@@ -298,7 +298,7 @@ body.active-mini-cart {
 .woocommerce-mini-cart__buttons {
 
   .button:not(.checkout) {
-    display: none !important;
+    // display: none !important;
   }
 
   .total-cart {
@@ -307,7 +307,7 @@ body.active-mini-cart {
     font-size: .7em;
     text-transform: uppercase;
     color: #999;
-    margin-right: 2em;
+    // margin-right: 2em;
 
     strong {
       letter-spacing: 1px;
@@ -315,8 +315,9 @@ body.active-mini-cart {
 
     .woocommerce-Price-amount {
       font-weight: bold;
-      font-size: 24px;
+      font-size: 20px;
       color: black;
+      line-height: normal;
     }
   }
 }

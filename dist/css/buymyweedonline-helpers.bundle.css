@@ -595,10 +595,10 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__buttons.buttons a {
   font-weight: bold !important;
   text-transform: uppercase;
-  font-size: 0.7em !important;
+  font-size: 0.6em !important;
   border-radius: 1px !important;
   box-shadow: none !important;
-  padding: 1em !important;
+  padding: 0.8em 0.2em !important;
 }
 .ic-cart-sidebar-wrapper .input-text.qty {
   padding: 0 !important;
@@ -679,24 +679,21 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   width: 100% !important;
 }
 
-.woocommerce-mini-cart__buttons .button:not(.checkout) {
-  display: none !important;
-}
 .woocommerce-mini-cart__buttons .total-cart {
   display: flex;
   flex-direction: column;
   font-size: 0.7em;
   text-transform: uppercase;
   color: #999;
-  margin-right: 2em;
 }
 .woocommerce-mini-cart__buttons .total-cart strong {
   letter-spacing: 1px;
 }
 .woocommerce-mini-cart__buttons .total-cart .woocommerce-Price-amount {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   color: black;
+  line-height: normal;
 }
 
 .free-gift {

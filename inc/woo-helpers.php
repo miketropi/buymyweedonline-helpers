@@ -23,7 +23,7 @@ function b_helpers_free_gift_message() {
   }
 
   if($rest === true) {
-    return __('You are unlocked all Free gift!<br />Only 1 gift per cart', 'b_helpers');
+    return __('You unlocked all free gifts!!<br />Only 1 gift per cart', 'b_helpers');
   }
 
   $the_rest_of_amount = wc_price($rest['the_rest_of_amount']);

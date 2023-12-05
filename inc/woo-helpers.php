@@ -216,7 +216,7 @@ add_filter('woocommerce_update_cart_validation', function($passed, $cart_item_ke
   foreach($cart->get_cart() as $_cart_item_key => $cart_item) {
     if($cart_item_key == $_cart_item_key && isset($cart_item['__FREE_GIFT__'])) {
       return false;
-    }
+    } 
   }
 
   return $passed;
@@ -396,3 +396,13 @@ function b_helpers_meta_tag_after_button_mini_cart() {
 }
 
 add_action('woocommerce_widget_shopping_cart_after_buttons', 'b_helpers_meta_tag_after_button_mini_cart', 30);
+
+function b_helpers_translate_text_checkout($translated) { 
+  if($translated == 'Checkout') {
+    $translated = str_ireplace('Checkout', 'Secure Checkout', $translated); 
+  }
+  return $translated;
+}
+
+add_filter('gettext', 'b_helpers_translate_text_checkout'); 
+add_filter('ngettext', 'b_helpers_translate_text_checkout');

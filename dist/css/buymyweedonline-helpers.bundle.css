@@ -598,10 +598,64 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   display: none !important;
 }
 
+.meta-tag-love-and-support {
+  margin-top: 1em;
+  display: flex;
+  border: solid #eee;
+  border-width: 1px 0;
+  width: calc(100% + 60px);
+  transform: translateX(-30px);
+}
+.meta-tag-love-and-support > * {
+  padding: 1em 0;
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  line-height: normal;
+}
+.meta-tag-love-and-support > *:first-child {
+  border-right: 1px solid #eee;
+}
+.meta-tag-love-and-support > * a {
+  font-size: 10px;
+  color: black;
+  text-transform: uppercase;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.meta-tag-love-and-support > * a .__icon {
+  margin-right: 6px;
+  line-height: 0;
+}
+
+.meta-tag-shipping-and-payment {
+  display: flex;
+  width: calc(100% + 60px);
+  transform: translateX(-30px);
+  padding: 0.5em 0;
+  border-bottom: 1px solid #eee;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+.meta-tag-shipping-and-payment > * {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: normal;
+}
+.meta-tag-shipping-and-payment .__payment {
+  width: 63%;
+}
+
 .free-gift {
   margin-top: 2em;
-  padding-top: 2em;
-  border-top: solid 1px #eee;
 }
 .free-gift__message {
   text-align: center;

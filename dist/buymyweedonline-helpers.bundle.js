@@ -6683,6 +6683,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               $li = $input.closest('li.woocommerce-mini-cart-item');
               cartItemKey = $li.data('key');
               cartNonce = $input.closest('ul.woocommerce-mini-cart').find('#woocommerce-cart-nonce').val();
+              if (!(value <= 0)) {
+                _context.next = 9;
+                break;
+              }
+              $li.find('.remove_from_cart_button').click();
+              return _context.abrupt("return");
+            case 9:
               $li.addClass('b-helpers__loading');
 
               // form data
@@ -6691,7 +6698,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               formData.append("cart[".concat(cartItemKey, "][qty]"), value);
               formData.append("woocommerce-cart-nonce", cartNonce);
               formData.append("_wp_http_referer", '/cart/');
-              _context.next = 14;
+              _context.next = 17;
               return $.ajax({
                 type: 'POST',
                 url: '/cart',
@@ -6706,9 +6713,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(e);
                 }
               });
-            case 14:
+            case 17:
               $li.removeClass('b-helpers__loading');
-            case 15:
+            case 18:
             case "end":
               return _context.stop();
           }
@@ -6742,7 +6749,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     $(document.body).on('click', '.woocommerce-mini-cart .minus', function (e) {
       e.preventDefault();
       var qtyInput = $(this).parent().find('input[name=quantity]');
-      var min = 1;
+      var min = 0;
       var currentValue = parseInt(qtyInput.val());
       var newValue = currentValue - 1;
       newValue = newValue <= min ? min : newValue;

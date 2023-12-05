@@ -1,0 +1,61 @@
+table.cart {
+  margin-bottom: 3em !important;
+
+  button[name=update_cart] {
+    background: $accent_color !important;
+    color: white !important;
+    height: 37px;
+    line-height: normal !important;
+    min-height: auto;
+    border: none !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    line-height: normal !important;
+    text-transform: uppercase !important;
+  }
+
+  td.product-thumbnail {
+
+    a {
+      display: inline-block;
+      width: 45px;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  td.product-quantity {
+
+    input.qty {
+      border-radius: 0 !important;
+      width: 50px !important;
+      min-width: 50px !important;
+      font-size: 14px;
+    }
+  }
+}
+
+.fgf_gift_products_wrapper {
+  margin-bottom: 3em !important;
+
+  h3 {
+    font-size: 1.3em;
+  }
+}
+
+.wc-proceed-to-checkout a.checkout-button.button.alt.wc-forward, 
+#place_order {
+  padding: 1em !important;
+  font-size: 1em !important;
+  font-weight: bold;
+}
+
+.cart_totals  {
+
+  h2 {
+    font-size: 1.3em;
+  }
+}

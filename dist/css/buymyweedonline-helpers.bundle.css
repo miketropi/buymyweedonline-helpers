@@ -450,6 +450,68 @@
   color: rgb(0, 0, 0);
 }
 
+table.shop_table {
+  border: 1px solid #ddd !important;
+  border-collapse: collapse !important;
+}
+table.shop_table th, table.shop_table td {
+  padding: 0.8em !important;
+  border-bottom: 1px solid #ddd !important;
+  border-collapse: collapse !important;
+}
+table.shop_table th {
+  background-color: #63b723 !important;
+  color: white;
+  font-weight: bold !important;
+  font-size: 0.8em !important;
+  text-transform: uppercase;
+}
+table.shop_table td {
+  font-size: 0.8em !important;
+}
+
+.coupon {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.coupon label {
+  display: none;
+}
+.coupon .input-text {
+  background: white;
+  color: black;
+  border-radius: 1px;
+  border-color: black !important;
+  padding: 0.5em !important;
+  height: auto;
+  float: none !important;
+  font-size: 14px;
+}
+.coupon .input-text::-moz-placeholder {
+  color: #ddd;
+}
+.coupon .input-text::placeholder {
+  color: #ddd;
+}
+.coupon .button {
+  background: #63b723 !important;
+  color: white !important;
+  height: 37px;
+  line-height: normal !important;
+  min-height: auto;
+  border: none !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  line-height: normal !important;
+  text-transform: uppercase !important;
+}
+
+.woocommerce-notices-wrapper,
+.woocommerce-cart-notice {
+  font-size: 0.8em;
+}
+
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;
   opacity: 0.3;
@@ -883,4 +945,52 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 }
 #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item {
   width: calc(50% - 20px);
+}
+
+table.cart {
+  margin-bottom: 3em !important;
+}
+table.cart button[name=update_cart] {
+  background: #63b723 !important;
+  color: white !important;
+  height: 37px;
+  line-height: normal !important;
+  min-height: auto;
+  border: none !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  line-height: normal !important;
+  text-transform: uppercase !important;
+}
+table.cart td.product-thumbnail a {
+  display: inline-block;
+  width: 45px;
+}
+table.cart td.product-thumbnail a img {
+  width: 100%;
+  height: auto;
+}
+table.cart td.product-quantity input.qty {
+  border-radius: 0 !important;
+  width: 50px !important;
+  min-width: 50px !important;
+  font-size: 14px;
+}
+
+.fgf_gift_products_wrapper {
+  margin-bottom: 3em !important;
+}
+.fgf_gift_products_wrapper h3 {
+  font-size: 1.3em;
+}
+
+.wc-proceed-to-checkout a.checkout-button.button.alt.wc-forward,
+#place_order {
+  padding: 1em !important;
+  font-size: 1em !important;
+  font-weight: bold;
+}
+
+.cart_totals h2 {
+  font-size: 1.3em;
 }

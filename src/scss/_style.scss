@@ -504,3 +504,69 @@ $background-color_3: #63b723;
 	font-weight: 400;
 	color: $color_8;
 }
+
+table.shop_table {
+	border: 1px solid #ddd !important;
+  border-collapse: collapse !important;
+
+	th, td {
+		padding: .8em !important;
+		border-bottom: 1px solid #ddd !important;
+		border-collapse: collapse !important;
+	}
+
+	th {
+		background-color: $accent_color !important;
+		color: white;
+		font-weight: bold !important;
+		font-size: .8em !important;
+		text-transform: uppercase;
+	}
+
+	td { 
+		font-size: .8em !important;
+	}
+}
+
+.coupon {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+
+	label {
+		display: none;
+	}
+
+	.input-text {
+		background: white;
+    color: black;
+    border-radius: 1px;
+    border-color: black !important;
+    padding: 0.5em !important;
+    height: auto;
+    float: none !important;
+    font-size: 14px;
+
+		&::placeholder {
+			color: #ddd;
+		}
+	}
+
+	.button {
+		background: $accent_color !important;
+    color: white !important;
+    height: 37px;
+    line-height: normal !important;
+    min-height: auto;
+    border: none !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    line-height: normal !important;
+    text-transform: uppercase !important;
+	}
+}
+
+.woocommerce-notices-wrapper,
+.woocommerce-cart-notice {
+	font-size: .8em;
+}

@@ -197,6 +197,7 @@ body.active-mini-cart {
     // border: solid 1px #eee !important; 
     // background: #f6f6f6 !important;
     padding: 0 !important;
+    min-height: 35px !important;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -285,6 +286,7 @@ body.active-mini-cart {
   z-index: 9;
   padding: 20px 30px 0 30px;
   box-shadow: 0 0 10px 0 rgba(1,1,1,.1);
+  width: 100%;
 }
 
 .woocommerce-mini-cart__buttons {

@@ -49,13 +49,22 @@ function b_helpers_free_gift_message() {
 
 add_action('woocommerce_widget_shopping_cart_total', function() {
   $fee = WC()->cart->get_fee_total();
+  $current_shipping_cost = WC()->cart->get_cart_shipping_total();
   ?> 
+  <?php if($current_shipping_cost && !empty($current_shipping_cost)) : ?>
+  <p class="woocommerce-mini-cart__shipping shipping">
+    <strong><?php _e('Shipping:', 'b_helpers') ?></strong> 
+    <?php echo $current_shipping_cost; ?>
+  </p>
+  <?php endif; ?>
+
   <?php if($fee && $fee != 0) { ?>
   <p class="woocommerce-mini-cart__fee fee">
 		<strong><?php _e('Discount:', 'b_helpers') ?></strong> 
     <?php echo wc_price($fee); ?> 
   </p>
   <?php  } ?>
+
   <p class="woocommerce-mini-cart__total total __total">
 		<strong><?php _e('Total:', 'b_helpers') ?></strong> 
     <?php echo wc_price(WC()->cart->total); ?> 
@@ -397,6 +406,18 @@ function b_helpers_meta_tag_after_button_mini_cart() {
 
 add_action('woocommerce_widget_shopping_cart_after_buttons', 'b_helpers_meta_tag_after_button_mini_cart', 30);
 
+add_action('woocommerce_widget_shopping_cart_before_buttons', function() {
+  ?>
+  <div class="mini-cart-group-stick-button">
+  <?php
+}, 1);
+
+add_action('woocommerce_widget_shopping_cart_after_buttons', function() {
+  ?>
+  </div> <!-- .mini-cart-group-stick-button -->
+  <?php
+}, 90);
+
 function b_helpers_translate_text_checkout($translated) { 
   if($translated == 'Checkout') {
     $translated = str_ireplace('Checkout', 'Secure Checkout', $translated); 
@@ -406,3 +427,15 @@ function b_helpers_translate_text_checkout($translated) {
 
 add_filter('gettext', 'b_helpers_translate_text_checkout'); 
 add_filter('ngettext', 'b_helpers_translate_text_checkout');
+
+/**
+ * Add total cart beside button checkout
+ */
+add_action('woocommerce_widget_shopping_cart_buttons', function() {
+  ?>
+  <span class="total-cart">
+    <strong><?php _e('Total:', 'b_helpers') ?></strong> 
+    <?php echo wc_price(WC()->cart->total); ?> 
+  </span>
+  <?php
+}, 5);

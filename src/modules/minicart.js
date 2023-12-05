@@ -15,6 +15,11 @@
       const cartItemKey = $li.data('key');
       const cartNonce = $input.closest('ul.woocommerce-mini-cart').find('#woocommerce-cart-nonce').val();
 
+      if(value <= 0) {
+        $li.find('.remove_from_cart_button').click();
+        return;
+      }
+
       $li.addClass('b-helpers__loading')
 
       // form data
@@ -58,10 +63,10 @@
       $(document.body).addClass('active-mini-cart');  
     });
 
-    // $('a.shopping-cart').on('click touchstart', e => {
-    //   e.preventDefault();
-    //   $(document.body).addClass('active-mini-cart'); 
-    // })
+    $('body').on('click touchend', '.uwcc-open-cart-4010401', e => {
+      e.preventDefault(); 
+      $(document.body).addClass('active-mini-cart'); 
+    })
     
     $(document.body).on('click', '.ic-cart-header-btn-close', (e) => {
       $(document.body).removeClass('active-mini-cart');
@@ -72,7 +77,7 @@
     $(document.body).on('click', '.woocommerce-mini-cart .minus', function(e) {
       e.preventDefault();
       const qtyInput = $(this).parent().find('input[name=quantity]');
-      let min = 1;
+      let min = 0;
 
       const currentValue = parseInt(qtyInput.val());
       let newValue = currentValue - 1;

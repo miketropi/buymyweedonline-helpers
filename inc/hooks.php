@@ -32,7 +32,17 @@ add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
 function b_helpers_algolia_search_hit_wp_template() {
   ?>
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT">
-    <p>{{{ data.post_title }}}</p>
+    <div class="algolia-result-item">
+      <a class="__thumb" href="{{{ data.permalink }}}">
+        <img src="{{{ data.images.thumbnail.url }}}" alt="{{{ data.post_title }}}" />
+      </a>
+      <div class="__entry">
+        <h4><a href="{{{ data.permalink }}}">{{{ data.post_title }}}</a></h4>
+        <div class="__meta-tag">
+          <span><?php _e('Brand', 'b_helpers') ?>: {{{ data?.taxonomies['pwb-brand']?.join(', ') }}}</span>
+        </div>
+      </div>
+    </div>
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT -->
 
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_CAT">

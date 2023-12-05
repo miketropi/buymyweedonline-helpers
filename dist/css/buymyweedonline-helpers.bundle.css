@@ -32,11 +32,10 @@
   top: 0;
   width: 400px;
   background: #fff;
-  z-index: 999999;
+  z-index: 99999;
   height: 100%;
   transform: translateX(100%);
   transition: all 0.3s;
-  overflow: auto;
   max-width: 100%;
 }
 .ic-cart-sidebar-wrapper .remove.remove_from_cart_button {
@@ -65,6 +64,9 @@
 .ic-cart-sidebar-wrapper .ic-cart-sidebar-wrapper_body {
   padding: 20px 30px;
   border-top: 1px solid #EAEAEA;
+  height: 100vh;
+  overflow: auto;
+  padding-bottom: 360px;
 }
 .ic-cart-sidebar-wrapper .ic-cart-sidebar-wrapper_body ul li.woocommerce-mini-cart-item.mini_cart_item {
   display: flex;
@@ -483,8 +485,16 @@
   height: 100%;
   opacity: 0.6;
   z-index: 1000;
+  left: 0;
+  top: 0;
 }
 
+body.active-mini-cart {
+  overflow: hidden;
+}
+body.active-mini-cart .ic-cart-sidebar-wrapper {
+  opacity: 1;
+}
 body.active-mini-cart .over-lay-custom-mini-cart {
   display: block;
 }
@@ -499,6 +509,9 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   margin-right: 15px;
 }
 
+.ic-cart-sidebar-wrapper {
+  opacity: 0;
+}
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__empty-message {
   font-size: 0.9em;
   text-decoration: underline;
@@ -548,6 +561,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   font-weight: bold;
   color: black;
   padding-right: 3em;
+  line-height: normal !important;
 }
 .ic-cart-sidebar-wrapper .cart_list.product_list_widget .ic-mini-cart-count-price .amount {
   font-size: 0.8em;
@@ -555,6 +569,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   color: black;
 }
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__total,
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__shipping,
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__fee {
   color: black;
   display: flex;
@@ -567,6 +582,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   line-height: normal !important;
 }
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__total .woocommerce-Price-amount.amount,
+.ic-cart-sidebar-wrapper .woocommerce-mini-cart__shipping .woocommerce-Price-amount.amount,
 .ic-cart-sidebar-wrapper .woocommerce-mini-cart__fee .woocommerce-Price-amount.amount {
   font-weight: bold;
   color: black;
@@ -586,6 +602,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 }
 .ic-cart-sidebar-wrapper .input-text.qty {
   padding: 0 !important;
+  min-height: 35px !important;
 }
 .ic-cart-sidebar-wrapper .input-text.qty::-webkit-outer-spin-button, .ic-cart-sidebar-wrapper .input-text.qty::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -595,10 +612,95 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   display: none !important;
 }
 
+.meta-tag-love-and-support {
+  margin-top: 1em;
+  display: flex;
+  border: solid #eee;
+  border-width: 1px 0;
+  width: calc(100% + 60px);
+  transform: translateX(-30px);
+}
+.meta-tag-love-and-support > * {
+  padding: 1em 0;
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  line-height: normal;
+}
+.meta-tag-love-and-support > *:first-child {
+  border-right: 1px solid #eee;
+}
+.meta-tag-love-and-support > * a {
+  font-size: 10px;
+  color: black;
+  text-transform: uppercase;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.meta-tag-love-and-support > * a .__icon {
+  margin-right: 6px;
+  line-height: 0;
+}
+
+.meta-tag-shipping-and-payment {
+  display: flex;
+  width: calc(100% + 60px);
+  transform: translateX(-30px);
+  padding: 0.5em 0;
+  border-bottom: 1px solid #eee;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+.meta-tag-shipping-and-payment > * {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: normal;
+}
+.meta-tag-shipping-and-payment .__payment {
+  width: 63%;
+}
+
+.mini-cart-group-stick-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+  z-index: 9;
+  padding: 20px 30px 0 30px;
+  box-shadow: 0 0 10px 0 rgba(1, 1, 1, 0.1);
+  width: 100% !important;
+}
+
+.woocommerce-mini-cart__buttons .button:not(.checkout) {
+  display: none !important;
+}
+.woocommerce-mini-cart__buttons .total-cart {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: #999;
+  margin-right: 2em;
+}
+.woocommerce-mini-cart__buttons .total-cart strong {
+  letter-spacing: 1px;
+}
+.woocommerce-mini-cart__buttons .total-cart .woocommerce-Price-amount {
+  font-weight: bold;
+  font-size: 24px;
+  color: black;
+}
+
 .free-gift {
   margin-top: 2em;
-  padding-top: 2em;
-  border-top: solid 1px #eee;
 }
 .free-gift__message {
   text-align: center;
@@ -694,20 +796,20 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 
 .algolia-search__text-field {
   border-radius: 50px !important;
-  padding: 0.7em 1em 0.7em 2.7em !important;
+  padding: 0.5em 1em 0.5em 2.5em !important;
   color: black !important;
   font-size: 16px;
   background: url(../../images/search.svg?ver=1) no-repeat, white !important;
   background-size: 22px !important;
-  background-position: 13px center !important;
+  background-position: 11px center !important;
   border-color: #63b723 !important;
   outline: none !important;
 }
 .algolia-search__text-field::-moz-placeholder {
-  color: black;
+  color: #a3a3a3;
 }
 .algolia-search__text-field::placeholder {
-  color: black;
+  color: #a3a3a3;
 }
 .algolia-search__result-entry {
   position: fixed;
@@ -752,4 +854,36 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .__algolia-search-result-active .algolia-search__result-entry {
   opacity: 1;
   visibility: visible;
+}
+
+.algolia-result-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.algolia-result-item .__thumb {
+  width: 55px;
+  min-width: 55px;
+  line-height: 0;
+}
+.algolia-result-item .__thumb img {
+  width: 100%;
+  border: solid 1px #eee;
+  border-radius: 1px;
+}
+.algolia-result-item .__entry {
+  width: calc(100% - 70px);
+}
+.algolia-result-item .__entry h4 {
+  line-height: normal;
+}
+
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item {
+  width: calc(50% - 20px);
 }

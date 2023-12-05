@@ -19,11 +19,11 @@ function b_helpers_free_gift_message() {
   $rest = b_helpers_get_the_rest_of_amount();
 
   if($rest === false) {
-    return __('We currently do not have any giveaways, thank you!', 'b_helpers');
+    return ''; // __('We currently do not have any giveaways, thank you!', 'b_helpers');
   }
 
   if($rest === true) {
-    return __('You are unlocked all Free gift!<br />Only 1 gift per cart', 'b_helpers');
+    return __('You unlocked all free gifts!!<br />Only 1 gift per cart', 'b_helpers');
   }
 
   $the_rest_of_amount = wc_price($rest['the_rest_of_amount']);
@@ -49,13 +49,22 @@ function b_helpers_free_gift_message() {
 
 add_action('woocommerce_widget_shopping_cart_total', function() {
   $fee = WC()->cart->get_fee_total();
+  $current_shipping_cost = WC()->cart->get_cart_shipping_total();
   ?> 
+  <?php if($current_shipping_cost && !empty($current_shipping_cost)) : ?>
+  <p class="woocommerce-mini-cart__shipping shipping">
+    <strong><?php _e('Shipping:', 'b_helpers') ?></strong> 
+    <?php echo $current_shipping_cost; ?>
+  </p>
+  <?php endif; ?>
+
   <?php if($fee && $fee != 0) { ?>
   <p class="woocommerce-mini-cart__fee fee">
 		<strong><?php _e('Discount:', 'b_helpers') ?></strong> 
     <?php echo wc_price($fee); ?> 
   </p>
   <?php  } ?>
+
   <p class="woocommerce-mini-cart__total total __total">
 		<strong><?php _e('Total:', 'b_helpers') ?></strong> 
     <?php echo wc_price(WC()->cart->total); ?> 
@@ -216,7 +225,7 @@ add_filter('woocommerce_update_cart_validation', function($passed, $cart_item_ke
   foreach($cart->get_cart() as $_cart_item_key => $cart_item) {
     if($cart_item_key == $_cart_item_key && isset($cart_item['__FREE_GIFT__'])) {
       return false;
-    }
+    } 
   }
 
   return $passed;
@@ -261,7 +270,7 @@ function b_helpers_minicart_offcanvas() {
   b_helpers_load_template('minicart');
 }
 
-add_action('wp_head','b_helpers_minicart_offcanvas'); 
+add_action('wp_footer','b_helpers_minicart_offcanvas'); 
 
 function b_helpers_get_free_shipping_minimum($zone_name = 'England') {
   if ( ! isset( $zone_name ) ) return null;
@@ -360,3 +369,73 @@ function b_helpers_display_quantity_minus() {
 
 add_action('woocommerce_after_quantity_input_field', 'b_helpers_display_quantity_plus');
 add_action('woocommerce_before_quantity_input_field', 'b_helpers_display_quantity_minus'); 
+
+function b_helpers_meta_tag_after_button_mini_cart() {
+  $after_button = get_field('bh_minicart_after_button', 'option');
+  if(!isset($after_button['enable']) && $after_button['enable'] != true) return;
+
+  $icon_start = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.0003 1.66669L12.5753 6.88335L18.3337 7.72502L14.167 11.7834L15.1503 17.5167L10.0003 14.8084L4.85033 17.5167L5.83366 11.7834L1.66699 7.72502L7.42533 6.88335L10.0003 1.66669Z" stroke="black" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/> </svg>';
+  $icon_support = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2.5 15V10C2.5 8.01088 3.29018 6.10322 4.6967 4.6967C6.10322 3.29018 8.01088 2.5 10 2.5C11.9891 2.5 13.8968 3.29018 15.3033 4.6967C16.7098 6.10322 17.5 8.01088 17.5 10V15" stroke="black" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/> <path d="M17.5 15.8334C17.5 16.2754 17.3244 16.6993 17.0118 17.0119C16.6993 17.3244 16.2754 17.5 15.8333 17.5H15C14.558 17.5 14.134 17.3244 13.8215 17.0119C13.5089 16.6993 13.3333 16.2754 13.3333 15.8334V13.3334C13.3333 12.8913 13.5089 12.4674 13.8215 12.1548C14.134 11.8423 14.558 11.6667 15 11.6667H17.5V15.8334ZM2.5 15.8334C2.5 16.2754 2.67559 16.6993 2.98816 17.0119C3.30072 17.3244 3.72464 17.5 4.16667 17.5H5C5.44203 17.5 5.86595 17.3244 6.17851 17.0119C6.49107 16.6993 6.66667 16.2754 6.66667 15.8334V13.3334C6.66667 12.8913 6.49107 12.4674 6.17851 12.1548C5.86595 11.8423 5.44203 11.6667 5 11.6667H2.5V15.8334Z" stroke="black" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/> </svg>';
+  ?>
+  <div class="meta-tag-love-and-support">
+    <div class="__love">
+      <a href="<?php echo $after_button['url_1'] ?>">
+        <span class="__icon"><?php echo $icon_start; ?></span>  
+        <?php echo $after_button['text_1'] ?>
+      </a>
+    </div>
+    <div class="__support">
+      <a href="<?php echo $after_button['url_2'] ?>">
+        <span class="__icon"><?php echo $icon_support; ?></span>
+        <?php echo $after_button['text_2'] ?>
+      </a>
+    </div>
+  </div>
+  <div class="meta-tag-shipping-and-payment">
+    <div class="__shipping">
+      <img src="<?php echo B_HELPERS_URI . '/images/shipping.png' ?>" alt="shipping">
+      <?php echo $after_button['text_3'] ?>
+    </div>
+    <div class="__payment">
+      <img src="<?php echo B_HELPERS_URI . '/images/e-transfer.png' ?>" alt="e-transfer">
+      <?php echo $after_button['text_4'] ?>
+    </div>
+  </div>
+  <?php
+}
+
+add_action('woocommerce_widget_shopping_cart_after_buttons', 'b_helpers_meta_tag_after_button_mini_cart', 30);
+
+add_action('woocommerce_widget_shopping_cart_before_buttons', function() {
+  ?>
+  <div class="mini-cart-group-stick-button">
+  <?php
+}, 1);
+
+add_action('woocommerce_widget_shopping_cart_after_buttons', function() {
+  ?>
+  </div> <!-- .mini-cart-group-stick-button -->
+  <?php
+}, 90);
+
+function b_helpers_translate_text_checkout($translated) { 
+  if($translated == 'Checkout') {
+    $translated = str_ireplace('Checkout', 'Secure Checkout', $translated); 
+  }
+  return $translated;
+}
+
+add_filter('gettext', 'b_helpers_translate_text_checkout'); 
+add_filter('ngettext', 'b_helpers_translate_text_checkout');
+
+/**
+ * Add total cart beside button checkout
+ */
+add_action('woocommerce_widget_shopping_cart_buttons', function() {
+  ?>
+  <span class="total-cart">
+    <strong><?php _e('Total:', 'b_helpers') ?></strong> 
+    <?php echo wc_price(WC()->cart->total); ?> 
+  </span>
+  <?php
+}, 5);

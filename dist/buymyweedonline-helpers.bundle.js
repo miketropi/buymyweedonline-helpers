@@ -6790,31 +6790,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     product_page_add_to_cart_ajax = _B_HELPERS_DATA.product_page_add_to_cart_ajax;
   $(function () {
     if (product_page_add_to_cart_ajax !== "1") return;
-    $('body.single-product').on('click touchstart', 'form.cart button[type="submit"]', function (e) {
-      e.preventDefault();
-      console.log(e);
-      $(this).closest('form').submit();
-    });
+    var inSubmit = false;
+
+    // $('body.single-product').on('click', 'form.cart button[type="submit"]', function(e) {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    //   if(inSubmit == true) return;
+    //   console.log('click')
+    //   $(this).closest('form').submit();
+    // })
+
     $('body.single-product').on('submit', 'form.cart', /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
         var $form, action, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
+              // console.log('submit')
               e.preventDefault();
+              e.stopPropagation();
+              if (!(inSubmit == true)) {
+                _context.next = 4;
+                break;
+              }
+              return _context.abrupt("return");
+            case 4:
               $form = $(this);
               action = this.action;
               data = $form.serialize();
+              if ($form.find('button[name="add-to-cart"]').length > 0) {
+                data += '&add-to-cart=' + $form.find('button[name="add-to-cart"]').val();
+              }
               $form.addClass('b-helpers__loading');
-              _context.next = 7;
-              return $.post(action, data).done(function () {
+              _context.next = 11;
+              return $.post(action, data).done(function (data) {
+                // console.log(data); 
+
+                if ($(data).find('.entry-content .woocommerce-notices-wrapper .woocommerce-error').length > 0) {
+                  var errorMessage = $(data).find('.entry-content .woocommerce-notices-wrapper').first().clone();
+                  // console.log(errorMessage);
+                  $('#main > article').prepend(errorMessage);
+                  $form.removeClass('b-helpers__loading');
+                  // window.location.reload();
+
+                  jQuery('html').scrollTop(0);
+                  return;
+                }
                 $(document.body).trigger('wc_fragment_refresh');
                 setTimeout(function () {
                   $(document.body).trigger('added_to_cart');
                   $form.removeClass('b-helpers__loading');
+                  inSubmit = false;
                 }, 1000); // delay 1s
               });
-            case 7:
+            case 11:
             case "end":
               return _context.stop();
           }

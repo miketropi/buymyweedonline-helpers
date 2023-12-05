@@ -550,6 +550,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   font-weight: bold;
   color: black;
   padding-right: 3em;
+  line-height: normal !important;
 }
 .ic-cart-sidebar-wrapper .cart_list.product_list_widget .ic-mini-cart-count-price .amount {
   font-size: 0.8em;

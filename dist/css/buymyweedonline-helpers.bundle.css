@@ -1122,7 +1122,7 @@ body.tax-product_cat ul.products li.product .wvs-archive-variations-wrapper .var
 }
 body.tax-product_cat ul.products li.product a.add_to_cart_button {
   width: 100% !important;
-  font-size: 0.7em;
+  font-size: 0.7em !important;
   text-transform: uppercase;
   font-weight: bold;
   background: #63b723 !important;

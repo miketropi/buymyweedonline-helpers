@@ -101,14 +101,14 @@ body.tax-product_cat ul.products {
 
     a.add_to_cart_button {
       width: 100% !important;
-      font-size: .7em;
+      font-size: .7em !important;
       text-transform: uppercase;
       font-weight: bold;
       background: $accent-color !important;
       border-radius: 1px !important;
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 0; 
 
       &:hover {
         background: darken($accent-color, 10%) !important;

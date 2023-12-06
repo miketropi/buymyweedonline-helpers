@@ -489,6 +489,7 @@ table.shop_table td {
   height: 45px;
   width: 200px !important;
   max-width: 100%;
+  margin-bottom: 3px !important;
 }
 .coupon .input-text::-moz-placeholder {
   color: black !important;
@@ -497,8 +498,8 @@ table.shop_table td {
   color: black !important;
 }
 .coupon .button {
-  background: #63b723 !important;
-  color: white !important;
+  background: #dddddd !important;
+  color: black !important;
   height: 45px;
   line-height: normal !important;
   min-height: auto;
@@ -508,10 +509,11 @@ table.shop_table td {
   line-height: normal !important;
   text-transform: uppercase !important;
   width: 200px !important;
-  mix-width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 3px !important;
 }
 .coupon .button:hover {
-  background: #4c8c1b !important;
+  background: #c4c4c4 !important;
 }
 
 .woocommerce-notices-wrapper,
@@ -1198,6 +1200,7 @@ form.checkout_coupon input[name=coupon_code] {
   background: #fafafa !important;
   font-size: 0.9em;
   color: black;
+  margin-bottom: 3px !important;
 }
 form.checkout_coupon button[type=submit] {
   text-transform: uppercase;
@@ -1207,9 +1210,12 @@ form.checkout_coupon button[type=submit] {
   letter-spacing: 1px;
   width: 200px;
   max-width: 100%;
+  background: #ddd !important;
+  color: black !important;
+  margin-bottom: 3px !important;
 }
 form.checkout_coupon button[type=submit]:hover {
-  background: #4c8c1b;
+  background: #c4c4c4 !important;
 }
 
 form.checkout h3 {

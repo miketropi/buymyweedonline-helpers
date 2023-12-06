@@ -183,6 +183,7 @@ form.checkout_coupon {
     background: #fafafa !important;
     font-size: .9em;
     color: black;
+    margin-bottom: 3px !important;
   }
 
   button[type="submit"] {
@@ -193,9 +194,12 @@ form.checkout_coupon {
     letter-spacing: 1px;
     width: 200px;
     max-width: 100%;
+    background: #ddd !important;
+    color: black !important;
+    margin-bottom: 3px !important;
 
     &:hover {
-      background: darken($accent-color, 10%);
+      background: darken(#ddd, 10%) !important;
     }
   }
 }

@@ -548,6 +548,7 @@ table.shop_table {
     height: 45px;
 		width: 200px !important;
 		max-width: 100%;
+		margin-bottom: 3px !important;
 
 		&::placeholder {
 			color: black !important;
@@ -555,8 +556,8 @@ table.shop_table {
 	}
 
 	.button {
-		background: $accent_color !important;
-    color: white !important;
+		background: #dddddd !important;
+    color: black !important;
     height: 45px;
     line-height: normal !important;
     min-height: auto;
@@ -566,10 +567,11 @@ table.shop_table {
     line-height: normal !important;
     text-transform: uppercase !important;
 		width: 200px !important;
-		mix-width: 100% !important;
+		max-width: 100% !important;
+		margin-bottom: 3px !important;
 
 		&:hover {
-			background: darken($accent-color, 10%) !important;
+			background: darken(#dddddd, 10%) !important;
 		}
 	}
 }

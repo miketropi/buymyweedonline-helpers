@@ -510,7 +510,7 @@ table.shop_table {
   border-collapse: collapse !important;
 
 	th, td {
-		padding: .8em !important;
+		padding: 1em !important;
 		border-bottom: 1px solid #ddd !important;
 		border-collapse: collapse !important;
 	}
@@ -518,7 +518,7 @@ table.shop_table {
 	th {
 		background-color: $accent_color !important;
 		color: white;
-		font-weight: bold !important;
+		font-weight: normal !important;
 		font-size: .8em !important;
 		text-transform: uppercase;
 	}
@@ -538,24 +538,26 @@ table.shop_table {
 	}
 
 	.input-text {
-		background: white;
+		background: #fafafa;
     color: black;
     border-radius: 1px;
-    border-color: black !important;
-    padding: 0.5em !important;
-    height: auto;
+    border-color: #d4d4d4 !important;
+    padding: 1em !important;
     float: none !important;
     font-size: 14px;
+    height: 45px;
+		width: 200px !important;
+		max-width: 100%;
 
 		&::placeholder {
-			color: #ddd;
+			color: black !important;
 		}
 	}
 
 	.button {
 		background: $accent_color !important;
     color: white !important;
-    height: 37px;
+    height: 45px;
     line-height: normal !important;
     min-height: auto;
     border: none !important;
@@ -563,10 +565,26 @@ table.shop_table {
     font-weight: bold !important;
     line-height: normal !important;
     text-transform: uppercase !important;
+		width: 200px !important;
+		mix-width: 100% !important;
+
+		&:hover {
+			background: darken($accent-color, 10%) !important;
+		}
 	}
 }
 
 .woocommerce-notices-wrapper,
-.woocommerce-cart-notice {
+.woocommerce-cart-notice,
+.woocommerce-info {
 	font-size: .8em;
+	padding: 1em !important;
+}
+
+.test11 h1.entry-title {
+	background: none;
+	color: black !important;
+	font-size: 1.5em;
+	letter-spacing: 0 !important;
+	text-transform: none;
 }

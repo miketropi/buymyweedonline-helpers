@@ -4,7 +4,7 @@ table.cart {
   button[name=update_cart] {
     background: $accent_color !important;
     color: white !important;
-    height: 37px;
+    height: 45px;
     line-height: normal !important;
     min-height: auto;
     border: none !important;
@@ -12,6 +12,10 @@ table.cart {
     font-weight: bold !important;
     line-height: normal !important;
     text-transform: uppercase !important;
+
+    &:hover {
+			background: darken($accent-color, 10%) !important;
+		}
   }
 
   td.product-thumbnail {
@@ -23,6 +27,18 @@ table.cart {
       img {
         width: 100%;
         height: auto;
+      }
+    }
+  }
+
+  td.product-name {
+
+    a {
+      color: black;
+      text-decoration: underline;
+
+      &:hover {
+        color: $accent-color;
       }
     }
   }
@@ -49,13 +65,36 @@ table.cart {
 .wc-proceed-to-checkout a.checkout-button.button.alt.wc-forward, 
 #place_order {
   padding: 1em !important;
-  font-size: 1em !important;
+  font-size: .8em !important;
   font-weight: bold;
+  letter-spacing: 1px;
+
+  &:hover {
+    background: darken($accent_color, 10%) !important;
+  }
 }
 
 .cart_totals  {
 
   h2 {
     font-size: 1.3em;
+  }
+}
+
+.do-quantity-buttons form .quantity:not(.buttons-added):not(.hidden):after, 
+.do-quantity-buttons form .quantity:not(.buttons-added):not(.hidden):before, 
+.woocommerce form .quantity.buttons-added .minus, .woocommerce form .quantity.buttons-added .plus, 
+.woocommerce form .quantity.buttons-added .qty {
+  min-height: 40px !important;
+}
+
+.cart_totals {
+
+  table.shop_table {
+
+    th {
+      background-color: #f9f9f9 !important;
+      color: black;
+    }
   }
 }

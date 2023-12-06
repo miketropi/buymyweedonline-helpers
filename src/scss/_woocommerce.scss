@@ -331,3 +331,13 @@ p#additional__field.thwcfd-field-radio span.woocommerce-input-wrapper {
     }
   }
 }
+
+form.woocommerce-ordering {
+
+  select[name=orderby] {
+    width: auto !important;
+    padding-right: 39px !important;
+    border-radius: 1px !important;
+    line-height: normal !important;
+  }
+}

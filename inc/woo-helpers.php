@@ -30,8 +30,8 @@ function b_helpers_free_gift_message() {
   $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';   
 
   $dynamic_text = [
-    'first' => __('more to your cart a Free gift', 'b_helpers'),
-    'next' => __('more to unlock the next Free gift', 'b_helpers'), 
+    'first' => __('more to your cart for a free gift', 'b_helpers'),
+    'next' => __('more to unlock the next free gift', 'b_helpers'), 
   ];
 
   $text = sprintf(__('Add %s %s!<br />Only 1 gift per cart.', 'b_helpers'), $the_rest_of_amount, $dynamic_text[$message_type]);

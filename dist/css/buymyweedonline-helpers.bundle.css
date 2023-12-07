@@ -1127,6 +1127,11 @@ body #page #content ul.products li.product .wvs-archive-variations-wrapper .vari
   flex-wrap: wrap;
   margin-bottom: 0.5em !important;
 }
+@media (max-width: 767px) {
+  body #page #content ul.products li.product .wvs-archive-variations-wrapper .variable-items-wrapper {
+    display: none;
+  }
+}
 body #page #content ul.products li.product .wvs-archive-variations-wrapper .variable-items-wrapper > li {
   font-size: 12px !important;
   text-transform: uppercase;

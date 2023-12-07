@@ -92,6 +92,9 @@ body #page #content ul.products {
         justify-content: center;
         flex-wrap: wrap;
         margin-bottom: .5em !important;
+        @media (max-width: 767px){
+          display: none;
+        }
 
         > li {
           font-size: 12px !important;

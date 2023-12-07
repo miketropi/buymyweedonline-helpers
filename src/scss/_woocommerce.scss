@@ -1,7 +1,24 @@
 /**
  * Products list ul
  */
-body.tax-product_cat ul.products {
+body #page #content ul.products {
+  &.columns-4{
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    grid-gap: 10px !important;
+    @media (max-width: 768px){
+      grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+    @media (max-width: 480px){
+      display: block;
+    }
+    &::before{
+      display: none;
+    }
+    li.product {
+      max-width: 100% !important;
+    }
+  }
 
   li.product {
     border-radius: 1px !important;
@@ -10,7 +27,8 @@ body.tax-product_cat ul.products {
     text-align: center;
     transition: .3s ease;
     -webkit-transition: .3s ease;
-
+    border-radius: 0 !important;
+    text-align: center;
     &:hover {
       box-shadow: 1px 4px 6px 2px rgba(1,1,1,.06) !important;
     }
@@ -109,14 +127,33 @@ body.tax-product_cat ul.products {
       position: absolute;
       bottom: 0;
       left: 0; 
-
+      border-radius: 0 !important;
+      font-family: inherit;
       &:hover {
         background: darken($accent-color, 10%) !important;
       }
     }
   }
 }
-
+/* fix style shop */
+body .Most-Popular-Weed .wc-block-grid__product-add-to-cart.wp-block-button .wp-block-button__link {
+  border-radius: 0 !important;
+  font-family: inherit;
+}
+body.page-id-3990796 .wp-block-button a {
+  background-color: #63b723 !important;
+  border-radius: 0 !important;
+}
+body .Most-Popular-Weed li.wc-block-grid__product{
+  border-radius: 0 !important;
+  text-align: center;
+  .star-rating {
+    display: inline-block;
+    width: 64px !important;
+    font-size: .857em;
+  }
+}
+/* end. */
 #wc-column-container ul.products li.product {
   padding-bottom: 40px !important;
 }
@@ -126,7 +163,7 @@ body.tax-product_cat ul.products {
   margin-top: 0;
 }
 /**
- * End Products list ul
+ * End Products list ul.
  */
 
 .wvs-has-image-tooltip:before, [data-wvstooltip]:before {

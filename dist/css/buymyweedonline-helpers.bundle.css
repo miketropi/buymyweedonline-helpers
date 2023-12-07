@@ -1,3 +1,25 @@
+.single-product .single-product-variable-items.variable-items-wrapper li {
+  margin-right: 10px !important;
+}
+.single-product .single-product-variable-items .variable-item.image-variable-item {
+  width: 75px !important;
+  height: 50px !important;
+  padding: 0 !important;
+}
+.single-product .single-product-variable-items .variable-item.image-variable-item img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.single-product .single-product-variable-items .variable-item.image-variable-item.selected {
+  color: #fff !important;
+  border: 2px solid #63b723 !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+.single-product .single-product-variable-items .variable-item.image-variable-item.selected .variable-item-contents:before {
+  display: none !important;
+}
+
 .b-helpers__loading {
   pointer-events: none !important;
   position: relative;

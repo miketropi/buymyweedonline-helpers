@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Helpers
  */
@@ -9,14 +9,14 @@ function b_helpers_load_template($name, $require_once = false) {
 
 function b_helpers_get_woo_products_choices() {
   $choices = [];
-  $args = [ 
+  $args = [
     'post_type'       => 'product',
     'posts_per_page'  => -1,
     'post_status'     => 'publish'
   ];
 
   $_posts = get_posts($args);
-  
+
   if(!$_posts || count($_posts) <= 0) return $choices;
   $choices['Simple Products'] = [];
   foreach($_posts as $index => $p) {
@@ -40,7 +40,7 @@ function b_helpers_get_woo_products_choices() {
       }
     }
   }
-
+  
   return $choices;
 }
 /* fix sale badge */

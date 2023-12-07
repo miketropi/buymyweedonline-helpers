@@ -27,7 +27,7 @@ body #page #content ul.products {
     text-align: center;
     transition: .3s ease;
     -webkit-transition: .3s ease;
-    border-radius: 0 !important;
+    border-radius: 4px !important;
     text-align: center;
     &:hover {
       box-shadow: 1px 4px 6px 2px rgba(1,1,1,.06) !important;
@@ -38,7 +38,7 @@ body #page #content ul.products {
       > * {
         opacity: .4;
       }
-      
+
       &:after {
         content: "Out of stock";
         position: absolute;
@@ -129,29 +129,40 @@ body #page #content ul.products {
       text-transform: uppercase;
       font-weight: bold;
       background: $accent-color !important;
-      border-radius: 1px !important;
       position: absolute;
       bottom: 0;
-      left: 0; 
-      border-radius: 0 !important;
+      left: 0;
+      border-radius: 4px !important;
       font-family: inherit;
+      padding: 10px 20px !important;
       &:hover {
         background: darken($accent-color, 10%) !important;
       }
     }
   }
 }
+
+body #content #our-bestseller-home-page-sec ul.products li.product .price {
+  margin-top: 0 !important;
+  margin-bottom: 1.5em !important;
+}
+
+body #content #our-bestseller-home-page-sec ul.products li.product.product-type-variable .price {
+  margin-bottom: 0.5em !important;
+}
+
+body #content #our-bestseller-home-page-sec ul.products li.product .wvs-archive-variations-wrapper .variable-items-wrapper {
+  margin-bottom: 1.5em !important;
+}
+
 /* fix style shop */
 body .Most-Popular-Weed .wc-block-grid__product-add-to-cart.wp-block-button .wp-block-button__link {
-  border-radius: 0 !important;
   font-family: inherit;
 }
 body.page-id-3990796 .wp-block-button a {
-  background-color: #63b723 !important;
-  border-radius: 0 !important;
+  background-color: $accent_color !important;
 }
 body .Most-Popular-Weed li.wc-block-grid__product{
-  border-radius: 0 !important;
   text-align: center;
   .star-rating {
     display: inline-block;
@@ -215,7 +226,7 @@ form.checkout_coupon {
     padding: 0 !important;
     margin: 0 !important;
     width: 200px !important;
-    margin: 0 !important; 
+    margin: 0 !important;
     float: none !important;
     display: inline-block !important;
     vertical-align: top;
@@ -277,7 +288,7 @@ form.checkout {
       border-color: #dedede;
       font-size: 16px;
       color: black;
-    } 
+    }
 
     textarea {
       padding: 1em;
@@ -387,4 +398,38 @@ form.woocommerce-ordering {
     border-radius: 1px !important;
     line-height: normal !important;
   }
+}
+
+.single-product{
+  .single-product-variable-items{
+
+       &.variable-items-wrapper{
+         li{
+           margin-right: 10px !important;
+         }
+       }
+
+      .variable-item{
+          &.image-variable-item{
+            width: 75px !important;
+            height: 50px !important;
+            padding: 0 !important;
+            img{
+              object-fit: contain;
+            }
+            &.selected{
+              color: #fff !important;
+              border: 2px solid $accent_color !important;
+              box-shadow: none !important;
+              border-radius: 4px !important;
+              .variable-item-contents{
+                &:before{
+                  display: none !important;
+                }
+              }
+            }
+          }
+      }
+  }
+
 }

@@ -1096,6 +1096,10 @@ body #page #content ul.products li.product.outofstock:after {
   padding: 0.3em 0.5em;
   border-radius: 1px;
 }
+body #page #content ul.products li.product .woosticker.custom_sticker_image {
+  top: -22px;
+  right: -21px;
+}
 body #page #content ul.products li.product .woocommerce-loop-product__title,
 body #page #content ul.products li.product .star-rating,
 body #page #content ul.products li.product .price {

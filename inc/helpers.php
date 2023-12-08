@@ -60,3 +60,41 @@ function bt_woocommerce_product_is_on_sale( $on_sale, $product ){
   }
   return $on_sale;
 }
+add_action('woocommerce_single_product_summary', 'bt_update_variation_info', 10);
+function bt_update_variation_info(){
+  remove_action('woocommerce_single_product_summary', 'bbloomer_echo_variation_info', 11);
+  global $product;
+
+    // Check if the product is a variable product
+    if ($product->is_type('variable')) {
+        // Output an empty container for variation info
+        echo '<div class="var_info"><span class="price">Price:  </span> <span class="variation-info"></span></div>';
+        
+        // Enqueue JavaScript to handle variation change
+        wc_enqueue_js("
+            jQuery(document).on('found_variation', 'form.cart', function( event, variation ) {
+                jQuery('.var_info .variation-info').html(variation.price_html); 
+            });
+        ");
+    }
+}
+// custom woo template
+add_filter( 'woocommerce_locate_template', 'bt_intercept_wc_template', 10, 3 );
+/**
+ * Filter the cart template path to use cart.php in this plugin instead of the one in WooCommerce.
+ *
+ * @param string $template      Default template file path.
+ * @param string $template_name Template file slug.
+ * @param string $template_path Template file name.
+ *
+ * @return string The new Template file path.
+ */
+function bt_intercept_wc_template( $template, $template_name, $template_path ) {
+
+	if ( 'variable.php' === basename( $template ) ) {
+		$template = B_HELPERS_DIR . '/templates/woocommerce/add-to-cart/variable.php';
+	}
+
+	return $template;
+
+}

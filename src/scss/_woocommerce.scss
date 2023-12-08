@@ -444,5 +444,16 @@ form.woocommerce-ordering {
           }
       }
   }
+  span.variation-price {
+    line-height: 1.5;
+    min-height: 42px;
+    del{
+      display: block;
+      opacity: .5;
+    }
+    .variation-per-unit-price{
+      margin-top: 5px;
+    }
+  }
 
 }

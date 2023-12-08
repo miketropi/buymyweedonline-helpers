@@ -1429,3 +1429,14 @@ form.woocommerce-ordering select[name=orderby] {
 .single-product .single-product-variable-items .variable-item.image-variable-item.selected .variable-item-contents:before {
   display: none !important;
 }
+.single-product span.variation-price {
+  line-height: 1.5;
+  min-height: 42px;
+}
+.single-product span.variation-price del {
+  display: block;
+  opacity: 0.5;
+}
+.single-product span.variation-price .variation-per-unit-price {
+  margin-top: 5px;
+}

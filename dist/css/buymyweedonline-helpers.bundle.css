@@ -1120,11 +1120,6 @@ body #page #content ul.products li.product .star-rating[title="Not yet rated"] {
 body #page #content ul.products li.product .price {
   margin-bottom: 0.5em !important;
 }
-@media (max-width: 767px) {
-  body #page #content ul.products li.product .wvs-archive-variations-wrapper {
-    display: none;
-  }
-}
 body #page #content ul.products li.product .wvs-archive-variations-wrapper .variable-items-wrapper {
   display: flex;
   width: 100%;

@@ -1065,6 +1065,12 @@ body #page #content ul.products.columns-4::before {
 body #page #content ul.products.columns-4 li.product {
   max-width: 100% !important;
 }
+@media (max-width: 480px) {
+  body #page #content ul.products.columns-4 li.product {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
 body #page #content ul.products li.product {
   border-radius: 1px !important;
   box-shadow: none !important;
@@ -1140,6 +1146,7 @@ body #page #content ul.products li.product .wvs-archive-variations-wrapper .vari
   box-shadow: none !important;
   font-weight: bold;
   margin-bottom: 4px;
+  max-width: 100% !important;
 }
 body #page #content ul.products li.product .wvs-archive-variations-wrapper .variable-items-wrapper > li:not(:last-child) {
   margin-right: 4px;
@@ -1161,6 +1168,7 @@ body #page #content ul.products li.product a.add_to_cart_button {
   border-radius: 4px !important;
   font-family: inherit;
   padding: 10px 20px !important;
+  display: block !important;
 }
 body #page #content ul.products li.product a.add_to_cart_button:hover {
   background: #294c0f !important;
@@ -1387,13 +1395,26 @@ form.woocommerce-ordering select[name=orderby] {
   line-height: normal !important;
 }
 
+.single-product .single-product-variable-items {
+  margin-top: 20px !important;
+  padding-left: 1px !important;
+}
 .single-product .single-product-variable-items.variable-items-wrapper li {
   margin-right: 10px !important;
 }
 .single-product .single-product-variable-items .variable-item.image-variable-item {
-  width: 75px !important;
-  height: 50px !important;
+  width: calc((100% - 72px) / 7) !important;
+  height: 65px !important;
   padding: 0 !important;
+  margin: 0 !important;
+  margin-bottom: 10px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+@media (max-width: 480px) {
+  .single-product .single-product-variable-items .variable-item.image-variable-item {
+    height: 40px !important;
+  }
 }
 .single-product .single-product-variable-items .variable-item.image-variable-item img {
   -o-object-fit: contain;

@@ -414,18 +414,18 @@ form.woocommerce-ordering {
 
       .variable-item{
           &.image-variable-item{
-            width: calc((100% - 72px)/7 ) !important;
+            width: 80px !important;
             height: 65px !important;
             padding: 0 !important;
             margin: 0 !important;
             margin-bottom: 10px !important;
-            margin-left: 5px !important;
-            margin-right: 5px !important;
-            @media (max-width: 480px) {
-              height: 40px !important;
-            }
+            margin-right: 10px !important;
+            // @media (max-width: 480px) {
+            //   width: 45px !important;
+            //   height: 40px !important;
+            // }
             &:first-child{
-              
+
             }
             img{
               object-fit: contain;
@@ -447,6 +447,7 @@ form.woocommerce-ordering {
   span.variation-price {
     line-height: 1.5;
     min-height: 42px;
+    width: 80px;
     del{
       display: block;
       opacity: .5;
@@ -455,5 +456,25 @@ form.woocommerce-ordering {
       margin-top: 5px;
     }
   }
+  .product_cat-thc-vape-juice{
+
+    .single-product-variable-items{
+        .variable-item{
+            &.image-variable-item{
+              width: calc((100% - 72px)/7 ) !important;
+              margin-left: 5px !important;
+              margin-right: 5px !important;
+            }
+        }
+    }
+
+    @media (max-width: 768px){
+        .single-product-variable-items{
+          display: none;
+        }
+    }
+  }
+
+
 
 }

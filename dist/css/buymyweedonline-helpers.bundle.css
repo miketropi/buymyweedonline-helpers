@@ -1403,18 +1403,12 @@ form.woocommerce-ordering select[name=orderby] {
   margin-right: 10px !important;
 }
 .single-product .single-product-variable-items .variable-item.image-variable-item {
-  width: calc((100% - 72px) / 7) !important;
+  width: 80px !important;
   height: 65px !important;
   padding: 0 !important;
   margin: 0 !important;
   margin-bottom: 10px !important;
-  margin-left: 5px !important;
-  margin-right: 5px !important;
-}
-@media (max-width: 480px) {
-  .single-product .single-product-variable-items .variable-item.image-variable-item {
-    height: 40px !important;
-  }
+  margin-right: 10px !important;
 }
 .single-product .single-product-variable-items .variable-item.image-variable-item img {
   -o-object-fit: contain;
@@ -1432,6 +1426,7 @@ form.woocommerce-ordering select[name=orderby] {
 .single-product span.variation-price {
   line-height: 1.5;
   min-height: 42px;
+  width: 80px;
 }
 .single-product span.variation-price del {
   display: block;
@@ -1439,4 +1434,14 @@ form.woocommerce-ordering select[name=orderby] {
 }
 .single-product span.variation-price .variation-per-unit-price {
   margin-top: 5px;
+}
+.single-product .product_cat-thc-vape-juice .single-product-variable-items .variable-item.image-variable-item {
+  width: calc((100% - 72px) / 7) !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+@media (max-width: 768px) {
+  .single-product .product_cat-thc-vape-juice .single-product-variable-items {
+    display: none;
+  }
 }

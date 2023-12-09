@@ -475,6 +475,21 @@ form.woocommerce-ordering {
     }
   }
 
-
+  .entry-summary{
+    .variations_form{
+      &._long_variations{
+        @media (max-width: 768px){
+          .variations{
+            select{
+              display: block !important;
+            }
+          }
+          .single-product-variable-items,.variation-prices{
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
 }

@@ -1445,3 +1445,11 @@ form.woocommerce-ordering select[name=orderby] {
     display: none;
   }
 }
+@media (max-width: 768px) {
+  .single-product .entry-summary .variations_form._long_variations .variations select {
+    display: block !important;
+  }
+  .single-product .entry-summary .variations_form._long_variations .single-product-variable-items, .single-product .entry-summary .variations_form._long_variations .variation-prices {
+    display: none;
+  }
+}

@@ -98,3 +98,43 @@ function bt_intercept_wc_template( $template, $template_name, $template_path ) {
 	return $template;
 
 }
+// fil
+add_filter('woo_variation_swatches_image_attribute_template', 'bt_woo_variation_swatches_image_attribute_template', 10, 4);
+function bt_woo_variation_swatches_image_attribute_template($template, $data, $attribute_type, $variation_data){
+  $attribute_name = $data['attribute_name'];
+  $option_name = $data['option_slug'];
+  $variation_id = $variation_data[$attribute_name][$option_name]['variation_id'];
+  $variation_obj = wc_get_product($variation_id);
+  $template .= "<span class='option_name'>".$data['option_name']."<label>".$variation_obj->get_price_html()."</label></span>";
+  return $template;
+}
+function bt_get_variation_data_by_attribute_name( $available_variations, $attribute_name ) {
+  $assigned       = array();
+  foreach ( $available_variations as $variation ) {
+      $attrs = $variation[ 'attributes' ];
+      $value = $attrs[ $attribute_name ];
+      if ( ! isset( $assigned[ $attribute_name ][ $value ] ) && ! empty( $value ) ) {
+          $assigned[ $attribute_name ][ $value ] = array(
+              'image_id'     => $variation[ 'variation_image_id' ],
+              'variation_id' => $variation[ 'variation_id' ],
+              'type'         => empty( $variation[ 'variation_image_id' ] ) ? 'button' : 'image',
+          );
+      }
+  }
+  
+  return $assigned;
+}
+add_filter('woo_variation_swatches_button_attribute_template', 'bt_woo_variation_swatches_button_attribute_template', 10, 4);
+function bt_woo_variation_swatches_button_attribute_template($template, $data, $attribute_type, $variation_data){
+  $attribute_name = $data['attribute_name'];
+  $option_name = $data['option_slug'];
+  if(!$variation_data){
+    $product = $data['args']['product'];
+    $available_variations = $product->get_available_variations();
+    $variation_data = bt_get_variation_data_by_attribute_name($available_variations, $attribute_name);
+  }
+  $variation_id = $variation_data[$attribute_name][$option_name]['variation_id'];
+  $variation_obj = wc_get_product($variation_id);
+  $template = '<span class="variable-item-span variable-item-span-button">%s<label>'.$variation_obj->get_price_html().'</label></span>';
+  return $template;
+}

@@ -1458,34 +1458,34 @@ form.woocommerce-ordering select[name=orderby] {
   background-color: #63b723 !important;
 }
 @media (max-width: 768px) {
-  .single-product .entry-summary .variations_form .variation-prices {
+  .single-product .entry-summary .variations_form.enable_new_style .variation-prices {
     display: none;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper {
     display: block;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li {
     width: 100% !important;
     margin-bottom: 10px;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .option_name {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .option_name {
     display: flex;
     justify-content: space-between;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .option_name label {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .option_name label {
     margin-left: 10px;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .variable-item-image {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .variable-item-image {
     display: none;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .variable-item-span {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .variable-item-span {
     display: flex;
     justify-content: space-between;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .variable-item-span::after {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .variable-item-span::after {
     display: none;
   }
-  .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .variable-item-span label {
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .variable-item-span label {
     display: block;
   }
   .single-product .entry-summary .variations_form._long_variations .variations select {

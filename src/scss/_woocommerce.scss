@@ -470,33 +470,35 @@ form.woocommerce-ordering {
                 }
             }
             @media (max-width: 768px) {
-                .variation-prices {
-                    display: none;
-                }
-                .variable-items-wrapper {
-                    display: block;
-                    li {
-                        width: 100% !important;
-                        margin-bottom: 10px;
-                        .variable-item-contents {
-                            .option_name {
-                                display: flex;
-                                justify-content: space-between;
-                                label {
-                                    margin-left: 10px;
+                &.enable_new_style {
+                    .variation-prices {
+                        display: none;
+                    }
+                    .variable-items-wrapper {
+                        display: block;
+                        li {
+                            width: 100% !important;
+                            margin-bottom: 10px;
+                            .variable-item-contents {
+                                .option_name {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    label {
+                                        margin-left: 10px;
+                                    }
                                 }
-                            }
-                            .variable-item-image {
-                                display: none;
-                            }
-                            .variable-item-span {
-                                display: flex;
-                                justify-content: space-between;
-                                &::after {
+                                .variable-item-image {
                                     display: none;
                                 }
-                                label {
-                                    display: block;
+                                .variable-item-span {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    &::after {
+                                        display: none;
+                                    }
+                                    label {
+                                        display: block;
+                                    }
                                 }
                             }
                         }

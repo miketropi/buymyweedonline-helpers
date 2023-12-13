@@ -6484,10 +6484,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/hits/hits.js");
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/configure/configure.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/configure/configure.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/search-box/search-box.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/hits/hits.js");
 var algoliasearch = __webpack_require__(/*! algoliasearch/lite */ "./node_modules/algoliasearch/dist/algoliasearch-lite.umd.js");
 var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules/instantsearch.js/es/index.js")["default"]);
+
 
 ;
 (function (w, $) {
@@ -6501,47 +6503,46 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
     return;
   }
   var searchClient = algoliasearch(APP_ID, API_KEY);
-  var search = [];
+  var search = instantsearch({
+    indexName: 'wp_posts_product',
+    searchClient: searchClient,
+    insights: true
+  });
+  search.addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    hitsPerPage: 6
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    container: '#searchbox'
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    container: '#ALGOLIA_SEARCH_RESULT_PRODUCT',
+    templates: {
+      empty: 'No results for <q>{{ query }}</q>',
+      item: wp.template('ALGOLIA_SEARCH_RESULT_PRODUCT')
+    }
+  })]);
   var search_instant = {
-    ALGOLIA_SEARCH_RESULT_PRODUCT: {
-      configure: {
-        hitsPerPage: 6
-      },
-      onRender: function onRender() {},
-      instantsearch: instantsearch({
-        indexName: 'wp_posts_product',
-        searchClient: searchClient
-      })
-    },
     ALGOLIA_SEARCH_RESULT_CAT: {
       configure: {
         hitsPerPage: 4
       },
-      onRender: function onRender() {},
-      instantsearch: instantsearch({
-        indexName: 'wp_terms_product_cat',
-        searchClient: searchClient
-      })
+      instantsearch: {
+        indexName: 'wp_terms_product_cat'
+      }
     },
     ALGOLIA_SEARCH_RESULT_PAGE: {
       configure: {
         hitsPerPage: 3
       },
-      onRender: function onRender() {},
-      instantsearch: instantsearch({
-        indexName: 'wp_posts_page',
-        searchClient: searchClient
-      })
+      instantsearch: {
+        indexName: 'wp_posts_page'
+      }
     },
     ALGOLIA_SEARCH_RESULT_POST: {
       configure: {
         hitsPerPage: 3
       },
-      onRender: function onRender() {},
-      instantsearch: instantsearch({
-        indexName: 'wp_posts_post',
-        searchClient: searchClient
-      })
+      instantsearch: {
+        indexName: 'wp_posts_post'
+      }
     }
   };
   var searchResultActive = function searchResultActive() {
@@ -6554,8 +6555,8 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
     });
   };
   var searchFieldHandle = function searchFieldHandle() {
-    var $input = $('input.algolia-search__text-field');
-    $('body').on('input', 'input.algolia-search__text-field', function (e) {
+    var $input = $('input.ais-SearchBox-input');
+    $('body').on('input', 'input.ais-SearchBox-input', function (e) {
       e.preventDefault();
     });
     $input.on({
@@ -6567,28 +6568,26 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
       }
     });
   };
-  var init = function init() {
+  var init_search = function init_search() {
     searchResultActive();
     searchFieldHandle();
-    $.each(search_instant, function (__index, __) {
+    search.addWidgets([$.each(search_instant, function (__index, __) {
       var _S = __.instantsearch;
       var _ID = "".concat(__index);
-      var wg_hits = (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      var wg_hits = (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
         container: "#".concat(_ID),
         templates: {
           empty: 'No results for <q>{{ query }}</q>',
           item: wp.template("".concat(_ID))
         }
       });
-      var wg_configure = (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__["default"])(__.configure);
-      _S.addWidget(wg_configure);
-      _S.addWidget(wg_hits);
-      _S.start();
-      search.push(_S);
-      _S.on('render', __.onRender);
-    });
+      var wg_configure = (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])(__.configure);
+      search.addWidget(wg_configure);
+      search.addWidget(wg_hits);
+    })]);
   };
-  $(init);
+  search.start();
+  $(init_search);
 })(window, jQuery);
 
 /***/ }),
@@ -8982,6 +8981,240 @@ function ReverseSnippet(_ref) {
 
 /***/ }),
 
+/***/ "./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/noop.js");
+/* harmony import */ var _Template_Template_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Template/Template.js */ "./node_modules/instantsearch.js/es/components/Template/Template.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+var defaultProps = {
+  query: '',
+  showSubmit: true,
+  showReset: true,
+  showLoadingIndicator: true,
+  autofocus: false,
+  searchAsYouType: true,
+  isSearchStalled: false,
+  disabled: false,
+  ariaLabel: 'Search',
+  onChange: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
+  onSubmit: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
+  onReset: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
+  refine: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop
+};
+var SearchBox = /*#__PURE__*/function (_Component) {
+  _inherits(SearchBox, _Component);
+  var _super = _createSuper(SearchBox);
+  function SearchBox() {
+    var _this;
+    _classCallCheck(this, SearchBox);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      query: _this.props.query,
+      focused: false
+    });
+    _defineProperty(_assertThisInitialized(_this), "input", (0,preact__WEBPACK_IMPORTED_MODULE_0__.createRef)());
+    _defineProperty(_assertThisInitialized(_this), "onInput", function (event) {
+      var _this$props = _this.props,
+        searchAsYouType = _this$props.searchAsYouType,
+        refine = _this$props.refine,
+        onChange = _this$props.onChange;
+      var query = event.target.value;
+      if (searchAsYouType) {
+        refine(query);
+      }
+      _this.setState({
+        query: query
+      });
+      onChange(event);
+    });
+    _defineProperty(_assertThisInitialized(_this), "onSubmit", function (event) {
+      var _this$props2 = _this.props,
+        searchAsYouType = _this$props2.searchAsYouType,
+        refine = _this$props2.refine,
+        onSubmit = _this$props2.onSubmit;
+      event.preventDefault();
+      event.stopPropagation();
+      if (_this.input.current) {
+        _this.input.current.blur();
+      }
+      if (!searchAsYouType) {
+        refine(_this.state.query);
+      }
+      onSubmit(event);
+      return false;
+    });
+    _defineProperty(_assertThisInitialized(_this), "onReset", function (event) {
+      var _this$props3 = _this.props,
+        refine = _this$props3.refine,
+        onReset = _this$props3.onReset;
+      var query = '';
+      if (_this.input.current) {
+        _this.input.current.focus();
+      }
+      refine(query);
+      _this.setState({
+        query: query
+      });
+      onReset(event);
+    });
+    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
+      _this.setState({
+        focused: false
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
+      _this.setState({
+        focused: true
+      });
+    });
+    return _this;
+  }
+  _createClass(SearchBox, [{
+    key: "resetInput",
+    value:
+    /**
+     * This public method is used in the RefinementList SFFV search box
+     * to reset the input state when an item is selected.
+     *
+     * @see RefinementList#componentWillReceiveProps
+     * @return {undefined}
+     */
+    function resetInput() {
+      this.setState({
+        query: ''
+      });
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      /**
+       * when the user is typing, we don't want to replace the query typed
+       * by the user (state.query) with the query exposed by the connector (props.query)
+       * see: https://github.com/algolia/instantsearch/issues/4141
+       */
+      if (!this.state.focused && nextProps.query !== this.state.query) {
+        this.setState({
+          query: nextProps.query
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props4 = this.props,
+        cssClasses = _this$props4.cssClasses,
+        placeholder = _this$props4.placeholder,
+        autofocus = _this$props4.autofocus,
+        showSubmit = _this$props4.showSubmit,
+        showReset = _this$props4.showReset,
+        showLoadingIndicator = _this$props4.showLoadingIndicator,
+        templates = _this$props4.templates,
+        isSearchStalled = _this$props4.isSearchStalled,
+        ariaLabel = _this$props4.ariaLabel;
+      return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("div", {
+        className: cssClasses.root
+      }, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("form", {
+        action: "",
+        role: "search",
+        className: cssClasses.form,
+        noValidate: true,
+        onSubmit: this.onSubmit,
+        onReset: this.onReset
+      }, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("input", {
+        ref: this.input,
+        value: this.state.query,
+        disabled: this.props.disabled,
+        className: cssClasses.input,
+        type: "search",
+        placeholder: placeholder,
+        autoFocus: autofocus,
+        autoComplete: "off",
+        autoCorrect: "off",
+        autoCapitalize: "off"
+        // @ts-expect-error `spellCheck` attribute is missing in preact JSX types
+        ,
+        spellCheck: "false",
+        maxLength: 512,
+        onInput: this.onInput,
+        onBlur: this.onBlur,
+        onFocus: this.onFocus,
+        "aria-label": ariaLabel
+      }), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        templateKey: "submit",
+        rootTagName: "button",
+        rootProps: {
+          className: cssClasses.submit,
+          type: 'submit',
+          title: 'Submit the search query',
+          hidden: !showSubmit
+        },
+        templates: templates,
+        data: {
+          cssClasses: cssClasses
+        }
+      }), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        templateKey: "reset",
+        rootTagName: "button",
+        rootProps: {
+          className: cssClasses.reset,
+          type: 'reset',
+          title: 'Clear the search query',
+          hidden: !(showReset && this.state.query.trim() && !isSearchStalled)
+        },
+        templates: templates,
+        data: {
+          cssClasses: cssClasses
+        }
+      }), showLoadingIndicator && (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        templateKey: "loadingIndicator",
+        rootTagName: "span",
+        rootProps: {
+          className: cssClasses.loadingIndicator,
+          hidden: !isSearchStalled
+        },
+        templates: templates,
+        data: {
+          cssClasses: cssClasses
+        }
+      })));
+    }
+  }]);
+  return SearchBox;
+}(preact__WEBPACK_IMPORTED_MODULE_0__.Component);
+_defineProperty(SearchBox, "defaultProps", defaultProps);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBox);
+
+/***/ }),
+
 /***/ "./node_modules/instantsearch.js/es/components/Snippet/Snippet.js":
 /*!************************************************************************!*\
   !*** ./node_modules/instantsearch.js/es/components/Snippet/Snippet.js ***!
@@ -9358,6 +9591,127 @@ var connectHits = function connectHits(renderFn) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connectHits);
+
+/***/ }),
+
+/***/ "./node_modules/instantsearch.js/es/connectors/search-box/connectSearchBox.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/instantsearch.js/es/connectors/search-box/connectSearchBox.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/documentation.js");
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/noop.js");
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/checkRendering.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+var withUsage = (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_0__.createDocumentationMessageGenerator)({
+  name: 'search-box',
+  connector: true
+});
+
+/**
+ * @typedef {Object} CustomSearchBoxWidgetParams
+ * @property {function(string, function(string))} [queryHook = undefined] A function that will be called every time
+ * a new value for the query is set. The first parameter is the query and the second is a
+ * function to actually trigger the search. The function takes the query as the parameter.
+ *
+ * This queryHook can be used to debounce the number of searches done from the searchBox.
+ */
+
+var defaultQueryHook = function defaultQueryHook(query, hook) {
+  return hook(query);
+};
+
+/**
+ * **SearchBox** connector provides the logic to build a widget that will let the user search for a query.
+ *
+ * The connector provides to the rendering: `refine()` to set the query. The behaviour of this function
+ * may be impacted by the `queryHook` widget parameter.
+ */
+var connectSearchBox = function connectSearchBox(renderFn) {
+  var unmountFn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop;
+  (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.checkRendering)(renderFn, withUsage());
+  return function (widgetParams) {
+    var _ref = widgetParams || {},
+      _ref$queryHook = _ref.queryHook,
+      queryHook = _ref$queryHook === void 0 ? defaultQueryHook : _ref$queryHook;
+    var _refine;
+    var _clear;
+    return {
+      $$type: 'ais.searchBox',
+      init: function init(initOptions) {
+        var instantSearchInstance = initOptions.instantSearchInstance;
+        renderFn(_objectSpread(_objectSpread({}, this.getWidgetRenderState(initOptions)), {}, {
+          instantSearchInstance: instantSearchInstance
+        }), true);
+      },
+      render: function render(renderOptions) {
+        var instantSearchInstance = renderOptions.instantSearchInstance;
+        renderFn(_objectSpread(_objectSpread({}, this.getWidgetRenderState(renderOptions)), {}, {
+          instantSearchInstance: instantSearchInstance
+        }), false);
+      },
+      dispose: function dispose(_ref2) {
+        var state = _ref2.state;
+        unmountFn();
+        return state.setQueryParameter('query', undefined);
+      },
+      getRenderState: function getRenderState(renderState, renderOptions) {
+        return _objectSpread(_objectSpread({}, renderState), {}, {
+          searchBox: this.getWidgetRenderState(renderOptions)
+        });
+      },
+      getWidgetRenderState: function getWidgetRenderState(_ref3) {
+        var helper = _ref3.helper,
+          searchMetadata = _ref3.searchMetadata,
+          state = _ref3.state;
+        if (!_refine) {
+          _refine = function _refine(query) {
+            queryHook(query, function (q) {
+              return helper.setQuery(q).search();
+            });
+          };
+          _clear = function _clear() {
+            helper.setQuery('').search();
+          };
+        }
+        return {
+          query: state.query || '',
+          refine: _refine,
+          clear: _clear,
+          widgetParams: widgetParams,
+          isSearchStalled: searchMetadata.isSearchStalled
+        };
+      },
+      getWidgetUiState: function getWidgetUiState(uiState, _ref4) {
+        var searchParameters = _ref4.searchParameters;
+        var query = searchParameters.query || '';
+        if (query === '' || uiState && uiState.query === query) {
+          return uiState;
+        }
+        return _objectSpread(_objectSpread({}, uiState), {}, {
+          query: query
+        });
+      },
+      getWidgetSearchParameters: function getWidgetSearchParameters(searchParameters, _ref5) {
+        var uiState = _ref5.uiState;
+        return searchParameters.setQueryParameter('query', uiState.query || '');
+      }
+    };
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connectSearchBox);
 
 /***/ }),
 
@@ -14474,6 +14828,241 @@ function storeRenderState(_ref7) {
   var parentIndexName = parent ? parent.getIndexId() : instantSearchInstance.mainIndex.getIndexId();
   instantSearchInstance.renderState = _objectSpread(_objectSpread({}, instantSearchInstance.renderState), {}, _defineProperty({}, parentIndexName, _objectSpread(_objectSpread({}, instantSearchInstance.renderState[parentIndexName]), renderState)));
 }
+
+/***/ }),
+
+/***/ "./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+
+var _ref2 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
+  d: "M8.114 10L.944 2.83 0 1.885 1.886 0l.943.943L10 8.113l7.17-7.17.944-.943L20 1.886l-.943.943-7.17 7.17 7.17 7.17.943.944L18.114 20l-.943-.943-7.17-7.17-7.17 7.17-.944.943L0 18.114l.943-.943L8.113 10z"
+});
+var _ref4 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
+  d: "M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"
+});
+var _ref6 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("g", {
+  fill: "none",
+  "fill-rule": "evenodd"
+}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("g", {
+  transform: "translate(1 1)",
+  "stroke-width": "2"
+}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("circle", {
+  "stroke-opacity": ".5",
+  cx: "18",
+  cy: "18",
+  r: "18"
+}), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
+  d: "M36 18c0-9.94-8.06-18-18-18"
+}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("animateTransform", {
+  attributeName: "transform",
+  type: "rotate",
+  from: "0 18 18",
+  to: "360 18 18",
+  dur: "1s",
+  repeatCount: "indefinite"
+}))));
+var defaultTemplate = {
+  reset: function reset(_ref) {
+    var cssClasses = _ref.cssClasses;
+    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
+      className: cssClasses.resetIcon,
+      viewBox: "0 0 20 20",
+      width: "10",
+      height: "10",
+      "aria-hidden": "true"
+    }, _ref2);
+  },
+  submit: function submit(_ref3) {
+    var cssClasses = _ref3.cssClasses;
+    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
+      className: cssClasses.submitIcon,
+      width: "10",
+      height: "10",
+      viewBox: "0 0 40 40",
+      "aria-hidden": "true"
+    }, _ref4);
+  },
+  loadingIndicator: function loadingIndicator(_ref5) {
+    var cssClasses = _ref5.cssClasses;
+    /* eslint-disable react/no-unknown-property */
+    // Preact supports kebab case attributes, and using camel case would
+    // require using `preact/compat`.
+    // @TODO: reconsider using the `react` ESLint preset
+    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
+      "aria-label": "Results are loading",
+      className: cssClasses.loadingIcon,
+      width: "16",
+      height: "16",
+      viewBox: "0 0 38 38",
+      stroke: "#444",
+      "aria-hidden": "true"
+    }, _ref6);
+    /* eslint-enable react/no-unknown-property */
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (defaultTemplate);
+
+/***/ }),
+
+/***/ "./node_modules/instantsearch.js/es/widgets/search-box/search-box.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/instantsearch.js/es/widgets/search-box/search-box.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @algolia/ui-components-shared */ "./node_modules/@algolia/ui-components-shared/dist/esm/cx.js");
+/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+/* harmony import */ var _components_SearchBox_SearchBox_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/SearchBox/SearchBox.js */ "./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js");
+/* harmony import */ var _connectors_search_box_connectSearchBox_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../connectors/search-box/connectSearchBox.js */ "./node_modules/instantsearch.js/es/connectors/search-box/connectSearchBox.js");
+/* harmony import */ var _lib_suit_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/suit.js */ "./node_modules/instantsearch.js/es/lib/suit.js");
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/documentation.js");
+/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/getContainerNode.js");
+/* harmony import */ var _defaultTemplates_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./defaultTemplates.js */ "./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+
+
+
+var withUsage = (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.createDocumentationMessageGenerator)({
+  name: 'search-box'
+});
+var suit = (0,_lib_suit_js__WEBPACK_IMPORTED_MODULE_2__.component)('SearchBox');
+var renderer = function renderer(_ref) {
+  var containerNode = _ref.containerNode,
+    cssClasses = _ref.cssClasses,
+    placeholder = _ref.placeholder,
+    templates = _ref.templates,
+    autofocus = _ref.autofocus,
+    searchAsYouType = _ref.searchAsYouType,
+    showReset = _ref.showReset,
+    showSubmit = _ref.showSubmit,
+    showLoadingIndicator = _ref.showLoadingIndicator;
+  return function (_ref2) {
+    var refine = _ref2.refine,
+      query = _ref2.query,
+      isSearchStalled = _ref2.isSearchStalled;
+    (0,preact__WEBPACK_IMPORTED_MODULE_0__.render)((0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_components_SearchBox_SearchBox_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      query: query,
+      placeholder: placeholder,
+      autofocus: autofocus,
+      refine: refine,
+      searchAsYouType: searchAsYouType,
+      templates: templates,
+      showSubmit: showSubmit,
+      showReset: showReset,
+      showLoadingIndicator: showLoadingIndicator,
+      isSearchStalled: isSearchStalled,
+      cssClasses: cssClasses
+    }), containerNode);
+  };
+};
+
+/**
+ * The searchbox widget is used to let the user set a text based query.
+ *
+ * This is usually the  main entry point to start the search in an instantsearch context. For that
+ * reason is usually placed on top, and not hidden so that the user can start searching right
+ * away.
+ *
+ */
+
+var searchBox = function searchBox(widgetParams) {
+  var _ref3 = widgetParams || {},
+    container = _ref3.container,
+    _ref3$placeholder = _ref3.placeholder,
+    placeholder = _ref3$placeholder === void 0 ? '' : _ref3$placeholder,
+    _ref3$cssClasses = _ref3.cssClasses,
+    userCssClasses = _ref3$cssClasses === void 0 ? {} : _ref3$cssClasses,
+    _ref3$autofocus = _ref3.autofocus,
+    autofocus = _ref3$autofocus === void 0 ? false : _ref3$autofocus,
+    _ref3$searchAsYouType = _ref3.searchAsYouType,
+    searchAsYouType = _ref3$searchAsYouType === void 0 ? true : _ref3$searchAsYouType,
+    _ref3$showReset = _ref3.showReset,
+    showReset = _ref3$showReset === void 0 ? true : _ref3$showReset,
+    _ref3$showSubmit = _ref3.showSubmit,
+    showSubmit = _ref3$showSubmit === void 0 ? true : _ref3$showSubmit,
+    _ref3$showLoadingIndi = _ref3.showLoadingIndicator,
+    showLoadingIndicator = _ref3$showLoadingIndi === void 0 ? true : _ref3$showLoadingIndi,
+    queryHook = _ref3.queryHook,
+    _ref3$templates = _ref3.templates,
+    userTemplates = _ref3$templates === void 0 ? {} : _ref3$templates;
+  if (!container) {
+    throw new Error(withUsage('The `container` option is required.'));
+  }
+  var containerNode = (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_4__.getContainerNode)(container);
+  var cssClasses = {
+    root: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit(), userCssClasses.root),
+    form: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'form'
+    }), userCssClasses.form),
+    input: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'input'
+    }), userCssClasses.input),
+    submit: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'submit'
+    }), userCssClasses.submit),
+    submitIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'submitIcon'
+    }), userCssClasses.submitIcon),
+    reset: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'reset'
+    }), userCssClasses.reset),
+    resetIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'resetIcon'
+    }), userCssClasses.resetIcon),
+    loadingIndicator: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'loadingIndicator'
+    }), userCssClasses.loadingIndicator),
+    loadingIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
+      descendantName: 'loadingIcon'
+    }), userCssClasses.loadingIcon)
+  };
+  var templates = _objectSpread(_objectSpread({}, _defaultTemplates_js__WEBPACK_IMPORTED_MODULE_6__["default"]), userTemplates);
+  var specializedRenderer = renderer({
+    containerNode: containerNode,
+    cssClasses: cssClasses,
+    placeholder: placeholder,
+    templates: templates,
+    autofocus: autofocus,
+    searchAsYouType: searchAsYouType,
+    showReset: showReset,
+    showSubmit: showSubmit,
+    showLoadingIndicator: showLoadingIndicator
+  });
+  var makeWidget = (0,_connectors_search_box_connectSearchBox_js__WEBPACK_IMPORTED_MODULE_7__["default"])(specializedRenderer, function () {
+    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.render)(null, containerNode);
+  });
+  return _objectSpread(_objectSpread({}, makeWidget({
+    queryHook: queryHook
+  })), {}, {
+    $$widgetType: 'ais.searchBox'
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (searchBox);
 
 /***/ })
 

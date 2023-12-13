@@ -6,11 +6,12 @@
 ?>
 <div id="ALGOLIA_SEARCH" class="algolia-search algolia-search-container">
   <div class="algolia-search__inner">
-    <input 
+    <div id="searchbox"></div>
+    <!-- <input 
       class="algolia-search__text-field" 
       type="text" name="algolia-search-field" 
       value="" 
-      placeholder="<?php _e('Search...', 'b_helpers') ?>">
+      placeholder="<?php _e('Search...', 'b_helpers') ?>"> -->
   </div>
   <div class="algolia-search__result-entry">
     <div class="col-1">

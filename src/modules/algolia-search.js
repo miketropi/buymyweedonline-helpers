@@ -80,7 +80,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
           }),
         ]),
     ]);
-    
+
     search.on('render',() => { })
     search.start();
 
@@ -89,9 +89,14 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             if (active == true) {
                 document.body.classList.add('__algolia-search-result-active')
             } else {
-                document.body.classList.remove('__algolia-search-result-active')
+              //  document.body.classList.remove('__algolia-search-result-active')
             }
-        })
+        });
+        $(document).on('click', function(e) {
+          if ($(e.target).closest(".algolia-search__result-entry").length === 0 && !$(e.target).hasClass('ais-SearchBox-input')) {
+            document.body.classList.remove('__algolia-search-result-active')
+          }
+        });
     }
 
     const searchFieldHandle = () => {

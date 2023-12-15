@@ -2,7 +2,18 @@
 /**
  * Algolia search
  */
-
+$render_search = false;
+if($atts['display'] == 'both'){
+  $render_search = true;
+}elseif($atts['display'] != 'both'){
+  if($atts['display'] == 'mobile' && wp_is_mobile()){
+    $render_search = true;
+  }
+  if($atts['display'] == 'desktop' && !wp_is_mobile()){
+    $render_search = true;
+  }
+}
+if(!$render_search) return;
 ?>
 <div id="ALGOLIA_SEARCH" class="algolia-search algolia-search-container">
   <div class="algolia-search__inner">

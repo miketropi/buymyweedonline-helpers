@@ -126,3 +126,53 @@
     }
   }
 }
+.inside-navigation{
+  #ALGOLIA_SEARCH {
+    width: 100%;
+    .algolia-search__text-field{
+      width: 100%;
+    }
+  }
+  .algolia-search__result-entry{
+    display: block;
+    padding: 10px;
+    .result-entry-item{
+      > h4{
+        text-align: left;
+        font-size: 18px;
+        margin-bottom: 20px !important;
+      }
+    }
+    .col-1,.col-2{
+      width: 100%;
+    }
+    #ALGOLIA_SEARCH_RESULT_PRODUCT,#ALGOLIA_SEARCH_RESULT_CAT,#ALGOLIA_SEARCH_RESULT_PAGE,#ALGOLIA_SEARCH_RESULT_POST {
+    .ais-Hits-list {
+      display: block;
+      padding-left: 0;
+      margin-left: 0;
+      .ais-Hits-item{
+        list-style-type: none;
+        width: 100%;
+        text-align: left;
+        font-size: initial;
+        p{
+          margin-bottom: 10px;
+        }
+        .__entry{
+          h4{
+            text-align: left;
+          }
+        }
+      }
+    }
+    }
+  }
+}
+
+body .wp-block-column.right-col-online-dispensary.is-layout-flow {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 0px;
+  margin-right: 0;
+}

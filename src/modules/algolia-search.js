@@ -1,7 +1,6 @@
 const algoliasearch = require('algoliasearch/lite');
 const instantsearch = require('instantsearch.js').default;
-import { searchBox, hits, configure } from 'instantsearch.js/es/widgets';
-import { connectSearchBox } from 'instantsearch.js/es/connectors';;
+import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 ((w, $) => {
     'use strict';
     const { algolia_app } = B_HELPERS_DATA;
@@ -24,6 +23,12 @@ import { connectSearchBox } from 'instantsearch.js/es/connectors';;
         }),
         searchBox({
             container: '#searchbox',
+            showReset: false,
+            showSubmit: false,
+            placeholder: 'Search...',
+            cssClasses: {
+              input: 'algolia-search__text-field',
+            },
         }),
         hits({
             container: '#ALGOLIA_SEARCH_RESULT_PRODUCT',
@@ -31,34 +36,53 @@ import { connectSearchBox } from 'instantsearch.js/es/connectors';;
                 empty: 'No results for <q>{{ query }}</q>',
                 item: wp.template('ALGOLIA_SEARCH_RESULT_PRODUCT')
             },
-        })
+        }),
+        index({
+          indexName: 'wp_terms_product_cat'
+        }).addWidgets([
+          configure({
+            hitsPerPage: 4,
+          }),
+          hits({
+            container: '#ALGOLIA_SEARCH_RESULT_CAT',
+            templates: {
+              empty: 'No results for <q>{{ query }}</q>',
+              item: wp.template('ALGOLIA_SEARCH_RESULT_CAT')
+            },
+          }),
+        ]),
+        index({
+          indexName: 'wp_posts_page'
+        }).addWidgets([
+          configure({
+            hitsPerPage: 3,
+          }),
+          hits({
+            container: '#ALGOLIA_SEARCH_RESULT_PAGE',
+            templates: {
+              empty: 'No results for <q>{{ query }}</q>',
+              item: wp.template('ALGOLIA_SEARCH_RESULT_PAGE')
+            },
+          }),
+        ]),
+        index({
+          indexName: 'wp_posts_post'
+        }).addWidgets([
+          configure({
+            hitsPerPage: 3,
+          }),
+          hits({
+            container: '#ALGOLIA_SEARCH_RESULT_POST',
+            templates: {
+              empty: 'No results for <q>{{ query }}</q>',
+              item: wp.template('ALGOLIA_SEARCH_RESULT_POST')
+            },
+          }),
+        ]),
     ]);
-    const search_instant = {
-        ALGOLIA_SEARCH_RESULT_CAT: {
-            configure: {
-                hitsPerPage: 4,
-            },
-            instantsearch: {
-                indexName: 'wp_terms_product_cat'
-            }
-        },
-        ALGOLIA_SEARCH_RESULT_PAGE: {
-            configure: {
-                hitsPerPage: 3,
-            },
-            instantsearch: {
-                indexName: 'wp_posts_page'
-            }
-        },
-        ALGOLIA_SEARCH_RESULT_POST: {
-            configure: {
-                hitsPerPage: 3,
-            },
-            instantsearch: {
-                indexName: 'wp_posts_post'
-            }
-        },
-    }
+    
+    search.on('render',() => { })
+    search.start();
 
     const searchResultActive = () => {
         $(document.body).on('Algolia:SearchResultActive', (e, active) => {
@@ -77,6 +101,10 @@ import { connectSearchBox } from 'instantsearch.js/es/connectors';;
             e.preventDefault();
         })
 
+        $(window).on('scroll', function(e) {
+          $input.trigger('blur');
+        })
+
         $input.on({
             'focus': () => {
                 $(document.body).trigger('Algolia:SearchResultActive', [true])
@@ -90,26 +118,7 @@ import { connectSearchBox } from 'instantsearch.js/es/connectors';;
     const init_search = () => {
         searchResultActive();
         searchFieldHandle();
-        search.addWidgets([
-            $.each(search_instant, (__index, __) => {
-                const _S = __.instantsearch;
-                const _ID = `${ __index }`;
-
-                const wg_hits = hits({
-                    container: `#${ _ID }`,
-                    templates: {
-                        empty: 'No results for <q>{{ query }}</q>',
-                        item: wp.template(`${ _ID }`)
-                    },
-                });
-                const wg_configure = configure(__.configure);
-                search.addWidget(wg_configure);
-                search.addWidget(wg_hits);
-            })
-        ]);
     }
-
-    search.start();
 
     $(init_search);
 

@@ -6,6 +6,7 @@
 function b_helpers_algolia_search_func($atts = []) {
   $a = shortcode_atts([
     'classes' => '',
+    'display' => 'desktop', // both, mobile, desktop
   ], $atts );
 
   set_query_var('atts', $a);

@@ -531,6 +531,19 @@ table.shop_table td {
   text-transform: none;
 }
 
+.algolia-search form {
+  position: relative;
+}
+.algolia-search form .aa-SubmitButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.algolia-search__result-entry h4 {
+  color: #222;
+}
+
 .product-order-category.secure-icons .icon-containner {
   max-width: 1200px;
   width: 100%;

@@ -591,6 +591,39 @@ table.shop_table {
 	text-transform: none;
 }
 
+.algolia-search form {
+  position: relative;
+  .aa-SubmitButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+// .algolia-search form {
+//   position: relative;
+//   .aa-Input {
+//     font-size: 14px;
+//     width: 280px;
+//     margin: 0;
+//   }
+//   .aa-SubmitButton {
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     color: #aaa;
+//     background: none;
+//     padding: 10px;
+//   }
+// }
+
+.algolia-search__result-entry {
+  h4 {
+    color: #222;
+  }
+}
+
 .product-order-category.secure-icons .icon-containner {
   max-width: 1200px;
   width: 100%;

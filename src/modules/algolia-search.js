@@ -10,6 +10,8 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
         return;
     }
 
+    const width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    const is_mobile = width <= 980 ? true : false;
     const searchClient = algoliasearch(APP_ID, API_KEY);
     const search = instantsearch({
         indexName: 'wp_posts_product',
@@ -22,7 +24,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 6,
         }),
         searchBox({
-            container: '#searchbox',
+            container: is_mobile ? '#searchbox_MB' : '#searchbox',
             showReset: false,
             showSubmit: false,
             placeholder: 'Search...',
@@ -31,7 +33,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             },
         }),
         hits({
-            container: '#ALGOLIA_SEARCH_RESULT_PRODUCT',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PRODUCT_MB' : '#ALGOLIA_SEARCH_RESULT_PRODUCT',
             templates: {
                 empty: 'No results for <q>{{ query }}</q>',
                 item: wp.template('ALGOLIA_SEARCH_RESULT_PRODUCT')
@@ -44,7 +46,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 4,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_CAT',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_CAT_MB' : '#ALGOLIA_SEARCH_RESULT_CAT',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_CAT')
@@ -58,7 +60,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 3,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_PAGE',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PAGE_MB' : '#ALGOLIA_SEARCH_RESULT_PAGE',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_PAGE')
@@ -72,7 +74,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 3,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_POST',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_POST_MB' : '#ALGOLIA_SEARCH_RESULT_POST',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_POST')

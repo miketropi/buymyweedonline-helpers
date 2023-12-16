@@ -16,9 +16,9 @@
     outline: none !important;
 
     &::placeholder {
-      color: #a3a3a3;  
+      color: #a3a3a3;
     }
-  } 
+  }
 
   &__result-entry {
     position: absolute;
@@ -58,7 +58,7 @@
 
       li {
         margin: 0;
-        padding: 0; 
+        padding: 0;
       }
     }
   }
@@ -73,7 +73,7 @@
 
       li {
         margin: 0 !important;
-        padding: 0 !important;  
+        padding: 0 !important;
       }
     }
   }
@@ -114,7 +114,7 @@
   }
 }
 
-#ALGOLIA_SEARCH_RESULT_PRODUCT {
+#ALGOLIA_SEARCH_RESULT_PRODUCT,#ALGOLIA_SEARCH_RESULT_PRODUCT_MB {
 
   .ais-Hits-list {
     display: flex;
@@ -127,7 +127,7 @@
   }
 }
 .inside-navigation{
-  #ALGOLIA_SEARCH {
+  #ALGOLIA_SEARCH , #ALGOLIA_SEARCH_MB {
     width: 100%;
     .algolia-search__text-field{
       width: 100%;
@@ -146,7 +146,8 @@
     .col-1,.col-2{
       width: 100%;
     }
-    #ALGOLIA_SEARCH_RESULT_PRODUCT,#ALGOLIA_SEARCH_RESULT_CAT,#ALGOLIA_SEARCH_RESULT_PAGE,#ALGOLIA_SEARCH_RESULT_POST {
+    #ALGOLIA_SEARCH_RESULT_PRODUCT,#ALGOLIA_SEARCH_RESULT_CAT,#ALGOLIA_SEARCH_RESULT_PAGE,#ALGOLIA_SEARCH_RESULT_POST,
+    #ALGOLIA_SEARCH_RESULT_PRODUCT_MB,#ALGOLIA_SEARCH_RESULT_CAT_MB,#ALGOLIA_SEARCH_RESULT_PAGE_MB,#ALGOLIA_SEARCH_RESULT_POST_MB {
     .ais-Hits-list {
       display: block;
       padding-left: 0;

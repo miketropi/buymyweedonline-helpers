@@ -1040,19 +1040,19 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   line-height: normal;
 }
 
-#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list {
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list, #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item {
+#ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item, #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list > .ais-Hits-item {
   width: calc(50% - 20px);
 }
 
-.inside-navigation #ALGOLIA_SEARCH {
+.inside-navigation #ALGOLIA_SEARCH, .inside-navigation #ALGOLIA_SEARCH_MB {
   width: 100%;
 }
-.inside-navigation #ALGOLIA_SEARCH .algolia-search__text-field {
+.inside-navigation #ALGOLIA_SEARCH .algolia-search__text-field, .inside-navigation #ALGOLIA_SEARCH_MB .algolia-search__text-field {
   width: 100%;
 }
 .inside-navigation .algolia-search__result-entry {
@@ -1067,21 +1067,25 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .inside-navigation .algolia-search__result-entry .col-1, .inside-navigation .algolia-search__result-entry .col-2 {
   width: 100%;
 }
-.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list {
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list,
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT_MB .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE_MB .ais-Hits-list, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST_MB .ais-Hits-list {
   display: block;
   padding-left: 0;
   margin-left: 0;
 }
-.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item {
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item,
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT_MB .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE_MB .ais-Hits-list .ais-Hits-item, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST_MB .ais-Hits-list .ais-Hits-item {
   list-style-type: none;
   width: 100%;
   text-align: left;
   font-size: initial;
 }
-.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item p {
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item p,
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT_MB .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE_MB .ais-Hits-list .ais-Hits-item p, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST_MB .ais-Hits-list .ais-Hits-item p {
   margin-bottom: 10px;
 }
-.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item .__entry h4 {
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST .ais-Hits-list .ais-Hits-item .__entry h4,
+.inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_CAT_MB .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_PAGE_MB .ais-Hits-list .ais-Hits-item .__entry h4, .inside-navigation .algolia-search__result-entry #ALGOLIA_SEARCH_RESULT_POST_MB .ais-Hits-list .ais-Hits-item .__entry h4 {
   text-align: left;
 }
 

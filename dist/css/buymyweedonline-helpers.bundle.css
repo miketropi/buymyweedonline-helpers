@@ -973,7 +973,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   position: absolute;
   left: 0;
   width: 1200px;
-  max-width: calc(100% - 40px);
+  max-width: calc(100vw - 40px);
   margin-left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);

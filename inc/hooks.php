@@ -1,16 +1,16 @@
-<?php 
+<?php
 /**
  * Hooks
  */
 
 /**
- * ACF field hooks 
+ * ACF field hooks
  */
 add_filter('acf/load_field/name=select_product_for_freegift', 'b_helpers_acf_field_choices_for_freegift_products');
 
 function b_helpers_acf_field_choices_for_freegift_products($field) {
   // Reset choices
-  $field['choices'] = b_helpers_get_woo_products_choices(); 
+  $field['choices'] = b_helpers_get_woo_products_choices();
   return $field;
 }
 
@@ -39,7 +39,9 @@ function b_helpers_algolia_search_hit_wp_template() {
       <div class="__entry">
         <h4><a href="{{{ data.permalink }}}">{{{ data.post_title }}}</a></h4>
         <div class="__meta-tag">
+          <# if (data.taxonomies['pwb-brand'] != undefined && data.taxonomies['pwb-brand'] != '') { #>
           <span><?php _e('Brand', 'b_helpers') ?>: {{{ data?.taxonomies['pwb-brand']?.join(', ') }}}</span>
+          <# } #>
         </div>
       </div>
     </div>
@@ -56,7 +58,7 @@ function b_helpers_algolia_search_hit_wp_template() {
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_POST">
     <a class="__thumb" href="{{{ data.permalink }}}">{{{ data.post_title }}}</p></a>
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_POST -->
-  <?php 
+  <?php
 }
 
 add_action('wp_footer', 'b_helpers_algolia_search_hit_wp_template');

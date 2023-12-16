@@ -46,15 +46,15 @@ function b_helpers_algolia_search_hit_wp_template() {
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_PRODUCT -->
 
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_CAT">
-    <p>{{{ data.name }}}</p>
+    <a class="__thumb" href="{{{ data.permalink }}}">{{{ data.name }}}</p></a>
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_CAT -->
 
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_PAGE">
-    <p>{{{ data.post_title }}}</p>
+    <a class="__thumb" href="{{{ data.permalink }}}">{{{ data.post_title }}}</p></a>
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_PAGE -->
 
   <script type="text/html" id="tmpl-ALGOLIA_SEARCH_RESULT_POST">
-    <p>{{{ data.post_title }}}</p>
+    <a class="__thumb" href="{{{ data.permalink }}}">{{{ data.post_title }}}</p></a>
   </script> <!-- #tmpl-ALGOLIA_SEARCH_RESULT_POST -->
   <?php 
 }

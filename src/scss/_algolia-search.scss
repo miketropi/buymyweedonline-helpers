@@ -21,7 +21,7 @@
   } 
 
   &__result-entry {
-    position: fixed;
+    position: absolute;
     left: 0;
     width: 1200px;
     max-width: calc(100% - 40px);
@@ -65,7 +65,7 @@
 }
 
 #ALGOLIA_SEARCH {
-
+  position: relative;
   .algolia-search__result-entry {
 
     .result-entry-item {

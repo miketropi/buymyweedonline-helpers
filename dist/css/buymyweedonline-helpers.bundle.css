@@ -970,7 +970,7 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   color: #a3a3a3;
 }
 .algolia-search__result-entry {
-  position: fixed;
+  position: absolute;
   left: 0;
   width: 1200px;
   max-width: calc(100% - 40px);
@@ -1004,6 +1004,9 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   padding: 0;
 }
 
+#ALGOLIA_SEARCH {
+  position: relative;
+}
 #ALGOLIA_SEARCH .algolia-search__result-entry .result-entry-item li {
   margin: 0 !important;
   padding: 0 !important;

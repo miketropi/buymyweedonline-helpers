@@ -439,3 +439,8 @@ add_action('woocommerce_widget_shopping_cart_buttons', function() {
   </span>
   <?php
 }, 5);
+
+add_action('init', function() {
+  if(!isset($_GET['__debug'])) return;
+  // echo '<pre>'; print_r(get_field('bh_freegift_products', 'option')); echo '</pre>';
+});

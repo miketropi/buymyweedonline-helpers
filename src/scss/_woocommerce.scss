@@ -459,14 +459,6 @@ form.woocommerce-ordering {
                             }
                         }
                     }
-                    &.selected {
-                        background-color: #63b723 !important;
-                        .variable-item-contents {
-                            .option_name {
-                                // color: #407717;
-                            }
-                        }
-                    }
                 }
             }
             @media (max-width: 768px) {
@@ -500,6 +492,9 @@ form.woocommerce-ordering {
                                         display: block;
                                     }
                                 }
+                            }
+                            &.selected {
+                                background-color: #63b723 !important;
                             }
                         }
                     }

@@ -1653,9 +1653,6 @@ form.woocommerce-ordering select[name=orderby] {
 .single-product .entry-summary .variations_form .variable-items-wrapper li .variable-item-contents .variable-item-span label {
   display: none;
 }
-.single-product .entry-summary .variations_form .variable-items-wrapper li.selected {
-  background-color: #63b723 !important;
-}
 @media (max-width: 768px) {
   .single-product .entry-summary .variations_form.enable_new_style .variation-prices {
     display: none;
@@ -1686,6 +1683,9 @@ form.woocommerce-ordering select[name=orderby] {
   }
   .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li .variable-item-contents .variable-item-span label {
     display: block;
+  }
+  .single-product .entry-summary .variations_form.enable_new_style .variable-items-wrapper li.selected {
+    background-color: #63b723 !important;
   }
   .single-product .entry-summary .variations_form._long_variations .variations select {
     display: block !important;

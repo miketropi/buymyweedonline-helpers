@@ -611,6 +611,70 @@ table.shop_table td {
     height: 60px !important;
   }
 }
+.single-product button.single_add_to_cart_button svg {
+  display: none;
+}
+.single-product .woobt-products .woobt-product .woobt-price {
+  width: 110px;
+  flex: 0 0 110px;
+  max-width: 110px;
+}
+.single-product .woobt-products .woobt-product .woobt-price del {
+  font-size: 85%;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.single-product .woobt-products .woobt-product .woobt-price ins {
+  font-weight: 700;
+}
+.single-product .woobt-wrap .woobt-additional {
+  margin-bottom: 8px;
+}
+.single-product .woobt-additional del,
+.single-product .woobt-total del {
+  font-size: 85%;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.single-product .woobt-additional ins,
+.single-product .woobt-total ins {
+  font-weight: 700;
+}
+@media (max-width: 767.98px) {
+  .single-product .woobt-before-text.woobt-text {
+    font-size: 18px;
+  }
+  .single-product form.cart button.single_add_to_cart_button {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+  .single-product .woobt-additional,
+  .single-product .woobt-total {
+    font-size: 16px;
+  }
+  .single-product .woobt-wrap-responsive .woobt-products .woobt-product {
+    flex-direction: unset;
+    text-align: left;
+    padding: 0;
+  }
+  .single-product .woobt-wrap-responsive .woobt-products .woobt-product > div {
+    padding: 10px 5px !important;
+  }
+  .single-product .woobt-wrap-responsive .woobt-products .woobt-product > div.woobt-thumb {
+    width: 50px !important;
+    flex: 0 0 50px !important;
+  }
+  .single-product .woobt-wrap-responsive .woobt-products .woobt-product > div.woobt-title {
+    font-size: 16px;
+    line-height: 120%;
+  }
+  .single-product .woobt-wrap-responsive .woobt-products .woobt-product > div.woobt-price {
+    width: 100px !important;
+    flex: 0 0 100px !important;
+    font-size: 16px;
+  }
+}
+
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;
   opacity: 0.3;

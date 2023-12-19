@@ -99,7 +99,7 @@ function bt_intercept_wc_template( $template, $template_name, $template_path ) {
 
 }
 // fil
-add_filter('woo_variation_swatches_image_attribute_template', 'bt_woo_variation_swatches_image_attribute_template', 10, 4);
+// add_filter('woo_variation_swatches_image_attribute_template', 'bt_woo_variation_swatches_image_attribute_template', 10, 4);
 function bt_woo_variation_swatches_image_attribute_template($template, $data, $attribute_type, $variation_data){
   if ( is_product() ){
     $attribute_name = $data['attribute_name'];
@@ -126,7 +126,7 @@ function bt_get_variation_data_by_attribute_name( $available_variations, $attrib
   
   return $assigned;
 }
-add_filter('woo_variation_swatches_button_attribute_template', 'bt_woo_variation_swatches_button_attribute_template', 10, 4);
+// add_filter('woo_variation_swatches_button_attribute_template', 'bt_woo_variation_swatches_button_attribute_template', 10, 4);
 function bt_woo_variation_swatches_button_attribute_template($template, $data, $attribute_type, $variation_data){
   if ( is_product() ){
     $attribute_name = $data['attribute_name'];

@@ -1629,3 +1629,8 @@ form.woocommerce-ordering select[name=orderby] {
     display: none;
   }
 }
+
+.mscpic-body {
+  color: #222;
+  font-weight: 400;
+}

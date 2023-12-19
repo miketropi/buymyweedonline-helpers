@@ -681,6 +681,7 @@ table.shop_table td {
 }
 .wprs_unslider-wrap .srfw_t1_SPAN_5 {
   padding-left: 20px;
+  margin-left: 0 !important;
 }
 
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {

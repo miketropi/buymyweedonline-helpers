@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  *  WooCommerce Helper
  */
@@ -27,11 +27,11 @@ function b_helpers_free_gift_message() {
   }
 
   $the_rest_of_amount = wc_price($rest['the_rest_of_amount']);
-  $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';   
+  $message_type = $rest['number_unlocked'] == 0 ? 'first' : 'next';
 
   $dynamic_text = [
     'first' => __('more to your cart for a free gift', 'b_helpers'),
-    'next' => __('more to unlock the next free gift', 'b_helpers'), 
+    'next' => __('more to unlock the next free gift', 'b_helpers'),
   ];
 
   $text = sprintf(__('Add %s %s!<br />Only 1 gift per cart.', 'b_helpers'), $the_rest_of_amount, $dynamic_text[$message_type]);
@@ -39,61 +39,61 @@ function b_helpers_free_gift_message() {
 }
 
 // add_action('wp_head', function() {
-//   global $woocommerce;  
+//   global $woocommerce;
 //   echo 'dev' . WC()->cart->total;
-//   echo 'dev' . WC()->cart->get_total_discount(); 
-//   echo 'dev' . WC()->cart->get_fee_total(); 
-//   echo 'dev' . WC()->cart->get_cart_discount_total(); 
-//   echo 'dev' . WC()->cart->get_cart_discount_tax_total(); 
+//   echo 'dev' . WC()->cart->get_total_discount();
+//   echo 'dev' . WC()->cart->get_fee_total();
+//   echo 'dev' . WC()->cart->get_cart_discount_total();
+//   echo 'dev' . WC()->cart->get_cart_discount_tax_total();
 // });
 
 add_action('woocommerce_widget_shopping_cart_total', function() {
   $fee = WC()->cart->get_fee_total();
   $current_shipping_cost = WC()->cart->get_cart_shipping_total();
-  ?> 
+  ?>
   <?php if($current_shipping_cost && !empty($current_shipping_cost)) : ?>
   <p class="woocommerce-mini-cart__shipping shipping">
-    <strong><?php _e('Shipping:', 'b_helpers') ?></strong> 
+    <strong><?php _e('Shipping:', 'b_helpers') ?></strong>
     <?php echo $current_shipping_cost; ?>
   </p>
   <?php endif; ?>
 
   <?php if($fee && $fee != 0) { ?>
   <p class="woocommerce-mini-cart__fee fee">
-		<strong><?php _e('Discount:', 'b_helpers') ?></strong> 
-    <?php echo wc_price($fee); ?> 
+		<strong><?php _e('Discount:', 'b_helpers') ?></strong>
+    <?php echo wc_price($fee); ?>
   </p>
   <?php  } ?>
 
   <p class="woocommerce-mini-cart__total total __total">
-		<strong><?php _e('Total:', 'b_helpers') ?></strong> 
-    <?php echo wc_price(WC()->cart->total); ?> 
+		<strong><?php _e('Total:', 'b_helpers') ?></strong>
+    <?php echo wc_price(WC()->cart->total); ?>
   </p>
-  <?php  
+  <?php
 }, 15);
 
-function b_helpers_get_the_rest_of_amount() { 
+function b_helpers_get_the_rest_of_amount() {
   $freegift_products = get_field('bh_freegift_products', 'option');
 
   if(!$freegift_products || count($freegift_products) <= 0) {
     return false;
   }
 
-  $unlock_amount_arr = array_map(function($item) { 
-    return (float) $item['unlock_amount']; 
-  }, $freegift_products);  
+  $unlock_amount_arr = array_map(function($item) {
+    return (float) $item['unlock_amount'];
+  }, $freegift_products);
 
   sort($unlock_amount_arr);
   $cart_total = (float) WC()->cart->total;
-  
+
   $number_unlocked = 0;
   $the_rest_of_amount = 0;
 
   foreach($unlock_amount_arr as $__index => $__item) {
     if($__item > $cart_total) {
       $number_unlocked = $__index;
-      $the_rest_of_amount = $__item - $cart_total; 
-      break; 
+      $the_rest_of_amount = $__item - $cart_total;
+      break;
     }
   }
   // wp_send_json( [$the_rest_of_amount, $cart_total] );
@@ -111,20 +111,20 @@ function b_helpers_get_the_rest_of_amount() {
 function b_helpers_get_product_in_list_free_gift($id) {
   $freegift_products = get_field('bh_freegift_products', 'option');
   if(!$freegift_products || count($freegift_products) <= 0) return false;
-  
+
   $found_key = array_search($id, array_column($freegift_products, 'select_product_for_freegift'));
   if(!isset($freegift_products[$found_key])) return false;
   return $freegift_products[$found_key];
 }
 
 /**
- * 
+ *
  */
 function b_helpers_add_to_cart_gift_validation($passed_validation, $product_id, $quantity, $variation_id) {
   return $passed_validation;
 }
 
-add_filter('B_HELPERS:ADD_TO_CART_GIFT_VALIDATION', 'b_helpers_add_to_cart_gift_validation', 20, 4); 
+add_filter('B_HELPERS:ADD_TO_CART_GIFT_VALIDATION', 'b_helpers_add_to_cart_gift_validation', 20, 4);
 
 function b_helpers_clear_all_free_gift_product_in_cart() {
   $cart = WC()->cart;
@@ -133,10 +133,10 @@ function b_helpers_clear_all_free_gift_product_in_cart() {
       WC()->cart->remove_cart_item( $cart_item_key );
     }
   }
-} 
+}
 
 /**
- * 
+ *
  */
 function b_helpers_woocommerce_ajax_add_to_cart_free_gift() {
   $product_id = absint($_POST['product_id']);
@@ -152,9 +152,9 @@ function b_helpers_woocommerce_ajax_add_to_cart_free_gift() {
   b_helpers_clear_all_free_gift_product_in_cart();
 
   if (
-    $findProductInListFreeGift != false && 
-    $passed_validation && 
-    'publish' === $product_status && 
+    $findProductInListFreeGift != false &&
+    $passed_validation &&
+    'publish' === $product_status &&
     WC()->cart->add_to_cart($product_id, $quantity, $variation_id, [], [
     '__FREE_GIFT__' => [
       'custom_product_price' => 0, // free
@@ -163,9 +163,9 @@ function b_helpers_woocommerce_ajax_add_to_cart_free_gift() {
       'select_product_for_freegift' => $findProductInListFreeGift['select_product_for_freegift']
     ]
   ])) {
-    
+
     do_action('woocommerce_ajax_added_to_cart', $product_id);
-    
+
     if ('yes' === get_option('woocommerce_cart_redirect_after_add')) {
       wc_add_to_cart_message([$product_id => $quantity], true);
     }
@@ -198,7 +198,7 @@ add_action('woocommerce_cart_item_price', function($price, $cart_item, $cart_ite
 }, 20, 3);
 
 /**
- * calculate totals 
+ * calculate totals
  */
 add_action( 'woocommerce_before_calculate_totals', function($cart_object) {
   foreach ( $cart_object->cart_contents as $cart_item_key => $item ) {
@@ -225,7 +225,7 @@ add_filter('woocommerce_update_cart_validation', function($passed, $cart_item_ke
   foreach($cart->get_cart() as $_cart_item_key => $cart_item) {
     if($cart_item_key == $_cart_item_key && isset($cart_item['__FREE_GIFT__'])) {
       return false;
-    } 
+    }
   }
 
   return $passed;
@@ -270,7 +270,7 @@ function b_helpers_minicart_offcanvas() {
   b_helpers_load_template('minicart');
 }
 
-add_action('wp_footer','b_helpers_minicart_offcanvas'); 
+add_action('wp_footer','b_helpers_minicart_offcanvas');
 
 function b_helpers_get_free_shipping_minimum($zone_name = 'England') {
   if ( ! isset( $zone_name ) ) return null;
@@ -316,7 +316,7 @@ function b_helpers_action_woocommerce_before_mini_cart () {
     <div class="show-free-shiping-wrapper">
       <div class="title-amount-shipping">
           <div class="title">
-            <?php 
+            <?php
               if($subtotal < $free_shipping_min) {
                 ?>
                 <span class="text"><?php _e('Free Shipping', 'b_helpers') ?></span>
@@ -327,11 +327,11 @@ function b_helpers_action_woocommerce_before_mini_cart () {
                 <p class="congra"><?php _e('Congratulations! You have received Free Shipping!', 'b_helpers') ?></p>
                 <?php
               }
-            ?>   
+            ?>
           </div>
       </div>
       <div class="inprogress-bar-free-shiping">
-        <?php 
+        <?php
         $width = $subtotal / $free_shipping_min;
         if ($width < 1) { $width_css = $width * 100; }
         else { $width_css = 100; }
@@ -340,7 +340,7 @@ function b_helpers_action_woocommerce_before_mini_cart () {
           <span style="width:<?php echo $width_css . '%' ?>"></span>
         </div>
       </div>
-      <?php 
+      <?php
         if($subtotal < $free_shipping_min) {
           $number_change = $free_shipping_min - $subtotal;
           ?>
@@ -365,10 +365,10 @@ function b_helpers_display_quantity_plus() {
 }
 function b_helpers_display_quantity_minus() {
   echo '<button type="button" class="ic-item-quantity-btn minus __show-only-mini-cart" data-type="minus">-</button>';
-} 
+}
 
 add_action('woocommerce_after_quantity_input_field', 'b_helpers_display_quantity_plus');
-add_action('woocommerce_before_quantity_input_field', 'b_helpers_display_quantity_minus'); 
+add_action('woocommerce_before_quantity_input_field', 'b_helpers_display_quantity_minus');
 
 function b_helpers_meta_tag_after_button_mini_cart() {
   $after_button = get_field('bh_minicart_after_button', 'option');
@@ -380,7 +380,7 @@ function b_helpers_meta_tag_after_button_mini_cart() {
   <div class="meta-tag-love-and-support">
     <div class="__love">
       <a href="<?php echo $after_button['url_1'] ?>">
-        <span class="__icon"><?php echo $icon_start; ?></span>  
+        <span class="__icon"><?php echo $icon_start; ?></span>
         <?php echo $after_button['text_1'] ?>
       </a>
     </div>
@@ -418,14 +418,14 @@ add_action('woocommerce_widget_shopping_cart_after_buttons', function() {
   <?php
 }, 90);
 
-function b_helpers_translate_text_checkout($translated) { 
+function b_helpers_translate_text_checkout($translated) {
   if($translated == 'Checkout') {
-    $translated = str_ireplace('Checkout', 'Secure Checkout', $translated); 
+    $translated = str_ireplace('Checkout', 'Secure Checkout', $translated);
   }
   return $translated;
 }
 
-add_filter('gettext', 'b_helpers_translate_text_checkout'); 
+add_filter('gettext', 'b_helpers_translate_text_checkout');
 add_filter('ngettext', 'b_helpers_translate_text_checkout');
 
 /**
@@ -434,8 +434,42 @@ add_filter('ngettext', 'b_helpers_translate_text_checkout');
 add_action('woocommerce_widget_shopping_cart_buttons', function() {
   ?>
   <span class="total-cart">
-    <strong><?php _e('Total:', 'b_helpers') ?></strong> 
-    <?php echo wc_price(WC()->cart->total); ?> 
+    <strong><?php _e('Total:', 'b_helpers') ?></strong>
+    <?php echo wc_price(WC()->cart->total); ?>
   </span>
   <?php
 }, 5);
+
+// Fix get opts algolia cat page (NOT DELETE)
+add_action('init', function() {
+  $al_opts = get_field('bh_algolia_app', 'option');
+});
+
+//Hook show Bougth Together by Category Product
+add_filter('woobt_get_ids' , 'woo_custom_woobt_get_ids' , 10 , 3);
+function woo_custom_woobt_get_ids($ids, $product_id, $context){
+
+  if(empty($ids)){
+    $terms = get_the_terms ( $product_id , 'product_cat' );
+    $ids = [];
+
+    if(!empty($terms)){
+      foreach ( $terms as $term ) {
+          $list_product_to_bought_together = get_field('list_product_to_bought_together', $term);
+          if(!empty($list_product_to_bought_together)){
+            foreach ($list_product_to_bought_together as $row) {
+               $item = [];
+               $item['id'] = $row['product'];
+               $item['sku'] = $row['product'];
+               $item['price'] = $row['new_price'];
+               $item['qty'] = $row['quality'];
+               $ids[] = $item;
+            }
+          }
+      }
+    }
+
+  }
+
+  return $ids;
+}

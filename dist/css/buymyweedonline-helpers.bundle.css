@@ -1028,6 +1028,12 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .algolia-search__inner .aa-InputWrapperSuffix, .algolia-search__inner .aa-SubmitButton, .algolia-search__inner .aa-LoadingIndicator {
   display: none;
 }
+.algolia-search__inner .aa-Form {
+  border: none;
+}
+.algolia-search__inner .aa-Form:focus-within {
+  box-shadow: none;
+}
 .algolia-search__text-field {
   border-radius: 50px !important;
   padding: 0.5em 1em 0.5em 2.5em !important;
@@ -1170,6 +1176,12 @@ body .wp-block-column.right-col-online-dispensary.is-layout-flow {
   padding-right: 20px;
   margin-left: 0px;
   margin-right: 0;
+}
+
+/* Autocomplete */
+body .aa-Panel {
+  position: fixed;
+  z-index: 999999;
 }
 
 table.cart {

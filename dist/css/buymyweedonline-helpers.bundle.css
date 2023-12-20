@@ -1025,6 +1025,9 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   white-space: nowrap;
 }
 
+.algolia-search__inner .aa-InputWrapperSuffix, .algolia-search__inner .aa-SubmitButton, .algolia-search__inner .aa-LoadingIndicator {
+  display: none;
+}
 .algolia-search__text-field {
   border-radius: 50px !important;
   padding: 0.5em 1em 0.5em 2.5em !important;

@@ -1,7 +1,9 @@
 .algolia-search {
 
   &__inner {
-
+    .aa-InputWrapperSuffix, .aa-SubmitButton,.aa-LoadingIndicator{
+      display: none;
+    }
   }
 
   &__text-field {

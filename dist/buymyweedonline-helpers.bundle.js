@@ -1,6 +1,5730 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/checkOptions.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/checkOptions.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   checkOptions: () => (/* binding */ checkOptions)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+
+function checkOptions(options) {
+   true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.warn)(!options.debug, 'The `debug` option is meant for development debugging and should not be used in production.') : 0;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/createAutocomplete.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/createAutocomplete.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createAutocomplete: () => (/* binding */ createAutocomplete)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_plugin_algolia_insights__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @algolia/autocomplete-plugin-algolia-insights */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createAlgoliaInsightsPlugin.js");
+/* harmony import */ var _checkOptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkOptions */ "./node_modules/@algolia/autocomplete-core/dist/esm/checkOptions.js");
+/* harmony import */ var _createStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createStore */ "./node_modules/@algolia/autocomplete-core/dist/esm/createStore.js");
+/* harmony import */ var _getAutocompleteSetters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getAutocompleteSetters */ "./node_modules/@algolia/autocomplete-core/dist/esm/getAutocompleteSetters.js");
+/* harmony import */ var _getDefaultProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDefaultProps */ "./node_modules/@algolia/autocomplete-core/dist/esm/getDefaultProps.js");
+/* harmony import */ var _getPropGetters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getPropGetters */ "./node_modules/@algolia/autocomplete-core/dist/esm/getPropGetters.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./metadata */ "./node_modules/@algolia/autocomplete-core/dist/esm/metadata.js");
+/* harmony import */ var _onInput__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./onInput */ "./node_modules/@algolia/autocomplete-core/dist/esm/onInput.js");
+/* harmony import */ var _stateReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stateReducer */ "./node_modules/@algolia/autocomplete-core/dist/esm/stateReducer.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+
+
+
+
+
+function createAutocomplete(options) {
+  (0,_checkOptions__WEBPACK_IMPORTED_MODULE_0__.checkOptions)(options);
+  var subscribers = [];
+  var props = (0,_getDefaultProps__WEBPACK_IMPORTED_MODULE_1__.getDefaultProps)(options, subscribers);
+  var store = (0,_createStore__WEBPACK_IMPORTED_MODULE_2__.createStore)(_stateReducer__WEBPACK_IMPORTED_MODULE_3__.stateReducer, props, onStoreStateChange);
+  var setters = (0,_getAutocompleteSetters__WEBPACK_IMPORTED_MODULE_4__.getAutocompleteSetters)({
+    store: store
+  });
+  var propGetters = (0,_getPropGetters__WEBPACK_IMPORTED_MODULE_5__.getPropGetters)(_objectSpread({
+    props: props,
+    refresh: refresh,
+    store: store,
+    navigator: props.navigator
+  }, setters));
+  function onStoreStateChange(_ref) {
+    var _state$context, _state$context$algoli;
+    var prevState = _ref.prevState,
+      state = _ref.state;
+    props.onStateChange(_objectSpread({
+      prevState: prevState,
+      state: state,
+      refresh: refresh,
+      navigator: props.navigator
+    }, setters));
+    if (!isAlgoliaInsightsPluginEnabled() && (_state$context = state.context) !== null && _state$context !== void 0 && (_state$context$algoli = _state$context.algoliaInsightsPlugin) !== null && _state$context$algoli !== void 0 && _state$context$algoli.__automaticInsights && props.insights !== false) {
+      var plugin = (0,_algolia_autocomplete_plugin_algolia_insights__WEBPACK_IMPORTED_MODULE_6__.createAlgoliaInsightsPlugin)({
+        __autocomplete_clickAnalytics: false
+      });
+      props.plugins.push(plugin);
+      subscribePlugins([plugin]);
+    }
+  }
+  function refresh() {
+    return (0,_onInput__WEBPACK_IMPORTED_MODULE_7__.onInput)(_objectSpread({
+      event: new Event('input'),
+      nextState: {
+        isOpen: store.getState().isOpen
+      },
+      props: props,
+      navigator: props.navigator,
+      query: store.getState().query,
+      refresh: refresh,
+      store: store
+    }, setters));
+  }
+  function subscribePlugins(plugins) {
+    plugins.forEach(function (plugin) {
+      var _plugin$subscribe;
+      return (_plugin$subscribe = plugin.subscribe) === null || _plugin$subscribe === void 0 ? void 0 : _plugin$subscribe.call(plugin, _objectSpread(_objectSpread({}, setters), {}, {
+        navigator: props.navigator,
+        refresh: refresh,
+        onSelect: function onSelect(fn) {
+          subscribers.push({
+            onSelect: fn
+          });
+        },
+        onActive: function onActive(fn) {
+          subscribers.push({
+            onActive: fn
+          });
+        },
+        onResolve: function onResolve(fn) {
+          subscribers.push({
+            onResolve: fn
+          });
+        }
+      }));
+    });
+  }
+  function isAlgoliaInsightsPluginEnabled() {
+    return props.plugins.some(function (plugin) {
+      return plugin.name === 'aa.algoliaInsightsPlugin';
+    });
+  }
+  if (props.insights && !isAlgoliaInsightsPluginEnabled()) {
+    var insightsParams = typeof props.insights === 'boolean' ? {} : props.insights;
+    props.plugins.push((0,_algolia_autocomplete_plugin_algolia_insights__WEBPACK_IMPORTED_MODULE_6__.createAlgoliaInsightsPlugin)(insightsParams));
+  }
+  subscribePlugins(props.plugins);
+  (0,_metadata__WEBPACK_IMPORTED_MODULE_8__.injectMetadata)({
+    metadata: (0,_metadata__WEBPACK_IMPORTED_MODULE_8__.getMetadata)({
+      plugins: props.plugins,
+      options: options
+    }),
+    environment: props.environment
+  });
+  return _objectSpread(_objectSpread({
+    refresh: refresh,
+    navigator: props.navigator
+  }, propGetters), setters);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/createStore.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/createStore.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createStore: () => (/* binding */ createStore)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromiseList.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function createStore(reducer, props, onStoreStateChange) {
+  var state = props.initialState;
+  return {
+    getState: function getState() {
+      return state;
+    },
+    dispatch: function dispatch(action, payload) {
+      var prevState = _objectSpread({}, state);
+      state = reducer(state, {
+        type: action,
+        props: props,
+        payload: payload
+      });
+      onStoreStateChange({
+        state: state,
+        prevState: prevState
+      });
+    },
+    pendingRequests: (0,_utils__WEBPACK_IMPORTED_MODULE_0__.createCancelablePromiseList)()
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/getAutocompleteSetters.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/getAutocompleteSetters.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAutocompleteSetters: () => (/* binding */ getAutocompleteSetters)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function getAutocompleteSetters(_ref) {
+  var store = _ref.store;
+  var setActiveItemId = function setActiveItemId(value) {
+    store.dispatch('setActiveItemId', value);
+  };
+  var setQuery = function setQuery(value) {
+    store.dispatch('setQuery', value);
+  };
+  var setCollections = function setCollections(rawValue) {
+    var baseItemId = 0;
+    var value = rawValue.map(function (collection) {
+      return _objectSpread(_objectSpread({}, collection), {}, {
+        // We flatten the stored items to support calling `getAlgoliaResults`
+        // from the source itself.
+        items: (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.flatten)(collection.items).map(function (item) {
+          return _objectSpread(_objectSpread({}, item), {}, {
+            __autocomplete_id: baseItemId++
+          });
+        })
+      });
+    });
+    store.dispatch('setCollections', value);
+  };
+  var setIsOpen = function setIsOpen(value) {
+    store.dispatch('setIsOpen', value);
+  };
+  var setStatus = function setStatus(value) {
+    store.dispatch('setStatus', value);
+  };
+  var setContext = function setContext(value) {
+    store.dispatch('setContext', value);
+  };
+  return {
+    setActiveItemId: setActiveItemId,
+    setQuery: setQuery,
+    setCollections: setCollections,
+    setIsOpen: setIsOpen,
+    setStatus: setStatus,
+    setContext: setContext
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/getCompletion.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/getCompletion.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCompletion: () => (/* binding */ getCompletion)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js");
+
+function getCompletion(_ref) {
+  var _getActiveItem;
+  var state = _ref.state;
+  if (state.isOpen === false || state.activeItemId === null) {
+    return null;
+  }
+  return ((_getActiveItem = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getActiveItem)(state)) === null || _getActiveItem === void 0 ? void 0 : _getActiveItem.itemInputValue) || null;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/getDefaultProps.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/getDefaultProps.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDefaultProps: () => (/* binding */ getDefaultProps)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getItemsCount.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/generateAutocompleteId.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNormalizedSources.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+function getDefaultProps(props, pluginSubscribers) {
+  var _props$id;
+  /* eslint-disable no-restricted-globals */
+  var environment = typeof window !== 'undefined' ? window : {};
+  /* eslint-enable no-restricted-globals */
+  var plugins = props.plugins || [];
+  return _objectSpread(_objectSpread({
+    debug: false,
+    openOnFocus: false,
+    enterKeyHint: undefined,
+    placeholder: '',
+    autoFocus: false,
+    defaultActiveItemId: null,
+    stallThreshold: 300,
+    insights: undefined,
+    environment: environment,
+    shouldPanelOpen: function shouldPanelOpen(_ref) {
+      var state = _ref.state;
+      return (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.getItemsCount)(state) > 0;
+    },
+    reshape: function reshape(_ref2) {
+      var sources = _ref2.sources;
+      return sources;
+    }
+  }, props), {}, {
+    // Since `generateAutocompleteId` triggers a side effect (it increments
+    // an internal counter), we don't want to execute it if unnecessary.
+    id: (_props$id = props.id) !== null && _props$id !== void 0 ? _props$id : (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.generateAutocompleteId)(),
+    plugins: plugins,
+    // The following props need to be deeply defaulted.
+    initialState: _objectSpread({
+      activeItemId: null,
+      query: '',
+      completion: null,
+      collections: [],
+      isOpen: false,
+      status: 'idle',
+      context: {}
+    }, props.initialState),
+    onStateChange: function onStateChange(params) {
+      var _props$onStateChange;
+      (_props$onStateChange = props.onStateChange) === null || _props$onStateChange === void 0 ? void 0 : _props$onStateChange.call(props, params);
+      plugins.forEach(function (x) {
+        var _x$onStateChange;
+        return (_x$onStateChange = x.onStateChange) === null || _x$onStateChange === void 0 ? void 0 : _x$onStateChange.call(x, params);
+      });
+    },
+    onSubmit: function onSubmit(params) {
+      var _props$onSubmit;
+      (_props$onSubmit = props.onSubmit) === null || _props$onSubmit === void 0 ? void 0 : _props$onSubmit.call(props, params);
+      plugins.forEach(function (x) {
+        var _x$onSubmit;
+        return (_x$onSubmit = x.onSubmit) === null || _x$onSubmit === void 0 ? void 0 : _x$onSubmit.call(x, params);
+      });
+    },
+    onReset: function onReset(params) {
+      var _props$onReset;
+      (_props$onReset = props.onReset) === null || _props$onReset === void 0 ? void 0 : _props$onReset.call(props, params);
+      plugins.forEach(function (x) {
+        var _x$onReset;
+        return (_x$onReset = x.onReset) === null || _x$onReset === void 0 ? void 0 : _x$onReset.call(x, params);
+      });
+    },
+    getSources: function getSources(params) {
+      return Promise.all([].concat(_toConsumableArray(plugins.map(function (plugin) {
+        return plugin.getSources;
+      })), [props.getSources]).filter(Boolean).map(function (getSources) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getNormalizedSources)(getSources, params);
+      })).then(function (nested) {
+        return (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.flatten)(nested);
+      }).then(function (sources) {
+        return sources.map(function (source) {
+          return _objectSpread(_objectSpread({}, source), {}, {
+            onSelect: function onSelect(params) {
+              source.onSelect(params);
+              pluginSubscribers.forEach(function (x) {
+                var _x$onSelect;
+                return (_x$onSelect = x.onSelect) === null || _x$onSelect === void 0 ? void 0 : _x$onSelect.call(x, params);
+              });
+            },
+            onActive: function onActive(params) {
+              source.onActive(params);
+              pluginSubscribers.forEach(function (x) {
+                var _x$onActive;
+                return (_x$onActive = x.onActive) === null || _x$onActive === void 0 ? void 0 : _x$onActive.call(x, params);
+              });
+            },
+            onResolve: function onResolve(params) {
+              source.onResolve(params);
+              pluginSubscribers.forEach(function (x) {
+                var _x$onResolve;
+                return (_x$onResolve = x.onResolve) === null || _x$onResolve === void 0 ? void 0 : _x$onResolve.call(x, params);
+              });
+            }
+          });
+        });
+      });
+    },
+    navigator: _objectSpread({
+      navigate: function navigate(_ref3) {
+        var itemUrl = _ref3.itemUrl;
+        environment.location.assign(itemUrl);
+      },
+      navigateNewTab: function navigateNewTab(_ref4) {
+        var itemUrl = _ref4.itemUrl;
+        var windowReference = environment.open(itemUrl, '_blank', 'noopener');
+        windowReference === null || windowReference === void 0 ? void 0 : windowReference.focus();
+      },
+      navigateNewWindow: function navigateNewWindow(_ref5) {
+        var itemUrl = _ref5.itemUrl;
+        environment.open(itemUrl, '_blank', 'noopener');
+      }
+    }, props.navigator)
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/getPropGetters.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/getPropGetters.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getPropGetters: () => (/* binding */ getPropGetters)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/noop.js");
+/* harmony import */ var _onInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./onInput */ "./node_modules/@algolia/autocomplete-core/dist/esm/onInput.js");
+/* harmony import */ var _onKeyDown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./onKeyDown */ "./node_modules/@algolia/autocomplete-core/dist/esm/onKeyDown.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/isOrContainsNode.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getAutocompleteElementId.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/isSamsung.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["props", "refresh", "store"],
+  _excluded2 = ["inputElement", "formElement", "panelElement"],
+  _excluded3 = ["inputElement"],
+  _excluded4 = ["inputElement", "maxLength"],
+  _excluded5 = ["source"],
+  _excluded6 = ["item", "source"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+function getPropGetters(_ref) {
+  var props = _ref.props,
+    refresh = _ref.refresh,
+    store = _ref.store,
+    setters = _objectWithoutProperties(_ref, _excluded);
+  var getEnvironmentProps = function getEnvironmentProps(providedProps) {
+    var inputElement = providedProps.inputElement,
+      formElement = providedProps.formElement,
+      panelElement = providedProps.panelElement,
+      rest = _objectWithoutProperties(providedProps, _excluded2);
+    function onMouseDownOrTouchStart(event) {
+      // The `onTouchStart`/`onMouseDown` events shouldn't trigger the `blur`
+      // handler when it's not an interaction with Autocomplete.
+      // We detect it with the following heuristics:
+      // - the panel is closed AND there are no pending requests
+      //   (no interaction with the autocomplete, no future state updates)
+      // - OR the touched target is the input element (should open the panel)
+      var isAutocompleteInteraction = store.getState().isOpen || !store.pendingRequests.isEmpty();
+      if (!isAutocompleteInteraction || event.target === inputElement) {
+        return;
+      }
+
+      // @TODO: support cases where there are multiple Autocomplete instances.
+      // Right now, a second instance makes this computation return false.
+      var isTargetWithinAutocomplete = [formElement, panelElement].some(function (contextNode) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_0__.isOrContainsNode)(contextNode, event.target);
+      });
+      if (isTargetWithinAutocomplete === false) {
+        store.dispatch('blur', null);
+
+        // If requests are still pending when the user closes the panel, they
+        // could reopen the panel once they resolve.
+        // We want to prevent any subsequent query from reopening the panel
+        // because it would result in an unsolicited UI behavior.
+        if (!props.debug) {
+          store.pendingRequests.cancelAll();
+        }
+      }
+    }
+    return _objectSpread({
+      // We do not rely on the native `blur` event of the input to close the
+      // panel, but rather on a custom `touchstart`/`mousedown` event outside
+      // of the autocomplete elements.
+      // This ensures we don't mistakenly interpret interactions within the
+      // autocomplete (but outside of the input) as a signal to close the panel.
+      // For example, clicking reset button causes an input blur, but if
+      // `openOnFocus=true`, it shouldn't close the panel.
+      // On touch devices, scrolling results (`touchmove`) causes an input blur
+      // but shouldn't close the panel.
+      onTouchStart: onMouseDownOrTouchStart,
+      onMouseDown: onMouseDownOrTouchStart,
+      // When scrolling on touch devices (mobiles, tablets, etc.), we want to
+      // mimic the native platform behavior where the input is blurred to
+      // hide the virtual keyboard. This gives more vertical space to
+      // discover all the suggestions showing up in the panel.
+      onTouchMove: function onTouchMove(event) {
+        if (store.getState().isOpen === false || inputElement !== props.environment.document.activeElement || event.target === inputElement) {
+          return;
+        }
+        inputElement.blur();
+      }
+    }, rest);
+  };
+  var getRootProps = function getRootProps(rest) {
+    return _objectSpread({
+      role: 'combobox',
+      'aria-expanded': store.getState().isOpen,
+      'aria-haspopup': 'listbox',
+      'aria-owns': store.getState().isOpen ? store.getState().collections.map(function (_ref2) {
+        var source = _ref2.source;
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'list', source);
+      }).join(' ') : undefined,
+      'aria-labelledby': (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'label')
+    }, rest);
+  };
+  var getFormProps = function getFormProps(providedProps) {
+    var inputElement = providedProps.inputElement,
+      rest = _objectWithoutProperties(providedProps, _excluded3);
+    return _objectSpread({
+      action: '',
+      noValidate: true,
+      role: 'search',
+      onSubmit: function onSubmit(event) {
+        var _providedProps$inputE;
+        event.preventDefault();
+        props.onSubmit(_objectSpread({
+          event: event,
+          refresh: refresh,
+          state: store.getState()
+        }, setters));
+        store.dispatch('submit', null);
+        (_providedProps$inputE = providedProps.inputElement) === null || _providedProps$inputE === void 0 ? void 0 : _providedProps$inputE.blur();
+      },
+      onReset: function onReset(event) {
+        var _providedProps$inputE2;
+        event.preventDefault();
+        props.onReset(_objectSpread({
+          event: event,
+          refresh: refresh,
+          state: store.getState()
+        }, setters));
+        store.dispatch('reset', null);
+        (_providedProps$inputE2 = providedProps.inputElement) === null || _providedProps$inputE2 === void 0 ? void 0 : _providedProps$inputE2.focus();
+      }
+    }, rest);
+  };
+  var getInputProps = function getInputProps(providedProps) {
+    var _props$environment$na;
+    function onFocus(event) {
+      // We want to trigger a query when `openOnFocus` is true
+      // because the panel should open with the current query.
+      if (props.openOnFocus || Boolean(store.getState().query)) {
+        (0,_onInput__WEBPACK_IMPORTED_MODULE_2__.onInput)(_objectSpread({
+          event: event,
+          props: props,
+          query: store.getState().completion || store.getState().query,
+          refresh: refresh,
+          store: store
+        }, setters));
+      }
+      store.dispatch('focus', null);
+    }
+    var _ref3 = providedProps || {},
+      inputElement = _ref3.inputElement,
+      _ref3$maxLength = _ref3.maxLength,
+      maxLength = _ref3$maxLength === void 0 ? 512 : _ref3$maxLength,
+      rest = _objectWithoutProperties(_ref3, _excluded4);
+    var activeItem = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getActiveItem)(store.getState());
+    var userAgent = ((_props$environment$na = props.environment.navigator) === null || _props$environment$na === void 0 ? void 0 : _props$environment$na.userAgent) || '';
+    var shouldFallbackKeyHint = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.isSamsung)(userAgent);
+    var enterKeyHint = props.enterKeyHint || (activeItem !== null && activeItem !== void 0 && activeItem.itemUrl && !shouldFallbackKeyHint ? 'go' : 'search');
+    return _objectSpread({
+      'aria-autocomplete': 'both',
+      'aria-activedescendant': store.getState().isOpen && store.getState().activeItemId !== null ? (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, "item-".concat(store.getState().activeItemId), activeItem === null || activeItem === void 0 ? void 0 : activeItem.source) : undefined,
+      'aria-controls': store.getState().isOpen ? store.getState().collections.map(function (_ref4) {
+        var source = _ref4.source;
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'list', source);
+      }).join(' ') : undefined,
+      'aria-labelledby': (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'label'),
+      value: store.getState().completion || store.getState().query,
+      id: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'input'),
+      autoComplete: 'off',
+      autoCorrect: 'off',
+      autoCapitalize: 'off',
+      enterKeyHint: enterKeyHint,
+      spellCheck: 'false',
+      autoFocus: props.autoFocus,
+      placeholder: props.placeholder,
+      maxLength: maxLength,
+      type: 'search',
+      onChange: function onChange(event) {
+        (0,_onInput__WEBPACK_IMPORTED_MODULE_2__.onInput)(_objectSpread({
+          event: event,
+          props: props,
+          query: event.currentTarget.value.slice(0, maxLength),
+          refresh: refresh,
+          store: store
+        }, setters));
+      },
+      onKeyDown: function onKeyDown(event) {
+        (0,_onKeyDown__WEBPACK_IMPORTED_MODULE_5__.onKeyDown)(_objectSpread({
+          event: event,
+          props: props,
+          refresh: refresh,
+          store: store
+        }, setters));
+      },
+      onFocus: onFocus,
+      // We don't rely on the `blur` event.
+      // See explanation in `onTouchStart`/`onMouseDown`.
+      // @MAJOR See if we need to keep this handler.
+      onBlur: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__.noop,
+      onClick: function onClick(event) {
+        // When the panel is closed and you click on the input while
+        // the input is focused, the `onFocus` event is not triggered
+        // (default browser behavior).
+        // In an autocomplete context, it makes sense to open the panel in this
+        // case.
+        // We mimic this event by catching the `onClick` event which
+        // triggers the `onFocus` for the panel to open.
+        if (providedProps.inputElement === props.environment.document.activeElement && !store.getState().isOpen) {
+          onFocus(event);
+        }
+      }
+    }, rest);
+  };
+  var getLabelProps = function getLabelProps(rest) {
+    return _objectSpread({
+      htmlFor: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'input'),
+      id: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'label')
+    }, rest);
+  };
+  var getListProps = function getListProps(providedProps) {
+    var _ref5 = providedProps || {},
+      source = _ref5.source,
+      rest = _objectWithoutProperties(_ref5, _excluded5);
+    return _objectSpread({
+      role: 'listbox',
+      'aria-labelledby': (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'label'),
+      id: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, 'list', source)
+    }, rest);
+  };
+  var getPanelProps = function getPanelProps(rest) {
+    return _objectSpread({
+      onMouseDown: function onMouseDown(event) {
+        // Prevents the `activeElement` from being changed to the panel so
+        // that the blur event is not triggered, otherwise it closes the
+        // panel.
+        event.preventDefault();
+      },
+      onMouseLeave: function onMouseLeave() {
+        store.dispatch('mouseleave', null);
+      }
+    }, rest);
+  };
+  var getItemProps = function getItemProps(providedProps) {
+    var item = providedProps.item,
+      source = providedProps.source,
+      rest = _objectWithoutProperties(providedProps, _excluded6);
+    return _objectSpread({
+      id: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, "item-".concat(item.__autocomplete_id), source),
+      role: 'option',
+      'aria-selected': store.getState().activeItemId === item.__autocomplete_id,
+      onMouseMove: function onMouseMove(event) {
+        if (item.__autocomplete_id === store.getState().activeItemId) {
+          return;
+        }
+        store.dispatch('mousemove', item.__autocomplete_id);
+        var activeItem = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getActiveItem)(store.getState());
+        if (store.getState().activeItemId !== null && activeItem) {
+          var _item = activeItem.item,
+            itemInputValue = activeItem.itemInputValue,
+            itemUrl = activeItem.itemUrl,
+            _source = activeItem.source;
+          _source.onActive(_objectSpread({
+            event: event,
+            item: _item,
+            itemInputValue: itemInputValue,
+            itemUrl: itemUrl,
+            refresh: refresh,
+            source: _source,
+            state: store.getState()
+          }, setters));
+        }
+      },
+      onMouseDown: function onMouseDown(event) {
+        // Prevents the `activeElement` from being changed to the item so it
+        // can remain with the current `activeElement`.
+        event.preventDefault();
+      },
+      onClick: function onClick(event) {
+        var itemInputValue = source.getItemInputValue({
+          item: item,
+          state: store.getState()
+        });
+        var itemUrl = source.getItemUrl({
+          item: item,
+          state: store.getState()
+        });
+
+        // If `getItemUrl` is provided, it means that the suggestion
+        // is a link, not plain text that aims at updating the query.
+        // We can therefore skip the state change because it will update
+        // the `activeItemId`, resulting in a UI flash, especially
+        // noticeable on mobile.
+        var runPreCommand = itemUrl ? Promise.resolve() : (0,_onInput__WEBPACK_IMPORTED_MODULE_2__.onInput)(_objectSpread({
+          event: event,
+          nextState: {
+            isOpen: false
+          },
+          props: props,
+          query: itemInputValue,
+          refresh: refresh,
+          store: store
+        }, setters));
+        runPreCommand.then(function () {
+          source.onSelect(_objectSpread({
+            event: event,
+            item: item,
+            itemInputValue: itemInputValue,
+            itemUrl: itemUrl,
+            refresh: refresh,
+            source: source,
+            state: store.getState()
+          }, setters));
+        });
+      }
+    }, rest);
+  };
+  return {
+    getEnvironmentProps: getEnvironmentProps,
+    getRootProps: getRootProps,
+    getFormProps: getFormProps,
+    getLabelProps: getLabelProps,
+    getInputProps: getInputProps,
+    getPanelProps: getPanelProps,
+    getListProps: getListProps,
+    getItemProps: getItemProps
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/metadata.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/metadata.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getMetadata: () => (/* binding */ getMetadata),
+/* harmony export */   injectMetadata: () => (/* binding */ injectMetadata)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/userAgents.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function getMetadata(_ref) {
+  var _, _options$__autocomple, _options$__autocomple2, _options$__autocomple3;
+  var plugins = _ref.plugins,
+    options = _ref.options;
+  var optionsKey = (_ = (((_options$__autocomple = options.__autocomplete_metadata) === null || _options$__autocomple === void 0 ? void 0 : _options$__autocomple.userAgents) || [])[0]) === null || _ === void 0 ? void 0 : _.segment;
+  var extraOptions = optionsKey ? _defineProperty({}, optionsKey, Object.keys(((_options$__autocomple2 = options.__autocomplete_metadata) === null || _options$__autocomple2 === void 0 ? void 0 : _options$__autocomple2.options) || {})) : {};
+  return {
+    plugins: plugins.map(function (plugin) {
+      return {
+        name: plugin.name,
+        options: Object.keys(plugin.__autocomplete_pluginOptions || [])
+      };
+    }),
+    options: _objectSpread({
+      'autocomplete-core': Object.keys(options)
+    }, extraOptions),
+    ua: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.userAgents.concat(((_options$__autocomple3 = options.__autocomplete_metadata) === null || _options$__autocomple3 === void 0 ? void 0 : _options$__autocomple3.userAgents) || [])
+  };
+}
+function injectMetadata(_ref3) {
+  var _environment$navigato, _environment$navigato2;
+  var metadata = _ref3.metadata,
+    environment = _ref3.environment;
+  var isMetadataEnabled = (_environment$navigato = environment.navigator) === null || _environment$navigato === void 0 ? void 0 : (_environment$navigato2 = _environment$navigato.userAgent) === null || _environment$navigato2 === void 0 ? void 0 : _environment$navigato2.includes('Algolia Crawler');
+  if (isMetadataEnabled) {
+    var metadataContainer = environment.document.createElement('meta');
+    var headRef = environment.document.querySelector('head');
+    metadataContainer.name = 'algolia:metadata';
+    setTimeout(function () {
+      metadataContainer.content = JSON.stringify(metadata);
+      headRef.appendChild(metadataContainer);
+    }, 0);
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/onInput.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/onInput.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   onInput: () => (/* binding */ onInput)
+/* harmony export */ });
+/* harmony import */ var _reshape__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reshape */ "./node_modules/@algolia/autocomplete-core/dist/esm/reshape.js");
+/* harmony import */ var _resolve__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolve */ "./node_modules/@algolia/autocomplete-core/dist/esm/resolve.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createConcurrentSafePromise.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromise.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["event", "nextState", "props", "query", "refresh", "store"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+var lastStalledId = null;
+var runConcurrentSafePromise = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.createConcurrentSafePromise)();
+function onInput(_ref) {
+  var event = _ref.event,
+    _ref$nextState = _ref.nextState,
+    nextState = _ref$nextState === void 0 ? {} : _ref$nextState,
+    props = _ref.props,
+    query = _ref.query,
+    refresh = _ref.refresh,
+    store = _ref.store,
+    setters = _objectWithoutProperties(_ref, _excluded);
+  if (lastStalledId) {
+    props.environment.clearTimeout(lastStalledId);
+  }
+  var setCollections = setters.setCollections,
+    setIsOpen = setters.setIsOpen,
+    setQuery = setters.setQuery,
+    setActiveItemId = setters.setActiveItemId,
+    setStatus = setters.setStatus,
+    setContext = setters.setContext;
+  setQuery(query);
+  setActiveItemId(props.defaultActiveItemId);
+  if (!query && props.openOnFocus === false) {
+    var _nextState$isOpen;
+    var collections = store.getState().collections.map(function (collection) {
+      return _objectSpread(_objectSpread({}, collection), {}, {
+        items: []
+      });
+    });
+    setStatus('idle');
+    setCollections(collections);
+    setIsOpen((_nextState$isOpen = nextState.isOpen) !== null && _nextState$isOpen !== void 0 ? _nextState$isOpen : props.shouldPanelOpen({
+      state: store.getState()
+    }));
+
+    // We make sure to update the latest resolved value of the tracked
+    // promises to keep late resolving promises from "cancelling" the state
+    // updates performed in this code path.
+    // We chain with a void promise to respect `onInput`'s expected return type.
+    var _request = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.cancelable)(runConcurrentSafePromise(collections).then(function () {
+      return Promise.resolve();
+    }));
+    return store.pendingRequests.add(_request);
+  }
+  setStatus('loading');
+  lastStalledId = props.environment.setTimeout(function () {
+    setStatus('stalled');
+  }, props.stallThreshold);
+
+  // We track the entire promise chain triggered by `onInput` before mutating
+  // the Autocomplete state to make sure that any state manipulation is based on
+  // fresh data regardless of when promises individually resolve.
+  // We don't track nested promises and only rely on the full chain resolution,
+  // meaning we should only ever manipulate the state once this concurrent-safe
+  // promise is resolved.
+  var request = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.cancelable)(runConcurrentSafePromise(props.getSources(_objectSpread({
+    query: query,
+    refresh: refresh,
+    state: store.getState()
+  }, setters)).then(function (sources) {
+    return Promise.all(sources.map(function (source) {
+      return Promise.resolve(source.getItems(_objectSpread({
+        query: query,
+        refresh: refresh,
+        state: store.getState()
+      }, setters))).then(function (itemsOrDescription) {
+        return (0,_resolve__WEBPACK_IMPORTED_MODULE_2__.preResolve)(itemsOrDescription, source.sourceId, store.getState());
+      });
+    })).then(_resolve__WEBPACK_IMPORTED_MODULE_2__.resolve).then(function (responses) {
+      var __automaticInsights = responses.some(function (_ref2) {
+        var items = _ref2.items;
+        return isSearchResponseWithAutomaticInsightsFlag(items);
+      });
+
+      // No need to pollute the context if `__automaticInsights=false`
+      if (__automaticInsights) {
+        var _store$getState$conte;
+        setContext({
+          algoliaInsightsPlugin: _objectSpread(_objectSpread({}, ((_store$getState$conte = store.getState().context) === null || _store$getState$conte === void 0 ? void 0 : _store$getState$conte.algoliaInsightsPlugin) || {}), {}, {
+            __automaticInsights: __automaticInsights
+          })
+        });
+      }
+      return (0,_resolve__WEBPACK_IMPORTED_MODULE_2__.postResolve)(responses, sources, store);
+    }).then(function (collections) {
+      return (0,_reshape__WEBPACK_IMPORTED_MODULE_3__.reshape)({
+        collections: collections,
+        props: props,
+        state: store.getState()
+      });
+    });
+  }))).then(function (collections) {
+    var _nextState$isOpen2;
+    // Parameters passed to `onInput` could be stale when the following code
+    // executes, because `onInput` calls may not resolve in order.
+    // If it becomes a problem we'll need to save the last passed parameters.
+    // See: https://codesandbox.io/s/agitated-cookies-y290z
+
+    setStatus('idle');
+    setCollections(collections);
+    var isPanelOpen = props.shouldPanelOpen({
+      state: store.getState()
+    });
+    setIsOpen((_nextState$isOpen2 = nextState.isOpen) !== null && _nextState$isOpen2 !== void 0 ? _nextState$isOpen2 : props.openOnFocus && !query && isPanelOpen || isPanelOpen);
+    var highlightedItem = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getActiveItem)(store.getState());
+    if (store.getState().activeItemId !== null && highlightedItem) {
+      var item = highlightedItem.item,
+        itemInputValue = highlightedItem.itemInputValue,
+        itemUrl = highlightedItem.itemUrl,
+        source = highlightedItem.source;
+      source.onActive(_objectSpread({
+        event: event,
+        item: item,
+        itemInputValue: itemInputValue,
+        itemUrl: itemUrl,
+        refresh: refresh,
+        source: source,
+        state: store.getState()
+      }, setters));
+    }
+  }).finally(function () {
+    setStatus('idle');
+    if (lastStalledId) {
+      props.environment.clearTimeout(lastStalledId);
+    }
+  });
+  return store.pendingRequests.add(request);
+}
+function isSearchResponseWithAutomaticInsightsFlag(items) {
+  return !Array.isArray(items) && Boolean(items === null || items === void 0 ? void 0 : items._automaticInsights);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/onKeyDown.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/onKeyDown.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   onKeyDown: () => (/* binding */ onKeyDown)
+/* harmony export */ });
+/* harmony import */ var _onInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./onInput */ "./node_modules/@algolia/autocomplete-core/dist/esm/onInput.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getAutocompleteElementId.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["event", "props", "refresh", "store"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+function onKeyDown(_ref) {
+  var event = _ref.event,
+    props = _ref.props,
+    refresh = _ref.refresh,
+    store = _ref.store,
+    setters = _objectWithoutProperties(_ref, _excluded);
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    // eslint-disable-next-line no-inner-declarations
+    var triggerScrollIntoView = function triggerScrollIntoView() {
+      var highlightedItem = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getActiveItem)(store.getState());
+      var nodeItem = props.environment.document.getElementById((0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAutocompleteElementId)(props.id, "item-".concat(store.getState().activeItemId), highlightedItem === null || highlightedItem === void 0 ? void 0 : highlightedItem.source));
+      if (nodeItem) {
+        if (nodeItem.scrollIntoViewIfNeeded) {
+          nodeItem.scrollIntoViewIfNeeded(false);
+        } else {
+          nodeItem.scrollIntoView(false);
+        }
+      }
+    }; // eslint-disable-next-line no-inner-declarations
+    var triggerOnActive = function triggerOnActive() {
+      var highlightedItem = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getActiveItem)(store.getState());
+      if (store.getState().activeItemId !== null && highlightedItem) {
+        var item = highlightedItem.item,
+          itemInputValue = highlightedItem.itemInputValue,
+          itemUrl = highlightedItem.itemUrl,
+          source = highlightedItem.source;
+        source.onActive(_objectSpread({
+          event: event,
+          item: item,
+          itemInputValue: itemInputValue,
+          itemUrl: itemUrl,
+          refresh: refresh,
+          source: source,
+          state: store.getState()
+        }, setters));
+      }
+    }; // Default browser behavior changes the caret placement on ArrowUp and
+    // ArrowDown.
+    event.preventDefault();
+
+    // When re-opening the panel, we need to split the logic to keep the actions
+    // synchronized as `onInput` returns a promise.
+    if (store.getState().isOpen === false && (props.openOnFocus || Boolean(store.getState().query))) {
+      (0,_onInput__WEBPACK_IMPORTED_MODULE_2__.onInput)(_objectSpread({
+        event: event,
+        props: props,
+        query: store.getState().query,
+        refresh: refresh,
+        store: store
+      }, setters)).then(function () {
+        store.dispatch(event.key, {
+          nextActiveItemId: props.defaultActiveItemId
+        });
+        triggerOnActive();
+        // Since we rely on the DOM, we need to wait for all the micro tasks to
+        // finish (which include re-opening the panel) to make sure all the
+        // elements are available.
+        setTimeout(triggerScrollIntoView, 0);
+      });
+    } else {
+      store.dispatch(event.key, {});
+      triggerOnActive();
+      triggerScrollIntoView();
+    }
+  } else if (event.key === 'Escape') {
+    // This prevents the default browser behavior on `input[type="search"]`
+    // from removing the query right away because we first want to close the
+    // panel.
+    event.preventDefault();
+    store.dispatch(event.key, null);
+
+    // Hitting the `Escape` key signals the end of a user interaction with the
+    // autocomplete. At this point, we should ignore any requests that are still
+    // pending and could reopen the panel once they resolve, because that would
+    // result in an unsolicited UI behavior.
+    store.pendingRequests.cancelAll();
+  } else if (event.key === 'Tab') {
+    store.dispatch('blur', null);
+
+    // Hitting the `Tab` key signals the end of a user interaction with the
+    // autocomplete. At this point, we should ignore any requests that are still
+    // pending and could reopen the panel once they resolve, because that would
+    // result in an unsolicited UI behavior.
+    store.pendingRequests.cancelAll();
+  } else if (event.key === 'Enter') {
+    // No active item, so we let the browser handle the native `onSubmit` form
+    // event.
+    if (store.getState().activeItemId === null || store.getState().collections.every(function (collection) {
+      return collection.items.length === 0;
+    })) {
+      // If requests are still pending when the panel closes, they could reopen
+      // the panel once they resolve.
+      // We want to prevent any subsequent query from reopening the panel
+      // because it would result in an unsolicited UI behavior.
+      if (!props.debug) {
+        store.pendingRequests.cancelAll();
+      }
+      return;
+    }
+
+    // This prevents the `onSubmit` event to be sent because an item is
+    // highlighted.
+    event.preventDefault();
+    var _ref2 = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getActiveItem)(store.getState()),
+      item = _ref2.item,
+      itemInputValue = _ref2.itemInputValue,
+      itemUrl = _ref2.itemUrl,
+      source = _ref2.source;
+    if (event.metaKey || event.ctrlKey) {
+      if (itemUrl !== undefined) {
+        source.onSelect(_objectSpread({
+          event: event,
+          item: item,
+          itemInputValue: itemInputValue,
+          itemUrl: itemUrl,
+          refresh: refresh,
+          source: source,
+          state: store.getState()
+        }, setters));
+        props.navigator.navigateNewTab({
+          itemUrl: itemUrl,
+          item: item,
+          state: store.getState()
+        });
+      }
+    } else if (event.shiftKey) {
+      if (itemUrl !== undefined) {
+        source.onSelect(_objectSpread({
+          event: event,
+          item: item,
+          itemInputValue: itemInputValue,
+          itemUrl: itemUrl,
+          refresh: refresh,
+          source: source,
+          state: store.getState()
+        }, setters));
+        props.navigator.navigateNewWindow({
+          itemUrl: itemUrl,
+          item: item,
+          state: store.getState()
+        });
+      }
+    } else if (event.altKey) {
+      // Keep native browser behavior
+    } else {
+      if (itemUrl !== undefined) {
+        source.onSelect(_objectSpread({
+          event: event,
+          item: item,
+          itemInputValue: itemInputValue,
+          itemUrl: itemUrl,
+          refresh: refresh,
+          source: source,
+          state: store.getState()
+        }, setters));
+        props.navigator.navigate({
+          itemUrl: itemUrl,
+          item: item,
+          state: store.getState()
+        });
+        return;
+      }
+      (0,_onInput__WEBPACK_IMPORTED_MODULE_2__.onInput)(_objectSpread({
+        event: event,
+        nextState: {
+          isOpen: false
+        },
+        props: props,
+        query: itemInputValue,
+        refresh: refresh,
+        store: store
+      }, setters)).then(function () {
+        source.onSelect(_objectSpread({
+          event: event,
+          item: item,
+          itemInputValue: itemInputValue,
+          itemUrl: itemUrl,
+          refresh: refresh,
+          source: source,
+          state: store.getState()
+        }, setters));
+      });
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/reshape.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/reshape.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   reshape: () => (/* binding */ reshape)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function reshape(_ref) {
+  var collections = _ref.collections,
+    props = _ref.props,
+    state = _ref.state;
+  // Sources are grouped by `sourceId` to conveniently pick them via destructuring.
+  // Example: `const { recentSearchesPlugin } = sourcesBySourceId`
+  var originalSourcesBySourceId = collections.reduce(function (acc, collection) {
+    return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, collection.source.sourceId, _objectSpread(_objectSpread({}, collection.source), {}, {
+      getItems: function getItems() {
+        // We provide the resolved items from the collection to the `reshape` prop.
+        return (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.flatten)(collection.items);
+      }
+    })));
+  }, {});
+  var _props$plugins$reduce = props.plugins.reduce(function (acc, plugin) {
+      if (plugin.reshape) {
+        return plugin.reshape(acc);
+      }
+      return acc;
+    }, {
+      sourcesBySourceId: originalSourcesBySourceId,
+      state: state
+    }),
+    sourcesBySourceId = _props$plugins$reduce.sourcesBySourceId;
+  var reshapeSources = props.reshape({
+    sourcesBySourceId: sourcesBySourceId,
+    sources: Object.values(sourcesBySourceId),
+    state: state
+  });
+
+  // We reconstruct the collections with the items modified by the `reshape` prop.
+  return (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.flatten)(reshapeSources).filter(Boolean).map(function (source) {
+    return {
+      source: source,
+      items: source.getItems()
+    };
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/resolve.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/resolve.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   postResolve: () => (/* binding */ postResolve),
+/* harmony export */   preResolve: () => (/* binding */ preResolve),
+/* harmony export */   resolve: () => (/* binding */ resolve)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/decycle.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/mapToAlgoliaResponse.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+function isDescription(item) {
+  return Boolean(item.execute);
+}
+function isRequesterDescription(description) {
+  return Boolean(description === null || description === void 0 ? void 0 : description.execute);
+}
+function preResolve(itemsOrDescription, sourceId, state) {
+  if (isRequesterDescription(itemsOrDescription)) {
+    var contextParameters = itemsOrDescription.requesterId === 'algolia' ? Object.assign.apply(Object, [{}].concat(_toConsumableArray(Object.keys(state.context).map(function (key) {
+      var _state$context$key;
+      return (_state$context$key = state.context[key]) === null || _state$context$key === void 0 ? void 0 : _state$context$key.__algoliaSearchParameters;
+    })))) : {};
+    return _objectSpread(_objectSpread({}, itemsOrDescription), {}, {
+      requests: itemsOrDescription.queries.map(function (query) {
+        return {
+          query: itemsOrDescription.requesterId === 'algolia' ? _objectSpread(_objectSpread({}, query), {}, {
+            params: _objectSpread(_objectSpread({}, contextParameters), query.params)
+          }) : query,
+          sourceId: sourceId,
+          transformResponse: itemsOrDescription.transformResponse
+        };
+      })
+    });
+  }
+  return {
+    items: itemsOrDescription,
+    sourceId: sourceId
+  };
+}
+function resolve(items) {
+  var packed = items.reduce(function (acc, current) {
+    if (!isDescription(current)) {
+      acc.push(current);
+      return acc;
+    }
+    var searchClient = current.searchClient,
+      execute = current.execute,
+      requesterId = current.requesterId,
+      requests = current.requests;
+    var container = acc.find(function (item) {
+      return isDescription(current) && isDescription(item) && item.searchClient === searchClient && Boolean(requesterId) && item.requesterId === requesterId;
+    });
+    if (container) {
+      var _container$items;
+      (_container$items = container.items).push.apply(_container$items, _toConsumableArray(requests));
+    } else {
+      var request = {
+        execute: execute,
+        requesterId: requesterId,
+        items: requests,
+        searchClient: searchClient
+      };
+      acc.push(request);
+    }
+    return acc;
+  }, []);
+  var values = packed.map(function (maybeDescription) {
+    if (!isDescription(maybeDescription)) {
+      return Promise.resolve(maybeDescription);
+    }
+    var _ref = maybeDescription,
+      execute = _ref.execute,
+      items = _ref.items,
+      searchClient = _ref.searchClient;
+    return execute({
+      searchClient: searchClient,
+      requests: items
+    });
+  });
+  return Promise.all(values).then(function (responses) {
+    return (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.flatten)(responses);
+  });
+}
+function postResolve(responses, sources, store) {
+  return sources.map(function (source) {
+    var matches = responses.filter(function (response) {
+      return response.sourceId === source.sourceId;
+    });
+    var results = matches.map(function (_ref2) {
+      var items = _ref2.items;
+      return items;
+    });
+    var transform = matches[0].transformResponse;
+    var items = transform ? transform((0,_utils__WEBPACK_IMPORTED_MODULE_1__.mapToAlgoliaResponse)(results)) : results;
+    source.onResolve({
+      source: source,
+      results: results,
+      items: items,
+      state: store.getState()
+    });
+    (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.invariant)(Array.isArray(items), function () {
+      return "The `getItems` function from source \"".concat(source.sourceId, "\" must return an array of items but returned type ").concat(JSON.stringify(_typeof(items)), ":\n\n").concat(JSON.stringify((0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.decycle)(items), null, 2), ".\n\nSee: https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/sources/#param-getitems");
+    });
+    (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.invariant)(items.every(Boolean), "The `getItems` function from source \"".concat(source.sourceId, "\" must return an array of items but returned ").concat(JSON.stringify(undefined), ".\n\nDid you forget to return items?\n\nSee: https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/sources/#param-getitems"));
+    return {
+      source: source,
+      items: items
+    };
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/stateReducer.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/stateReducer.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   stateReducer: () => (/* binding */ stateReducer)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getItemsCount.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+/* harmony import */ var _getCompletion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getCompletion */ "./node_modules/@algolia/autocomplete-core/dist/esm/getCompletion.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNextActiveItemId.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+var stateReducer = function stateReducer(state, action) {
+  switch (action.type) {
+    case 'setActiveItemId':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: action.payload
+        });
+      }
+    case 'setQuery':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          query: action.payload,
+          completion: null
+        });
+      }
+    case 'setCollections':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          collections: action.payload
+        });
+      }
+    case 'setIsOpen':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          isOpen: action.payload
+        });
+      }
+    case 'setStatus':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          status: action.payload
+        });
+      }
+    case 'setContext':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          context: _objectSpread(_objectSpread({}, state.context), action.payload)
+        });
+      }
+    case 'ArrowDown':
+      {
+        var nextState = _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: action.payload.hasOwnProperty('nextActiveItemId') ? action.payload.nextActiveItemId : (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getNextActiveItemId)(1, state.activeItemId, (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.getItemsCount)(state), action.props.defaultActiveItemId)
+        });
+        return _objectSpread(_objectSpread({}, nextState), {}, {
+          completion: (0,_getCompletion__WEBPACK_IMPORTED_MODULE_2__.getCompletion)({
+            state: nextState
+          })
+        });
+      }
+    case 'ArrowUp':
+      {
+        var _nextState = _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: (0,_utils__WEBPACK_IMPORTED_MODULE_0__.getNextActiveItemId)(-1, state.activeItemId, (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.getItemsCount)(state), action.props.defaultActiveItemId)
+        });
+        return _objectSpread(_objectSpread({}, _nextState), {}, {
+          completion: (0,_getCompletion__WEBPACK_IMPORTED_MODULE_2__.getCompletion)({
+            state: _nextState
+          })
+        });
+      }
+    case 'Escape':
+      {
+        if (state.isOpen) {
+          return _objectSpread(_objectSpread({}, state), {}, {
+            activeItemId: null,
+            isOpen: false,
+            completion: null
+          });
+        }
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: null,
+          query: '',
+          status: 'idle',
+          collections: []
+        });
+      }
+    case 'submit':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: null,
+          isOpen: false,
+          status: 'idle'
+        });
+      }
+    case 'reset':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId:
+          // Since we open the panel on reset when openOnFocus=true
+          // we need to restore the highlighted index to the defaultActiveItemId. (DocSearch use-case)
+
+          // Since we close the panel when openOnFocus=false
+          // we lose track of the highlighted index. (Query-suggestions use-case)
+          action.props.openOnFocus === true ? action.props.defaultActiveItemId : null,
+          status: 'idle',
+          completion: null,
+          query: ''
+        });
+      }
+    case 'focus':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: action.props.defaultActiveItemId,
+          isOpen: (action.props.openOnFocus || Boolean(state.query)) && action.props.shouldPanelOpen({
+            state: state
+          })
+        });
+      }
+    case 'blur':
+      {
+        if (action.props.debug) {
+          return state;
+        }
+        return _objectSpread(_objectSpread({}, state), {}, {
+          isOpen: false,
+          activeItemId: null
+        });
+      }
+    case 'mousemove':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: action.payload
+        });
+      }
+    case 'mouseleave':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          activeItemId: action.props.defaultActiveItemId
+        });
+      }
+    default:
+      (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.invariant)(false, "The reducer action ".concat(JSON.stringify(action.type), " is not supported."));
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromise.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromise.js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cancelable: () => (/* binding */ cancelable),
+/* harmony export */   createCancelablePromise: () => (/* binding */ createCancelablePromise)
+/* harmony export */ });
+function createInternalCancelablePromise(promise, initialState) {
+  var state = initialState;
+  return {
+    then: function then(onfulfilled, onrejected) {
+      return createInternalCancelablePromise(promise.then(createCallback(onfulfilled, state, promise), createCallback(onrejected, state, promise)), state);
+    },
+    catch: function _catch(onrejected) {
+      return createInternalCancelablePromise(promise.catch(createCallback(onrejected, state, promise)), state);
+    },
+    finally: function _finally(onfinally) {
+      if (onfinally) {
+        state.onCancelList.push(onfinally);
+      }
+      return createInternalCancelablePromise(promise.finally(createCallback(onfinally && function () {
+        state.onCancelList = [];
+        return onfinally();
+      }, state, promise)), state);
+    },
+    cancel: function cancel() {
+      state.isCanceled = true;
+      var callbacks = state.onCancelList;
+      state.onCancelList = [];
+      callbacks.forEach(function (callback) {
+        callback();
+      });
+    },
+    isCanceled: function isCanceled() {
+      return state.isCanceled === true;
+    }
+  };
+}
+function createCancelablePromise(executor) {
+  return createInternalCancelablePromise(new Promise(function (resolve, reject) {
+    return executor(resolve, reject);
+  }), {
+    isCanceled: false,
+    onCancelList: []
+  });
+}
+createCancelablePromise.resolve = function (value) {
+  return cancelable(Promise.resolve(value));
+};
+createCancelablePromise.reject = function (reason) {
+  return cancelable(Promise.reject(reason));
+};
+function cancelable(promise) {
+  return createInternalCancelablePromise(promise, {
+    isCanceled: false,
+    onCancelList: []
+  });
+}
+function createCallback(onResult, state, fallback) {
+  if (!onResult) {
+    return fallback;
+  }
+  return function callback(arg) {
+    if (state.isCanceled) {
+      return arg;
+    }
+    return onResult(arg);
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromiseList.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/createCancelablePromiseList.js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createCancelablePromiseList: () => (/* binding */ createCancelablePromiseList)
+/* harmony export */ });
+function createCancelablePromiseList() {
+  var list = [];
+  return {
+    add: function add(cancelablePromise) {
+      list.push(cancelablePromise);
+      return cancelablePromise.finally(function () {
+        list = list.filter(function (item) {
+          return item !== cancelablePromise;
+        });
+      });
+    },
+    cancelAll: function cancelAll() {
+      list.forEach(function (promise) {
+        return promise.cancel();
+      });
+    },
+    isEmpty: function isEmpty() {
+      return list.length === 0;
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/createConcurrentSafePromise.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/createConcurrentSafePromise.js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createConcurrentSafePromise: () => (/* binding */ createConcurrentSafePromise)
+/* harmony export */ });
+/**
+ * Creates a runner that executes promises in a concurrent-safe way.
+ *
+ * This is useful to prevent older promises to resolve after a newer promise,
+ * otherwise resulting in stale resolved values.
+ */
+function createConcurrentSafePromise() {
+  var basePromiseId = -1;
+  var latestResolvedId = -1;
+  var latestResolvedValue = undefined;
+  return function runConcurrentSafePromise(promise) {
+    basePromiseId++;
+    var currentPromiseId = basePromiseId;
+    return Promise.resolve(promise).then(function (x) {
+      // The promise might take too long to resolve and get outdated. This would
+      // result in resolving stale values.
+      // When this happens, we ignore the promise value and return the one
+      // coming from the latest resolved value.
+      //
+      // +----------------------------------+
+      // |        100ms                     |
+      // | run(1) +--->  R1                 |
+      // |        300ms                     |
+      // | run(2) +-------------> R2 (SKIP) |
+      // |        200ms                     |
+      // | run(3) +--------> R3             |
+      // +----------------------------------+
+      if (latestResolvedValue && currentPromiseId < latestResolvedId) {
+        return latestResolvedValue;
+      }
+      latestResolvedId = currentPromiseId;
+      latestResolvedValue = x;
+      return x;
+    });
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/getActiveItem.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getActiveItem: () => (/* binding */ getActiveItem)
+/* harmony export */ });
+// We don't have access to the autocomplete source when we call `onKeyDown`
+// or `onClick` because those are native browser events.
+// However, we can get the source from the suggestion index.
+function getCollectionFromActiveItemId(state) {
+  // Given 3 sources with respectively 1, 2 and 3 suggestions: [1, 2, 3]
+  // We want to get the accumulated counts:
+  // [1, 1 + 2, 1 + 2 + 3] = [1, 3, 3 + 3] = [1, 3, 6]
+  var accumulatedCollectionsCount = state.collections.map(function (collections) {
+    return collections.items.length;
+  }).reduce(function (acc, collectionsCount, index) {
+    var previousValue = acc[index - 1] || 0;
+    var nextValue = previousValue + collectionsCount;
+    acc.push(nextValue);
+    return acc;
+  }, []);
+
+  // Based on the accumulated counts, we can infer the index of the suggestion.
+  var collectionIndex = accumulatedCollectionsCount.reduce(function (acc, current) {
+    if (current <= state.activeItemId) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  return state.collections[collectionIndex];
+}
+
+/**
+ * Gets the highlighted index relative to a suggestion object (not the absolute
+ * highlighted index).
+ *
+ * Example:
+ *  [['a', 'b'], ['c', 'd', 'e'], ['f']]
+ *                      ↑
+ *         (absolute: 3, relative: 1)
+ */
+function getRelativeActiveItemId(_ref) {
+  var state = _ref.state,
+    collection = _ref.collection;
+  var isOffsetFound = false;
+  var counter = 0;
+  var previousItemsOffset = 0;
+  while (isOffsetFound === false) {
+    var currentCollection = state.collections[counter];
+    if (currentCollection === collection) {
+      isOffsetFound = true;
+      break;
+    }
+    previousItemsOffset += currentCollection.items.length;
+    counter++;
+  }
+  return state.activeItemId - previousItemsOffset;
+}
+function getActiveItem(state) {
+  var collection = getCollectionFromActiveItemId(state);
+  if (!collection) {
+    return null;
+  }
+  var item = collection.items[getRelativeActiveItemId({
+    state: state,
+    collection: collection
+  })];
+  var source = collection.source;
+  var itemInputValue = source.getItemInputValue({
+    item: item,
+    state: state
+  });
+  var itemUrl = source.getItemUrl({
+    item: item,
+    state: state
+  });
+  return {
+    item: item,
+    itemInputValue: itemInputValue,
+    itemUrl: itemUrl,
+    source: source
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getAutocompleteElementId.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/getAutocompleteElementId.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAutocompleteElementId: () => (/* binding */ getAutocompleteElementId)
+/* harmony export */ });
+/**
+ * Returns a full element id for an autocomplete element.
+ *
+ * @param autocompleteInstanceId The id of the autocomplete instance
+ * @param elementId The specific element id
+ * @param source The source of the element, when it needs to be scoped
+ */
+function getAutocompleteElementId(autocompleteInstanceId, elementId, source) {
+  return [autocompleteInstanceId, source === null || source === void 0 ? void 0 : source.sourceId, elementId].filter(Boolean).join('-').replace(/\s/g, '');
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNextActiveItemId.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNextActiveItemId.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getNextActiveItemId: () => (/* binding */ getNextActiveItemId)
+/* harmony export */ });
+/**
+ * Returns the next active item ID from the current state.
+ *
+ * We allow circular keyboard navigation from the base index.
+ * The base index can either be `null` (nothing is highlighted) or `0`
+ * (the first item is highlighted).
+ * The base index is allowed to get assigned `null` only if
+ * `props.defaultActiveItemId` is `null`. This pattern allows to "stop"
+ * by the actual query before navigating to other suggestions as seen on
+ * Google or Amazon.
+ *
+ * @param moveAmount The offset to increment (or decrement) the last index
+ * @param baseIndex The current index to compute the next index from
+ * @param itemCount The number of items
+ * @param defaultActiveItemId The default active index to fallback to
+ */
+function getNextActiveItemId(moveAmount, baseIndex, itemCount, defaultActiveItemId) {
+  if (!itemCount) {
+    return null;
+  }
+  if (moveAmount < 0 && (baseIndex === null || defaultActiveItemId !== null && baseIndex === 0)) {
+    return itemCount + moveAmount;
+  }
+  var numericIndex = (baseIndex === null ? -1 : baseIndex) + moveAmount;
+  if (numericIndex <= -1 || numericIndex >= itemCount) {
+    return defaultActiveItemId === null ? null : 0;
+  }
+  return numericIndex;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNormalizedSources.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/getNormalizedSources.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getNormalizedSources: () => (/* binding */ getNormalizedSources)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/decycle.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/noop.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function getNormalizedSources(getSources, params) {
+  var seenSourceIds = [];
+  return Promise.resolve(getSources(params)).then(function (sources) {
+    (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.invariant)(Array.isArray(sources), function () {
+      return "The `getSources` function must return an array of sources but returned type ".concat(JSON.stringify(_typeof(sources)), ":\n\n").concat(JSON.stringify((0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.decycle)(sources), null, 2));
+    });
+    return Promise.all(sources
+    // We allow `undefined` and `false` sources to allow users to use
+    // `Boolean(query) && source` (=> `false`).
+    // We need to remove these values at this point.
+    .filter(function (maybeSource) {
+      return Boolean(maybeSource);
+    }).map(function (source) {
+      (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.invariant)(typeof source.sourceId === 'string', 'A source must provide a `sourceId` string.');
+      if (seenSourceIds.includes(source.sourceId)) {
+        throw new Error("[Autocomplete] The `sourceId` ".concat(JSON.stringify(source.sourceId), " is not unique."));
+      }
+      seenSourceIds.push(source.sourceId);
+      var defaultSource = {
+        getItemInputValue: function getItemInputValue(_ref) {
+          var state = _ref.state;
+          return state.query;
+        },
+        getItemUrl: function getItemUrl() {
+          return undefined;
+        },
+        onSelect: function onSelect(_ref2) {
+          var setIsOpen = _ref2.setIsOpen;
+          setIsOpen(false);
+        },
+        onActive: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.noop,
+        onResolve: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.noop
+      };
+      Object.keys(defaultSource).forEach(function (key) {
+        defaultSource[key].__default = true;
+      });
+      var normalizedSource = _objectSpread(_objectSpread({}, defaultSource), source);
+      return Promise.resolve(normalizedSource);
+    }));
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/isOrContainsNode.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/isOrContainsNode.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isOrContainsNode: () => (/* binding */ isOrContainsNode)
+/* harmony export */ });
+function isOrContainsNode(parent, child) {
+  return parent === child || parent.contains(child);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/isSamsung.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/isSamsung.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isSamsung: () => (/* binding */ isSamsung)
+/* harmony export */ });
+var regex = /((gt|sm)-|galaxy nexus)|samsung[- ]|samsungbrowser/i;
+function isSamsung(userAgent) {
+  return Boolean(userAgent && userAgent.match(regex));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-core/dist/esm/utils/mapToAlgoliaResponse.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-core/dist/esm/utils/mapToAlgoliaResponse.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mapToAlgoliaResponse: () => (/* binding */ mapToAlgoliaResponse)
+/* harmony export */ });
+function mapToAlgoliaResponse(rawResults) {
+  return {
+    results: rawResults,
+    hits: rawResults.map(function (result) {
+      return result.hits;
+    }).filter(Boolean),
+    facetHits: rawResults.map(function (result) {
+      var _facetHits;
+      return (_facetHits = result.facetHits) === null || _facetHits === void 0 ? void 0 : _facetHits.map(function (facetHit) {
+        // Bring support for the highlighting components.
+        return {
+          label: facetHit.value,
+          count: facetHit.count,
+          _highlightResult: {
+            label: {
+              value: facetHit.highlighted
+            }
+          }
+        };
+      });
+    }).filter(Boolean)
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/autocomplete.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/autocomplete.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   autocomplete: () => (/* binding */ autocomplete)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @algolia/autocomplete-core */ "./node_modules/@algolia/autocomplete-core/dist/esm/createAutocomplete.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/createRef.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getItemsCount.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/debounce.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+/* harmony import */ var htm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! htm */ "./node_modules/htm/dist/htm.module.js");
+/* harmony import */ var _createAutocompleteDom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./createAutocompleteDom */ "./node_modules/@algolia/autocomplete-js/dist/esm/createAutocompleteDom.js");
+/* harmony import */ var _createEffectWrapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createEffectWrapper */ "./node_modules/@algolia/autocomplete-js/dist/esm/createEffectWrapper.js");
+/* harmony import */ var _createReactiveWrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createReactiveWrapper */ "./node_modules/@algolia/autocomplete-js/dist/esm/createReactiveWrapper.js");
+/* harmony import */ var _getDefaultOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getDefaultOptions */ "./node_modules/@algolia/autocomplete-js/dist/esm/getDefaultOptions.js");
+/* harmony import */ var _getPanelPlacementStyle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./getPanelPlacementStyle */ "./node_modules/@algolia/autocomplete-js/dist/esm/getPanelPlacementStyle.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./render */ "./node_modules/@algolia/autocomplete-js/dist/esm/render.js");
+/* harmony import */ var _userAgents__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./userAgents */ "./node_modules/@algolia/autocomplete-js/dist/esm/userAgents.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeDeep.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/pickBy.js");
+var _excluded = ["components"];
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+
+
+
+
+
+
+
+var instancesCount = 0;
+function autocomplete(options) {
+  var _createEffectWrapper = (0,_createEffectWrapper__WEBPACK_IMPORTED_MODULE_1__.createEffectWrapper)(),
+    runEffect = _createEffectWrapper.runEffect,
+    cleanupEffects = _createEffectWrapper.cleanupEffects,
+    runEffects = _createEffectWrapper.runEffects;
+  var _createReactiveWrappe = (0,_createReactiveWrapper__WEBPACK_IMPORTED_MODULE_2__.createReactiveWrapper)(),
+    reactive = _createReactiveWrappe.reactive,
+    runReactives = _createReactiveWrappe.runReactives;
+  var hasNoResultsSourceTemplateRef = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.createRef)(false);
+  var optionsRef = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.createRef)(options);
+  var onStateChangeRef = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.createRef)(undefined);
+  var props = reactive(function () {
+    return (0,_getDefaultOptions__WEBPACK_IMPORTED_MODULE_4__.getDefaultOptions)(optionsRef.current);
+  });
+  var isDetached = reactive(function () {
+    return props.value.core.environment.matchMedia(props.value.renderer.detachedMediaQuery).matches;
+  });
+  var autocomplete = reactive(function () {
+    return (0,_algolia_autocomplete_core__WEBPACK_IMPORTED_MODULE_5__.createAutocomplete)(_objectSpread(_objectSpread({}, props.value.core), {}, {
+      onStateChange: function onStateChange(params) {
+        var _onStateChangeRef$cur, _props$value$core$onS, _props$value$core;
+        hasNoResultsSourceTemplateRef.current = params.state.collections.some(function (collection) {
+          return collection.source.templates.noResults;
+        });
+        (_onStateChangeRef$cur = onStateChangeRef.current) === null || _onStateChangeRef$cur === void 0 ? void 0 : _onStateChangeRef$cur.call(onStateChangeRef, params);
+        (_props$value$core$onS = (_props$value$core = props.value.core).onStateChange) === null || _props$value$core$onS === void 0 ? void 0 : _props$value$core$onS.call(_props$value$core, params);
+      },
+      shouldPanelOpen: optionsRef.current.shouldPanelOpen || function (_ref) {
+        var state = _ref.state;
+        if (isDetached.value) {
+          return true;
+        }
+        var hasItems = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__.getItemsCount)(state) > 0;
+        if (!props.value.core.openOnFocus && !state.query) {
+          return hasItems;
+        }
+        var hasNoResultsTemplate = Boolean(hasNoResultsSourceTemplateRef.current || props.value.renderer.renderNoResults);
+        return !hasItems && hasNoResultsTemplate || hasItems;
+      },
+      __autocomplete_metadata: {
+        userAgents: _userAgents__WEBPACK_IMPORTED_MODULE_7__.userAgents,
+        options: options
+      }
+    }));
+  });
+  var lastStateRef = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.createRef)(_objectSpread({
+    collections: [],
+    completion: null,
+    context: {},
+    isOpen: false,
+    query: '',
+    activeItemId: null,
+    status: 'idle'
+  }, props.value.core.initialState));
+  var propGetters = {
+    getEnvironmentProps: props.value.renderer.getEnvironmentProps,
+    getFormProps: props.value.renderer.getFormProps,
+    getInputProps: props.value.renderer.getInputProps,
+    getItemProps: props.value.renderer.getItemProps,
+    getLabelProps: props.value.renderer.getLabelProps,
+    getListProps: props.value.renderer.getListProps,
+    getPanelProps: props.value.renderer.getPanelProps,
+    getRootProps: props.value.renderer.getRootProps
+  };
+  var autocompleteScopeApi = {
+    setActiveItemId: autocomplete.value.setActiveItemId,
+    setQuery: autocomplete.value.setQuery,
+    setCollections: autocomplete.value.setCollections,
+    setIsOpen: autocomplete.value.setIsOpen,
+    setStatus: autocomplete.value.setStatus,
+    setContext: autocomplete.value.setContext,
+    refresh: autocomplete.value.refresh,
+    navigator: autocomplete.value.navigator
+  };
+  var html = reactive(function () {
+    return htm__WEBPACK_IMPORTED_MODULE_0__["default"].bind(props.value.renderer.renderer.createElement);
+  });
+  var dom = reactive(function () {
+    return (0,_createAutocompleteDom__WEBPACK_IMPORTED_MODULE_8__.createAutocompleteDom)({
+      autocomplete: autocomplete.value,
+      autocompleteScopeApi: autocompleteScopeApi,
+      classNames: props.value.renderer.classNames,
+      environment: props.value.core.environment,
+      isDetached: isDetached.value,
+      placeholder: props.value.core.placeholder,
+      propGetters: propGetters,
+      setIsModalOpen: setIsModalOpen,
+      state: lastStateRef.current,
+      translations: props.value.renderer.translations
+    });
+  });
+  function setPanelPosition() {
+    (0,_utils__WEBPACK_IMPORTED_MODULE_9__.setProperties)(dom.value.panel, {
+      style: isDetached.value ? {} : (0,_getPanelPlacementStyle__WEBPACK_IMPORTED_MODULE_10__.getPanelPlacementStyle)({
+        panelPlacement: props.value.renderer.panelPlacement,
+        container: dom.value.root,
+        form: dom.value.form,
+        environment: props.value.core.environment
+      })
+    });
+  }
+  function scheduleRender(state) {
+    lastStateRef.current = state;
+    var renderProps = {
+      autocomplete: autocomplete.value,
+      autocompleteScopeApi: autocompleteScopeApi,
+      classNames: props.value.renderer.classNames,
+      components: props.value.renderer.components,
+      container: props.value.renderer.container,
+      html: html.value,
+      dom: dom.value,
+      panelContainer: isDetached.value ? dom.value.detachedContainer : props.value.renderer.panelContainer,
+      propGetters: propGetters,
+      state: lastStateRef.current,
+      renderer: props.value.renderer.renderer
+    };
+    var render = !(0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__.getItemsCount)(state) && !hasNoResultsSourceTemplateRef.current && props.value.renderer.renderNoResults || props.value.renderer.render;
+    (0,_render__WEBPACK_IMPORTED_MODULE_11__.renderSearchBox)(renderProps);
+    (0,_render__WEBPACK_IMPORTED_MODULE_11__.renderPanel)(render, renderProps);
+  }
+  runEffect(function () {
+    var environmentProps = autocomplete.value.getEnvironmentProps({
+      formElement: dom.value.form,
+      panelElement: dom.value.panel,
+      inputElement: dom.value.input
+    });
+    (0,_utils__WEBPACK_IMPORTED_MODULE_9__.setProperties)(props.value.core.environment, environmentProps);
+    return function () {
+      (0,_utils__WEBPACK_IMPORTED_MODULE_9__.setProperties)(props.value.core.environment, Object.keys(environmentProps).reduce(function (acc, key) {
+        return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, key, undefined));
+      }, {}));
+    };
+  });
+  runEffect(function () {
+    var panelContainerElement = isDetached.value ? props.value.core.environment.document.body : props.value.renderer.panelContainer;
+    var panelElement = isDetached.value ? dom.value.detachedOverlay : dom.value.panel;
+    if (isDetached.value && lastStateRef.current.isOpen) {
+      setIsModalOpen(true);
+    }
+    scheduleRender(lastStateRef.current);
+    return function () {
+      if (panelContainerElement.contains(panelElement)) {
+        panelContainerElement.removeChild(panelElement);
+      }
+    };
+  });
+  runEffect(function () {
+    var containerElement = props.value.renderer.container;
+    containerElement.appendChild(dom.value.root);
+    return function () {
+      containerElement.removeChild(dom.value.root);
+    };
+  });
+  runEffect(function () {
+    var debouncedRender = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_12__.debounce)(function (_ref2) {
+      var state = _ref2.state;
+      scheduleRender(state);
+    }, 0);
+    onStateChangeRef.current = function (_ref3) {
+      var state = _ref3.state,
+        prevState = _ref3.prevState;
+      if (isDetached.value && prevState.isOpen !== state.isOpen) {
+        setIsModalOpen(state.isOpen);
+      }
+
+      // The outer DOM might have changed since the last time the panel was
+      // positioned. The layout might have shifted vertically for instance.
+      // It's therefore safer to re-calculate the panel position before opening
+      // it again.
+      if (!isDetached.value && state.isOpen && !prevState.isOpen) {
+        setPanelPosition();
+      }
+
+      // We scroll to the top of the panel whenever the query changes (i.e. new
+      // results come in) so that users don't have to.
+      if (state.query !== prevState.query) {
+        var scrollablePanels = props.value.core.environment.document.querySelectorAll('.aa-Panel--scrollable');
+        scrollablePanels.forEach(function (scrollablePanel) {
+          if (scrollablePanel.scrollTop !== 0) {
+            scrollablePanel.scrollTop = 0;
+          }
+        });
+      }
+      debouncedRender({
+        state: state
+      });
+    };
+    return function () {
+      onStateChangeRef.current = undefined;
+    };
+  });
+  runEffect(function () {
+    var onResize = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_12__.debounce)(function () {
+      var previousIsDetached = isDetached.value;
+      isDetached.value = props.value.core.environment.matchMedia(props.value.renderer.detachedMediaQuery).matches;
+      if (previousIsDetached !== isDetached.value) {
+        update({});
+      } else {
+        requestAnimationFrame(setPanelPosition);
+      }
+    }, 20);
+    props.value.core.environment.addEventListener('resize', onResize);
+    return function () {
+      props.value.core.environment.removeEventListener('resize', onResize);
+    };
+  });
+  runEffect(function () {
+    if (!isDetached.value) {
+      return function () {};
+    }
+    function toggleModalClassname(isActive) {
+      dom.value.detachedContainer.classList.toggle('aa-DetachedContainer--modal', isActive);
+    }
+    function onChange(event) {
+      toggleModalClassname(event.matches);
+    }
+    var isModalDetachedMql = props.value.core.environment.matchMedia(getComputedStyle(props.value.core.environment.document.documentElement).getPropertyValue('--aa-detached-modal-media-query'));
+    toggleModalClassname(isModalDetachedMql.matches);
+
+    // Prior to Safari 14, `MediaQueryList` isn't based on `EventTarget`,
+    // so we must use `addListener` and `removeListener` to observe media query lists.
+    // See https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
+    var hasModernEventListener = Boolean(isModalDetachedMql.addEventListener);
+    hasModernEventListener ? isModalDetachedMql.addEventListener('change', onChange) : isModalDetachedMql.addListener(onChange);
+    return function () {
+      hasModernEventListener ? isModalDetachedMql.removeEventListener('change', onChange) : isModalDetachedMql.removeListener(onChange);
+    };
+  });
+  runEffect(function () {
+    requestAnimationFrame(setPanelPosition);
+    return function () {};
+  });
+  function destroy() {
+    instancesCount--;
+    cleanupEffects();
+  }
+  function update() {
+    var updatedOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    cleanupEffects();
+    var _props$value$renderer = props.value.renderer,
+      components = _props$value$renderer.components,
+      rendererProps = _objectWithoutProperties(_props$value$renderer, _excluded);
+    optionsRef.current = (0,_utils__WEBPACK_IMPORTED_MODULE_13__.mergeDeep)(rendererProps, props.value.core, {
+      // We need to filter out default components so they can be replaced with
+      // a new `renderer`, without getting rid of user components.
+      // @MAJOR Deal with registering components with the same name as the
+      // default ones. If we disallow overriding default components, we'd just
+      // need to pass all `components` here.
+      components: (0,_utils__WEBPACK_IMPORTED_MODULE_14__.pickBy)(components, function (_ref4) {
+        var value = _ref4.value;
+        return !value.hasOwnProperty('__autocomplete_componentName');
+      }),
+      initialState: lastStateRef.current
+    }, updatedOptions);
+    runReactives();
+    runEffects();
+    autocomplete.value.refresh().then(function () {
+      scheduleRender(lastStateRef.current);
+    });
+  }
+  function setIsModalOpen(value) {
+    requestAnimationFrame(function () {
+      var prevValue = props.value.core.environment.document.body.contains(dom.value.detachedOverlay);
+      if (value === prevValue) {
+        return;
+      }
+      if (value) {
+        props.value.core.environment.document.body.appendChild(dom.value.detachedOverlay);
+        props.value.core.environment.document.body.classList.add('aa-Detached');
+        dom.value.input.focus();
+      } else {
+        props.value.core.environment.document.body.removeChild(dom.value.detachedOverlay);
+        props.value.core.environment.document.body.classList.remove('aa-Detached');
+      }
+    });
+  }
+   true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_15__.warn)(instancesCount === 0, "Autocomplete doesn't support multiple instances running at the same time. Make sure to destroy the previous instance before creating a new one.\n\nSee: https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-destroy") : 0;
+  instancesCount++;
+  return _objectSpread(_objectSpread({}, autocompleteScopeApi), {}, {
+    update: update,
+    destroy: destroy
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/components/Highlight.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/components/Highlight.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createHighlightComponent: () => (/* binding */ createHighlightComponent)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitHighlight.js");
+
+function createHighlightComponent(_ref) {
+  var createElement = _ref.createElement,
+    Fragment = _ref.Fragment;
+  function Highlight(_ref2) {
+    var hit = _ref2.hit,
+      attribute = _ref2.attribute,
+      _ref2$tagName = _ref2.tagName,
+      tagName = _ref2$tagName === void 0 ? 'mark' : _ref2$tagName;
+    return createElement(Fragment, {}, (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__.parseAlgoliaHitHighlight)({
+      hit: hit,
+      attribute: attribute
+    }).map(function (x, index) {
+      return x.isHighlighted ? createElement(tagName, {
+        key: index
+      }, x.value) : x.value;
+    }));
+  }
+  Highlight.__autocomplete_componentName = 'Highlight';
+  return Highlight;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseHighlight.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseHighlight.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createReverseHighlightComponent: () => (/* binding */ createReverseHighlightComponent)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseHighlight.js");
+
+function createReverseHighlightComponent(_ref) {
+  var createElement = _ref.createElement,
+    Fragment = _ref.Fragment;
+  function ReverseHighlight(_ref2) {
+    var hit = _ref2.hit,
+      attribute = _ref2.attribute,
+      _ref2$tagName = _ref2.tagName,
+      tagName = _ref2$tagName === void 0 ? 'mark' : _ref2$tagName;
+    return createElement(Fragment, {}, (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__.parseAlgoliaHitReverseHighlight)({
+      hit: hit,
+      attribute: attribute
+    }).map(function (x, index) {
+      return x.isHighlighted ? createElement(tagName, {
+        key: index
+      }, x.value) : x.value;
+    }));
+  }
+  ReverseHighlight.__autocomplete_componentName = 'ReverseHighlight';
+  return ReverseHighlight;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseSnippet.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseSnippet.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createReverseSnippetComponent: () => (/* binding */ createReverseSnippetComponent)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseSnippet.js");
+
+function createReverseSnippetComponent(_ref) {
+  var createElement = _ref.createElement,
+    Fragment = _ref.Fragment;
+  function ReverseSnippet(_ref2) {
+    var hit = _ref2.hit,
+      attribute = _ref2.attribute,
+      _ref2$tagName = _ref2.tagName,
+      tagName = _ref2$tagName === void 0 ? 'mark' : _ref2$tagName;
+    return createElement(Fragment, {}, (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__.parseAlgoliaHitReverseSnippet)({
+      hit: hit,
+      attribute: attribute
+    }).map(function (x, index) {
+      return x.isHighlighted ? createElement(tagName, {
+        key: index
+      }, x.value) : x.value;
+    }));
+  }
+  ReverseSnippet.__autocomplete_componentName = 'ReverseSnippet';
+  return ReverseSnippet;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/components/Snippet.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/components/Snippet.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createSnippetComponent: () => (/* binding */ createSnippetComponent)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitSnippet.js");
+
+function createSnippetComponent(_ref) {
+  var createElement = _ref.createElement,
+    Fragment = _ref.Fragment;
+  function Snippet(_ref2) {
+    var hit = _ref2.hit,
+      attribute = _ref2.attribute,
+      _ref2$tagName = _ref2.tagName,
+      tagName = _ref2$tagName === void 0 ? 'mark' : _ref2$tagName;
+    return createElement(Fragment, {}, (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__.parseAlgoliaHitSnippet)({
+      hit: hit,
+      attribute: attribute
+    }).map(function (x, index) {
+      return x.isHighlighted ? createElement(tagName, {
+        key: index
+      }, x.value) : x.value;
+    }));
+  }
+  Snippet.__autocomplete_componentName = 'Snippet';
+  return Snippet;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/createAutocompleteDom.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/createAutocompleteDom.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createAutocompleteDom: () => (/* binding */ createAutocompleteDom)
+/* harmony export */ });
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements */ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/SearchIcon.js");
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elements */ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/ClearIcon.js");
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./elements */ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/LoadingIcon.js");
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./elements */ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/Input.js");
+/* harmony import */ var _getCreateDomElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getCreateDomElement */ "./node_modules/@algolia/autocomplete-js/dist/esm/getCreateDomElement.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+function createAutocompleteDom(_ref) {
+  var autocomplete = _ref.autocomplete,
+    autocompleteScopeApi = _ref.autocompleteScopeApi,
+    classNames = _ref.classNames,
+    environment = _ref.environment,
+    isDetached = _ref.isDetached,
+    _ref$placeholder = _ref.placeholder,
+    placeholder = _ref$placeholder === void 0 ? 'Search' : _ref$placeholder,
+    propGetters = _ref.propGetters,
+    setIsModalOpen = _ref.setIsModalOpen,
+    state = _ref.state,
+    translations = _ref.translations;
+  var createDomElement = (0,_getCreateDomElement__WEBPACK_IMPORTED_MODULE_0__.getCreateDomElement)(environment);
+  var rootProps = propGetters.getRootProps(_objectSpread({
+    state: state,
+    props: autocomplete.getRootProps({})
+  }, autocompleteScopeApi));
+  var root = createDomElement('div', _objectSpread({
+    class: classNames.root
+  }, rootProps));
+  var detachedContainer = createDomElement('div', {
+    class: classNames.detachedContainer,
+    onMouseDown: function onMouseDown(event) {
+      event.stopPropagation();
+    }
+  });
+  var detachedOverlay = createDomElement('div', {
+    class: classNames.detachedOverlay,
+    children: [detachedContainer],
+    onMouseDown: function onMouseDown() {
+      setIsModalOpen(false);
+      autocomplete.setIsOpen(false);
+    }
+  });
+  var labelProps = propGetters.getLabelProps(_objectSpread({
+    state: state,
+    props: autocomplete.getLabelProps({})
+  }, autocompleteScopeApi));
+  var submitButton = createDomElement('button', {
+    class: classNames.submitButton,
+    type: 'submit',
+    title: translations.submitButtonTitle,
+    children: [(0,_elements__WEBPACK_IMPORTED_MODULE_1__.SearchIcon)({
+      environment: environment
+    })]
+  });
+  var label = createDomElement('label', _objectSpread({
+    class: classNames.label,
+    children: [submitButton]
+  }, labelProps));
+  var clearButton = createDomElement('button', {
+    class: classNames.clearButton,
+    type: 'reset',
+    title: translations.clearButtonTitle,
+    children: [(0,_elements__WEBPACK_IMPORTED_MODULE_2__.ClearIcon)({
+      environment: environment
+    })]
+  });
+  var loadingIndicator = createDomElement('div', {
+    class: classNames.loadingIndicator,
+    children: [(0,_elements__WEBPACK_IMPORTED_MODULE_3__.LoadingIcon)({
+      environment: environment
+    })]
+  });
+  var input = (0,_elements__WEBPACK_IMPORTED_MODULE_4__.Input)({
+    class: classNames.input,
+    environment: environment,
+    state: state,
+    getInputProps: propGetters.getInputProps,
+    getInputPropsCore: autocomplete.getInputProps,
+    autocompleteScopeApi: autocompleteScopeApi,
+    isDetached: isDetached
+  });
+  var inputWrapperPrefix = createDomElement('div', {
+    class: classNames.inputWrapperPrefix,
+    children: [label, loadingIndicator]
+  });
+  var inputWrapperSuffix = createDomElement('div', {
+    class: classNames.inputWrapperSuffix,
+    children: [clearButton]
+  });
+  var inputWrapper = createDomElement('div', {
+    class: classNames.inputWrapper,
+    children: [input]
+  });
+  var formProps = propGetters.getFormProps(_objectSpread({
+    state: state,
+    props: autocomplete.getFormProps({
+      inputElement: input
+    })
+  }, autocompleteScopeApi));
+  var form = createDomElement('form', _objectSpread({
+    class: classNames.form,
+    children: [inputWrapperPrefix, inputWrapper, inputWrapperSuffix]
+  }, formProps));
+  var panelProps = propGetters.getPanelProps(_objectSpread({
+    state: state,
+    props: autocomplete.getPanelProps({})
+  }, autocompleteScopeApi));
+  var panel = createDomElement('div', _objectSpread({
+    class: classNames.panel
+  }, panelProps));
+  var detachedSearchButtonQuery = createDomElement('div', {
+    class: classNames.detachedSearchButtonQuery,
+    textContent: state.query
+  });
+  var detachedSearchButtonPlaceholder = createDomElement('div', {
+    class: classNames.detachedSearchButtonPlaceholder,
+    hidden: Boolean(state.query),
+    textContent: placeholder
+  });
+  if (false) {}
+  if (isDetached) {
+    var detachedSearchButtonIcon = createDomElement('div', {
+      class: classNames.detachedSearchButtonIcon,
+      children: [(0,_elements__WEBPACK_IMPORTED_MODULE_1__.SearchIcon)({
+        environment: environment
+      })]
+    });
+    var detachedSearchButton = createDomElement('button', {
+      type: 'button',
+      class: classNames.detachedSearchButton,
+      onClick: function onClick() {
+        setIsModalOpen(true);
+      },
+      children: [detachedSearchButtonIcon, detachedSearchButtonPlaceholder, detachedSearchButtonQuery]
+    });
+    var detachedCancelButton = createDomElement('button', {
+      type: 'button',
+      class: classNames.detachedCancelButton,
+      textContent: translations.detachedCancelButtonText,
+      // Prevent `onTouchStart` from closing the panel
+      // since it should be initiated by `onClick` only
+      onTouchStart: function onTouchStart(event) {
+        event.stopPropagation();
+      },
+      onClick: function onClick() {
+        autocomplete.setIsOpen(false);
+        setIsModalOpen(false);
+      }
+    });
+    var detachedFormContainer = createDomElement('div', {
+      class: classNames.detachedFormContainer,
+      children: [form, detachedCancelButton]
+    });
+    detachedContainer.appendChild(detachedFormContainer);
+    root.appendChild(detachedSearchButton);
+  } else {
+    root.appendChild(form);
+  }
+  return {
+    detachedContainer: detachedContainer,
+    detachedOverlay: detachedOverlay,
+    detachedSearchButtonQuery: detachedSearchButtonQuery,
+    detachedSearchButtonPlaceholder: detachedSearchButtonPlaceholder,
+    inputWrapper: inputWrapper,
+    input: input,
+    root: root,
+    form: form,
+    label: label,
+    submitButton: submitButton,
+    clearButton: clearButton,
+    loadingIndicator: loadingIndicator,
+    panel: panel
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/createEffectWrapper.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/createEffectWrapper.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createEffectWrapper: () => (/* binding */ createEffectWrapper)
+/* harmony export */ });
+function createEffectWrapper() {
+  var effects = [];
+  var cleanups = [];
+  function runEffect(fn) {
+    effects.push(fn);
+    var effectCleanup = fn();
+    cleanups.push(effectCleanup);
+  }
+  return {
+    runEffect: runEffect,
+    cleanupEffects: function cleanupEffects() {
+      var currentCleanups = cleanups;
+      cleanups = [];
+      currentCleanups.forEach(function (cleanup) {
+        cleanup();
+      });
+    },
+    runEffects: function runEffects() {
+      var currentEffects = effects;
+      effects = [];
+      currentEffects.forEach(function (effect) {
+        runEffect(effect);
+      });
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/createReactiveWrapper.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/createReactiveWrapper.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createReactiveWrapper: () => (/* binding */ createReactiveWrapper)
+/* harmony export */ });
+function createReactiveWrapper() {
+  var reactives = [];
+  return {
+    reactive: function reactive(value) {
+      var current = value();
+      var reactive = {
+        _fn: value,
+        _ref: {
+          current: current
+        },
+        get value() {
+          return this._ref.current;
+        },
+        set value(value) {
+          this._ref.current = value;
+        }
+      };
+      reactives.push(reactive);
+      return reactive;
+    },
+    runReactives: function runReactives() {
+      reactives.forEach(function (value) {
+        value._ref.current = value._fn();
+      });
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/ClearIcon.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/elements/ClearIcon.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ClearIcon: () => (/* binding */ ClearIcon)
+/* harmony export */ });
+var ClearIcon = function ClearIcon(_ref) {
+  var environment = _ref.environment;
+  var element = environment.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  element.setAttribute('class', 'aa-ClearIcon');
+  element.setAttribute('viewBox', '0 0 24 24');
+  element.setAttribute('width', '18');
+  element.setAttribute('height', '18');
+  element.setAttribute('fill', 'currentColor');
+  var path = environment.document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z');
+  element.appendChild(path);
+  return element;
+};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/Input.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/elements/Input.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Input: () => (/* binding */ Input)
+/* harmony export */ });
+/* harmony import */ var _getCreateDomElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getCreateDomElement */ "./node_modules/@algolia/autocomplete-js/dist/esm/getCreateDomElement.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["autocompleteScopeApi", "environment", "classNames", "getInputProps", "getInputPropsCore", "isDetached", "state"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+var Input = function Input(_ref) {
+  var autocompleteScopeApi = _ref.autocompleteScopeApi,
+    environment = _ref.environment,
+    classNames = _ref.classNames,
+    getInputProps = _ref.getInputProps,
+    getInputPropsCore = _ref.getInputPropsCore,
+    isDetached = _ref.isDetached,
+    state = _ref.state,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var createDomElement = (0,_getCreateDomElement__WEBPACK_IMPORTED_MODULE_0__.getCreateDomElement)(environment);
+  var element = createDomElement('input', props);
+  var inputProps = getInputProps(_objectSpread({
+    state: state,
+    props: getInputPropsCore({
+      inputElement: element
+    }),
+    inputElement: element
+  }, autocompleteScopeApi));
+  (0,_utils__WEBPACK_IMPORTED_MODULE_1__.setProperties)(element, _objectSpread(_objectSpread({}, inputProps), {}, {
+    onKeyDown: function onKeyDown(event) {
+      // In detached mode we don't want to close the panel when hitting `Tab`.
+      if (isDetached && event.key === 'Tab') {
+        return;
+      }
+      inputProps.onKeyDown(event);
+    }
+  }));
+  return element;
+};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/LoadingIcon.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/elements/LoadingIcon.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LoadingIcon: () => (/* binding */ LoadingIcon)
+/* harmony export */ });
+var LoadingIcon = function LoadingIcon(_ref) {
+  var environment = _ref.environment;
+  var element = environment.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  element.setAttribute('class', 'aa-LoadingIcon');
+  element.setAttribute('viewBox', '0 0 100 100');
+  element.setAttribute('width', '20');
+  element.setAttribute('height', '20');
+  element.innerHTML = "<circle\n  cx=\"50\"\n  cy=\"50\"\n  fill=\"none\"\n  r=\"35\"\n  stroke=\"currentColor\"\n  stroke-dasharray=\"164.93361431346415 56.97787143782138\"\n  stroke-width=\"6\"\n>\n  <animateTransform\n    attributeName=\"transform\"\n    type=\"rotate\"\n    repeatCount=\"indefinite\"\n    dur=\"1s\"\n    values=\"0 50 50;90 50 50;180 50 50;360 50 50\"\n    keyTimes=\"0;0.40;0.65;1\"\n  />\n</circle>";
+  return element;
+};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/elements/SearchIcon.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/elements/SearchIcon.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SearchIcon: () => (/* binding */ SearchIcon)
+/* harmony export */ });
+var SearchIcon = function SearchIcon(_ref) {
+  var environment = _ref.environment;
+  var element = environment.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  element.setAttribute('class', 'aa-SubmitIcon');
+  element.setAttribute('viewBox', '0 0 24 24');
+  element.setAttribute('width', '20');
+  element.setAttribute('height', '20');
+  element.setAttribute('fill', 'currentColor');
+  var path = environment.document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z');
+  element.appendChild(path);
+  return element;
+};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/getCreateDomElement.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/getCreateDomElement.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCreateDomElement: () => (/* binding */ getCreateDomElement)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js");
+var _excluded = ["children"];
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function getCreateDomElement(environment) {
+  return function createDomElement(tagName, _ref) {
+    var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? [] : _ref$children,
+      props = _objectWithoutProperties(_ref, _excluded);
+    var element = environment.document.createElement(tagName);
+    (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(element, props);
+    element.append.apply(element, _toConsumableArray(children));
+    return element;
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/getDefaultOptions.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/getDefaultOptions.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDefaultOptions: () => (/* binding */ getDefaultOptions)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/generateAutocompleteId.js");
+/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components */ "./node_modules/@algolia/autocomplete-js/dist/esm/components/Highlight.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components */ "./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseHighlight.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components */ "./node_modules/@algolia/autocomplete-js/dist/esm/components/ReverseSnippet.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components */ "./node_modules/@algolia/autocomplete-js/dist/esm/components/Snippet.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/getHTMLElement.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeClassNames.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["classNames", "container", "getEnvironmentProps", "getFormProps", "getInputProps", "getItemProps", "getLabelProps", "getListProps", "getPanelProps", "getRootProps", "panelContainer", "panelPlacement", "render", "renderNoResults", "renderer", "detachedMediaQuery", "components", "translations"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+var defaultClassNames = {
+  clearButton: 'aa-ClearButton',
+  detachedCancelButton: 'aa-DetachedCancelButton',
+  detachedContainer: 'aa-DetachedContainer',
+  detachedFormContainer: 'aa-DetachedFormContainer',
+  detachedOverlay: 'aa-DetachedOverlay',
+  detachedSearchButton: 'aa-DetachedSearchButton',
+  detachedSearchButtonIcon: 'aa-DetachedSearchButtonIcon',
+  detachedSearchButtonPlaceholder: 'aa-DetachedSearchButtonPlaceholder',
+  detachedSearchButtonQuery: 'aa-DetachedSearchButtonQuery',
+  form: 'aa-Form',
+  input: 'aa-Input',
+  inputWrapper: 'aa-InputWrapper',
+  inputWrapperPrefix: 'aa-InputWrapperPrefix',
+  inputWrapperSuffix: 'aa-InputWrapperSuffix',
+  item: 'aa-Item',
+  label: 'aa-Label',
+  list: 'aa-List',
+  loadingIndicator: 'aa-LoadingIndicator',
+  panel: 'aa-Panel',
+  panelLayout: 'aa-PanelLayout aa-Panel--scrollable',
+  root: 'aa-Autocomplete',
+  source: 'aa-Source',
+  sourceFooter: 'aa-SourceFooter',
+  sourceHeader: 'aa-SourceHeader',
+  sourceNoResults: 'aa-SourceNoResults',
+  submitButton: 'aa-SubmitButton'
+};
+var defaultRender = function defaultRender(_ref, root) {
+  var children = _ref.children,
+    render = _ref.render;
+  render(children, root);
+};
+var defaultRenderer = {
+  createElement: preact__WEBPACK_IMPORTED_MODULE_0__.createElement,
+  Fragment: preact__WEBPACK_IMPORTED_MODULE_0__.Fragment,
+  render: preact__WEBPACK_IMPORTED_MODULE_0__.render
+};
+function getDefaultOptions(options) {
+  var _core$id;
+  var classNames = options.classNames,
+    container = options.container,
+    getEnvironmentProps = options.getEnvironmentProps,
+    getFormProps = options.getFormProps,
+    getInputProps = options.getInputProps,
+    getItemProps = options.getItemProps,
+    getLabelProps = options.getLabelProps,
+    getListProps = options.getListProps,
+    getPanelProps = options.getPanelProps,
+    getRootProps = options.getRootProps,
+    panelContainer = options.panelContainer,
+    panelPlacement = options.panelPlacement,
+    render = options.render,
+    renderNoResults = options.renderNoResults,
+    renderer = options.renderer,
+    detachedMediaQuery = options.detachedMediaQuery,
+    components = options.components,
+    translations = options.translations,
+    core = _objectWithoutProperties(options, _excluded);
+
+  /* eslint-disable no-restricted-globals */
+  var environment = typeof window !== 'undefined' ? window : {};
+  /* eslint-enable no-restricted-globals */
+  var containerElement = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getHTMLElement)(environment, container);
+  (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.invariant)(containerElement.tagName !== 'INPUT', 'The `container` option does not support `input` elements. You need to change the container to a `div`.');
+   true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.warn)(!(render && renderer && !(renderer !== null && renderer !== void 0 && renderer.render)), "You provided the `render` option but did not provide a `renderer.render`. Since v1.6.0, you can provide a `render` function directly in `renderer`." + "\nTo get rid of this warning, do any of the following depending on your use case." + "\n- If you are using the `render` option only to override Autocomplete's default `render` function, pass the `render` function into `renderer` and remove the `render` option." + '\n- If you are using the `render` option to customize the layout, pass your `render` function into `renderer` and use it from the provided parameters of the `render` option.' + '\n- If you are using the `render` option to work with React 18, pass an empty `render` function into `renderer`.' + '\nSee https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-render') : 0;
+   true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.warn)(!renderer || render || renderer.Fragment && renderer.createElement && renderer.render, "You provided an incomplete `renderer` (missing: ".concat([!(renderer !== null && renderer !== void 0 && renderer.createElement) && '`renderer.createElement`', !(renderer !== null && renderer !== void 0 && renderer.Fragment) && '`renderer.Fragment`', !(renderer !== null && renderer !== void 0 && renderer.render) && '`renderer.render`'].filter(Boolean).join(', '), "). This can cause rendering issues.") + '\nSee https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-renderer') : 0;
+  var defaultedRenderer = _objectSpread(_objectSpread({}, defaultRenderer), renderer);
+  var defaultComponents = {
+    Highlight: (0,_components__WEBPACK_IMPORTED_MODULE_4__.createHighlightComponent)(defaultedRenderer),
+    ReverseHighlight: (0,_components__WEBPACK_IMPORTED_MODULE_5__.createReverseHighlightComponent)(defaultedRenderer),
+    ReverseSnippet: (0,_components__WEBPACK_IMPORTED_MODULE_6__.createReverseSnippetComponent)(defaultedRenderer),
+    Snippet: (0,_components__WEBPACK_IMPORTED_MODULE_7__.createSnippetComponent)(defaultedRenderer)
+  };
+  var defaultTranslations = {
+    clearButtonTitle: 'Clear',
+    detachedCancelButtonText: 'Cancel',
+    submitButtonTitle: 'Submit'
+  };
+  return {
+    renderer: {
+      classNames: (0,_utils__WEBPACK_IMPORTED_MODULE_8__.mergeClassNames)(defaultClassNames, classNames !== null && classNames !== void 0 ? classNames : {}),
+      container: containerElement,
+      getEnvironmentProps: getEnvironmentProps !== null && getEnvironmentProps !== void 0 ? getEnvironmentProps : function (_ref2) {
+        var props = _ref2.props;
+        return props;
+      },
+      getFormProps: getFormProps !== null && getFormProps !== void 0 ? getFormProps : function (_ref3) {
+        var props = _ref3.props;
+        return props;
+      },
+      getInputProps: getInputProps !== null && getInputProps !== void 0 ? getInputProps : function (_ref4) {
+        var props = _ref4.props;
+        return props;
+      },
+      getItemProps: getItemProps !== null && getItemProps !== void 0 ? getItemProps : function (_ref5) {
+        var props = _ref5.props;
+        return props;
+      },
+      getLabelProps: getLabelProps !== null && getLabelProps !== void 0 ? getLabelProps : function (_ref6) {
+        var props = _ref6.props;
+        return props;
+      },
+      getListProps: getListProps !== null && getListProps !== void 0 ? getListProps : function (_ref7) {
+        var props = _ref7.props;
+        return props;
+      },
+      getPanelProps: getPanelProps !== null && getPanelProps !== void 0 ? getPanelProps : function (_ref8) {
+        var props = _ref8.props;
+        return props;
+      },
+      getRootProps: getRootProps !== null && getRootProps !== void 0 ? getRootProps : function (_ref9) {
+        var props = _ref9.props;
+        return props;
+      },
+      panelContainer: panelContainer ? (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getHTMLElement)(environment, panelContainer) : environment.document.body,
+      panelPlacement: panelPlacement !== null && panelPlacement !== void 0 ? panelPlacement : 'input-wrapper-width',
+      render: render !== null && render !== void 0 ? render : defaultRender,
+      renderNoResults: renderNoResults,
+      renderer: defaultedRenderer,
+      detachedMediaQuery: detachedMediaQuery !== null && detachedMediaQuery !== void 0 ? detachedMediaQuery : getComputedStyle(environment.document.documentElement).getPropertyValue('--aa-detached-media-query'),
+      components: _objectSpread(_objectSpread({}, defaultComponents), components),
+      translations: _objectSpread(_objectSpread({}, defaultTranslations), translations)
+    },
+    core: _objectSpread(_objectSpread({}, core), {}, {
+      id: (_core$id = core.id) !== null && _core$id !== void 0 ? _core$id : (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_9__.generateAutocompleteId)(),
+      environment: environment
+    })
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/getPanelPlacementStyle.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/getPanelPlacementStyle.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getPanelPlacementStyle: () => (/* binding */ getPanelPlacementStyle)
+/* harmony export */ });
+function getPanelPlacementStyle(_ref) {
+  var panelPlacement = _ref.panelPlacement,
+    container = _ref.container,
+    form = _ref.form,
+    environment = _ref.environment;
+  var containerRect = container.getBoundingClientRect();
+  // Some browsers have specificities to retrieve the document scroll position.
+  // See https://stackoverflow.com/a/28633515/9940315
+  var scrollTop = environment.pageYOffset || environment.document.documentElement.scrollTop || environment.document.body.scrollTop || 0;
+  var top = scrollTop + containerRect.top + containerRect.height;
+  switch (panelPlacement) {
+    case 'start':
+      {
+        return {
+          top: top,
+          left: containerRect.left
+        };
+      }
+    case 'end':
+      {
+        return {
+          top: top,
+          right: environment.document.documentElement.clientWidth - (containerRect.left + containerRect.width)
+        };
+      }
+    case 'full-width':
+      {
+        return {
+          top: top,
+          left: 0,
+          right: 0,
+          width: 'unset',
+          maxWidth: 'unset'
+        };
+      }
+    case 'input-wrapper-width':
+      {
+        var formRect = form.getBoundingClientRect();
+        return {
+          top: top,
+          left: formRect.left,
+          right: environment.document.documentElement.clientWidth - (formRect.left + formRect.width),
+          width: 'unset',
+          maxWidth: 'unset'
+        };
+      }
+    default:
+      {
+        throw new Error("[Autocomplete] The `panelPlacement` value ".concat(JSON.stringify(panelPlacement), " is not valid."));
+      }
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/render.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/render.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   renderPanel: () => (/* binding */ renderPanel),
+/* harmony export */   renderSearchBox: () => (/* binding */ renderSearchBox)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/** @jsxRuntime classic */
+/** @jsx renderer.createElement */
+
+
+function renderSearchBox(_ref) {
+  var autocomplete = _ref.autocomplete,
+    autocompleteScopeApi = _ref.autocompleteScopeApi,
+    dom = _ref.dom,
+    propGetters = _ref.propGetters,
+    state = _ref.state;
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setPropertiesWithoutEvents)(dom.root, propGetters.getRootProps(_objectSpread({
+    state: state,
+    props: autocomplete.getRootProps({})
+  }, autocompleteScopeApi)));
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setPropertiesWithoutEvents)(dom.input, propGetters.getInputProps(_objectSpread({
+    state: state,
+    props: autocomplete.getInputProps({
+      inputElement: dom.input
+    }),
+    inputElement: dom.input
+  }, autocompleteScopeApi)));
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(dom.label, {
+    hidden: state.status === 'stalled'
+  });
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(dom.loadingIndicator, {
+    hidden: state.status !== 'stalled'
+  });
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(dom.clearButton, {
+    hidden: !state.query
+  });
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(dom.detachedSearchButtonQuery, {
+    textContent: state.query
+  });
+  (0,_utils__WEBPACK_IMPORTED_MODULE_0__.setProperties)(dom.detachedSearchButtonPlaceholder, {
+    hidden: Boolean(state.query)
+  });
+}
+function renderPanel(render, _ref2) {
+  var autocomplete = _ref2.autocomplete,
+    autocompleteScopeApi = _ref2.autocompleteScopeApi,
+    classNames = _ref2.classNames,
+    html = _ref2.html,
+    dom = _ref2.dom,
+    panelContainer = _ref2.panelContainer,
+    propGetters = _ref2.propGetters,
+    state = _ref2.state,
+    components = _ref2.components,
+    renderer = _ref2.renderer;
+  if (!state.isOpen) {
+    if (panelContainer.contains(dom.panel)) {
+      panelContainer.removeChild(dom.panel);
+    }
+    return;
+  }
+
+  // We add the panel element to the DOM when it's not yet appended and that the
+  // items are fetched.
+  if (!panelContainer.contains(dom.panel) && state.status !== 'loading') {
+    panelContainer.appendChild(dom.panel);
+  }
+  dom.panel.classList.toggle('aa-Panel--stalled', state.status === 'stalled');
+  var sections = state.collections.filter(function (_ref3) {
+    var source = _ref3.source,
+      items = _ref3.items;
+    return source.templates.noResults || items.length > 0;
+  }).map(function (_ref4, sourceIndex) {
+    var source = _ref4.source,
+      items = _ref4.items;
+    return renderer.createElement("section", {
+      key: sourceIndex,
+      className: classNames.source,
+      "data-autocomplete-source-id": source.sourceId
+    }, source.templates.header && renderer.createElement("div", {
+      className: classNames.sourceHeader
+    }, source.templates.header({
+      components: components,
+      createElement: renderer.createElement,
+      Fragment: renderer.Fragment,
+      items: items,
+      source: source,
+      state: state,
+      html: html
+    })), source.templates.noResults && items.length === 0 ? renderer.createElement("div", {
+      className: classNames.sourceNoResults
+    }, source.templates.noResults({
+      components: components,
+      createElement: renderer.createElement,
+      Fragment: renderer.Fragment,
+      source: source,
+      state: state,
+      html: html
+    })) : renderer.createElement("ul", _extends({
+      className: classNames.list
+    }, propGetters.getListProps(_objectSpread({
+      state: state,
+      props: autocomplete.getListProps({
+        source: source
+      })
+    }, autocompleteScopeApi))), items.map(function (item) {
+      var itemProps = autocomplete.getItemProps({
+        item: item,
+        source: source
+      });
+      return renderer.createElement("li", _extends({
+        key: itemProps.id,
+        className: classNames.item
+      }, propGetters.getItemProps(_objectSpread({
+        state: state,
+        props: itemProps
+      }, autocompleteScopeApi))), source.templates.item({
+        components: components,
+        createElement: renderer.createElement,
+        Fragment: renderer.Fragment,
+        item: item,
+        state: state,
+        html: html
+      }));
+    })), source.templates.footer && renderer.createElement("div", {
+      className: classNames.sourceFooter
+    }, source.templates.footer({
+      components: components,
+      createElement: renderer.createElement,
+      Fragment: renderer.Fragment,
+      items: items,
+      source: source,
+      state: state,
+      html: html
+    })));
+  });
+  var children = renderer.createElement(renderer.Fragment, null, renderer.createElement("div", {
+    className: classNames.panelLayout
+  }, sections), renderer.createElement("div", {
+    className: "aa-GradientBottom"
+  }));
+  var elements = sections.reduce(function (acc, current) {
+    acc[current.props['data-autocomplete-source-id']] = current;
+    return acc;
+  }, {});
+  render(_objectSpread(_objectSpread({
+    children: children,
+    state: state,
+    sections: sections,
+    elements: elements
+  }, renderer), {}, {
+    components: components,
+    html: html
+  }, autocompleteScopeApi), dom.panel);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/requesters/createAlgoliaRequester.js":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/requesters/createAlgoliaRequester.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createAlgoliaRequester: () => (/* binding */ createAlgoliaRequester)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/requester/createRequester.js");
+/* harmony import */ var _algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-preset-algolia */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/search/fetchAlgoliaResults.js");
+/* harmony import */ var _userAgents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../userAgents */ "./node_modules/@algolia/autocomplete-js/dist/esm/userAgents.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+var createAlgoliaRequester = (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_0__.createRequester)(function (params) {
+  return (0,_algolia_autocomplete_preset_algolia__WEBPACK_IMPORTED_MODULE_1__.fetchAlgoliaResults)(_objectSpread(_objectSpread({}, params), {}, {
+    userAgents: _userAgents__WEBPACK_IMPORTED_MODULE_2__.userAgents
+  }));
+}, 'algolia');
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/requesters/getAlgoliaResults.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/requesters/getAlgoliaResults.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAlgoliaResults: () => (/* binding */ getAlgoliaResults)
+/* harmony export */ });
+/* harmony import */ var _createAlgoliaRequester__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createAlgoliaRequester */ "./node_modules/@algolia/autocomplete-js/dist/esm/requesters/createAlgoliaRequester.js");
+
+
+/**
+ * Retrieves Algolia results from multiple indices.
+ */
+var getAlgoliaResults = (0,_createAlgoliaRequester__WEBPACK_IMPORTED_MODULE_0__.createAlgoliaRequester)({
+  transformResponse: function transformResponse(response) {
+    return response.hits;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/userAgents.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/userAgents.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   userAgents: () => (/* binding */ userAgents)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/version.js");
+
+var userAgents = [{
+  segment: 'autocomplete-js',
+  version: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.version
+}];
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/getHTMLElement.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/utils/getHTMLElement.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getHTMLElement: () => (/* binding */ getHTMLElement)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+
+function getHTMLElement(environment, value) {
+  if (typeof value === 'string') {
+    var element = environment.document.querySelector(value);
+    (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.invariant)(element !== null, "The element ".concat(JSON.stringify(value), " is not in the document."));
+    return element;
+  }
+  return value;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeClassNames.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeClassNames.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeClassNames: () => (/* binding */ mergeClassNames)
+/* harmony export */ });
+function mergeClassNames() {
+  for (var _len = arguments.length, values = new Array(_len), _key = 0; _key < _len; _key++) {
+    values[_key] = arguments[_key];
+  }
+  return values.reduce(function (acc, current) {
+    Object.keys(current).forEach(function (key) {
+      var accValue = acc[key];
+      var currentValue = current[key];
+      if (accValue !== currentValue) {
+        acc[key] = [accValue, currentValue].filter(Boolean).join(' ');
+      }
+    });
+    return acc;
+  }, {});
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeDeep.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/utils/mergeDeep.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeDeep: () => (/* binding */ mergeDeep)
+/* harmony export */ });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var isPlainObject = function isPlainObject(value) {
+  return value && _typeof(value) === 'object' && Object.prototype.toString.call(value) === '[object Object]';
+};
+function mergeDeep() {
+  for (var _len = arguments.length, values = new Array(_len), _key = 0; _key < _len; _key++) {
+    values[_key] = arguments[_key];
+  }
+  return values.reduce(function (acc, current) {
+    Object.keys(current).forEach(function (key) {
+      var accValue = acc[key];
+      var currentValue = current[key];
+      if (Array.isArray(accValue) && Array.isArray(currentValue)) {
+        acc[key] = accValue.concat.apply(accValue, _toConsumableArray(currentValue));
+      } else if (isPlainObject(accValue) && isPlainObject(currentValue)) {
+        acc[key] = mergeDeep(accValue, currentValue);
+      } else {
+        acc[key] = currentValue;
+      }
+    });
+    return acc;
+  }, {});
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/pickBy.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/utils/pickBy.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   pickBy: () => (/* binding */ pickBy)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function pickBy(obj, predicate) {
+  return Object.entries(obj).reduce(function (acc, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+      key = _ref2[0],
+      value = _ref2[1];
+    if (predicate({
+      key: key,
+      value: value
+    })) {
+      return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, key, value));
+    }
+    return acc;
+  }, {});
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-js/dist/esm/utils/setProperties.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setProperties: () => (/* binding */ setProperties),
+/* harmony export */   setPropertiesWithoutEvents: () => (/* binding */ setPropertiesWithoutEvents),
+/* harmony export */   setProperty: () => (/* binding */ setProperty)
+/* harmony export */ });
+/* eslint-disable */
+
+/**
+ * Touch-specific event aliases
+ *
+ * See https://w3c.github.io/touch-events/#extensions-to-the-globaleventhandlers-mixin
+ */
+var TOUCH_EVENTS_ALIASES = ['ontouchstart', 'ontouchend', 'ontouchmove', 'ontouchcancel'];
+
+/*
+ * Taken from Preact
+ *
+ * See https://github.com/preactjs/preact/blob/6ab49d9020740127577bf4af66bf63f4af7f9fee/src/diff/props.js#L58-L151
+ */
+
+function setStyle(style, key, value) {
+  if (value === null) {
+    style[key] = '';
+  } else if (typeof value !== 'number') {
+    style[key] = value;
+  } else {
+    style[key] = value + 'px';
+  }
+}
+
+/**
+ * Proxy an event to hooked event handlers
+ */
+function eventProxy(event) {
+  this._listeners[event.type](event);
+}
+
+/**
+ * Set a property value on a DOM node
+ */
+function setProperty(dom, name, value) {
+  var useCapture;
+  var nameLower;
+  var oldValue = dom[name];
+  if (name === 'style') {
+    if (typeof value == 'string') {
+      dom.style = value;
+    } else {
+      if (value === null) {
+        dom.style = '';
+      } else {
+        for (name in value) {
+          if (!oldValue || value[name] !== oldValue[name]) {
+            setStyle(dom.style, name, value[name]);
+          }
+        }
+      }
+    }
+  }
+  // Benchmark for comparison: https://esbench.com/bench/574c954bdb965b9a00965ac6
+  else if (name[0] === 'o' && name[1] === 'n') {
+    useCapture = name !== (name = name.replace(/Capture$/, ''));
+    nameLower = name.toLowerCase();
+    if (nameLower in dom || TOUCH_EVENTS_ALIASES.includes(nameLower)) name = nameLower;
+    name = name.slice(2);
+    if (!dom._listeners) dom._listeners = {};
+    dom._listeners[name] = value;
+    if (value) {
+      if (!oldValue) dom.addEventListener(name, eventProxy, useCapture);
+    } else {
+      dom.removeEventListener(name, eventProxy, useCapture);
+    }
+  } else if (name !== 'list' && name !== 'tagName' &&
+  // HTMLButtonElement.form and HTMLInputElement.form are read-only but can be set using
+  // setAttribute
+  name !== 'form' && name !== 'type' && name !== 'size' && name !== 'download' && name !== 'href' && name in dom) {
+    dom[name] = value == null ? '' : value;
+  } else if (typeof value != 'function' && name !== 'dangerouslySetInnerHTML') {
+    if (value == null || value === false &&
+    // ARIA-attributes have a different notion of boolean values.
+    // The value `false` is different from the attribute not
+    // existing on the DOM, so we can't remove it. For non-boolean
+    // ARIA-attributes we could treat false as a removal, but the
+    // amount of exceptions would cost us too many bytes. On top of
+    // that other VDOM frameworks also always stringify `false`.
+    !/^ar/.test(name)) {
+      dom.removeAttribute(name);
+    } else {
+      dom.setAttribute(name, value);
+    }
+  }
+}
+function getNormalizedName(name) {
+  switch (name) {
+    case 'onChange':
+      return 'onInput';
+    default:
+      return name;
+  }
+}
+function setProperties(dom, props) {
+  for (var name in props) {
+    setProperty(dom, getNormalizedName(name), props[name]);
+  }
+}
+function setPropertiesWithoutEvents(dom, props) {
+  for (var name in props) {
+    if (!(name[0] === 'o' && name[1] === 'n')) {
+      setProperty(dom, getNormalizedName(name), props[name]);
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createAlgoliaInsightsPlugin.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createAlgoliaInsightsPlugin.js ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createAlgoliaInsightsPlugin: () => (/* binding */ createAlgoliaInsightsPlugin)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/debounce.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/safelyRunOnBrowser.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/createRef.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/isEqual.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/noop.js");
+/* harmony import */ var _createClickedEvent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./createClickedEvent */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createClickedEvent.js");
+/* harmony import */ var _createSearchInsightsApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./createSearchInsightsApi */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createSearchInsightsApi.js");
+/* harmony import */ var _createViewedEvents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createViewedEvents */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createViewedEvents.js");
+/* harmony import */ var _isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isAlgoliaInsightsHit */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isAlgoliaInsightsHit.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+
+var VIEW_EVENT_DELAY = 400;
+var ALGOLIA_INSIGHTS_VERSION = '2.6.0';
+var ALGOLIA_INSIGHTS_SRC = "https://cdn.jsdelivr.net/npm/search-insights@".concat(ALGOLIA_INSIGHTS_VERSION, "/dist/search-insights.min.js");
+var sendViewedObjectIDs = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.debounce)(function (_ref) {
+  var onItemsChange = _ref.onItemsChange,
+    items = _ref.items,
+    insights = _ref.insights,
+    state = _ref.state;
+  onItemsChange({
+    insights: insights,
+    insightsEvents: (0,_createViewedEvents__WEBPACK_IMPORTED_MODULE_1__.createViewedEvents)({
+      items: items
+    }).map(function (event) {
+      return _objectSpread({
+        eventName: 'Items Viewed'
+      }, event);
+    }),
+    state: state
+  });
+}, VIEW_EVENT_DELAY);
+function createAlgoliaInsightsPlugin(options) {
+  var _getOptions = getOptions(options),
+    providedInsightsClient = _getOptions.insightsClient,
+    onItemsChange = _getOptions.onItemsChange,
+    onSelectEvent = _getOptions.onSelect,
+    onActiveEvent = _getOptions.onActive,
+    __autocomplete_clickAnalytics = _getOptions.__autocomplete_clickAnalytics;
+  var insightsClient = providedInsightsClient;
+  if (!providedInsightsClient) {
+    (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.safelyRunOnBrowser)(function (_ref2) {
+      var window = _ref2.window;
+      var pointer = window.AlgoliaAnalyticsObject || 'aa';
+      if (typeof pointer === 'string') {
+        insightsClient = window[pointer];
+      }
+      if (!insightsClient) {
+        window.AlgoliaAnalyticsObject = pointer;
+        if (!window[pointer]) {
+          window[pointer] = function () {
+            if (!window[pointer].queue) {
+              window[pointer].queue = [];
+            }
+            for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+              args[_key] = arguments[_key];
+            }
+            window[pointer].queue.push(args);
+          };
+        }
+        window[pointer].version = ALGOLIA_INSIGHTS_VERSION;
+        insightsClient = window[pointer];
+        loadInsights(window);
+      }
+    });
+  }
+
+  // We return an empty plugin if `insightsClient` is still undefined at
+  // this stage, which can happen in server environments.
+  if (!insightsClient) {
+    return {};
+  }
+  var insights = (0,_createSearchInsightsApi__WEBPACK_IMPORTED_MODULE_3__.createSearchInsightsApi)(insightsClient);
+  var previousItems = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_4__.createRef)([]);
+  var debouncedOnStateChange = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.debounce)(function (_ref3) {
+    var state = _ref3.state;
+    if (!state.isOpen) {
+      return;
+    }
+    var items = state.collections.reduce(function (acc, current) {
+      return [].concat(_toConsumableArray(acc), _toConsumableArray(current.items));
+    }, []).filter(_isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__.isAlgoliaInsightsHit);
+    if (!(0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_6__.isEqual)(previousItems.current.map(function (x) {
+      return x.objectID;
+    }), items.map(function (x) {
+      return x.objectID;
+    }))) {
+      previousItems.current = items;
+      if (items.length > 0) {
+        sendViewedObjectIDs({
+          onItemsChange: onItemsChange,
+          items: items,
+          insights: insights,
+          state: state
+        });
+      }
+    }
+  }, 0);
+  return {
+    name: 'aa.algoliaInsightsPlugin',
+    subscribe: function subscribe(_ref4) {
+      var setContext = _ref4.setContext,
+        onSelect = _ref4.onSelect,
+        onActive = _ref4.onActive;
+      function setInsightsContext(userToken) {
+        setContext({
+          algoliaInsightsPlugin: {
+            __algoliaSearchParameters: _objectSpread(_objectSpread({}, __autocomplete_clickAnalytics ? {
+              clickAnalytics: true
+            } : {}), userToken ? {
+              userToken: userToken
+            } : {}),
+            insights: insights
+          }
+        });
+      }
+      insightsClient('addAlgoliaAgent', 'insights-plugin');
+      setInsightsContext();
+      insightsClient('onUserTokenChange', setInsightsContext);
+      insightsClient('getUserToken', null, function (_error, userToken) {
+        setInsightsContext(userToken);
+      });
+      onSelect(function (_ref5) {
+        var item = _ref5.item,
+          state = _ref5.state,
+          event = _ref5.event,
+          source = _ref5.source;
+        if (!(0,_isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__.isAlgoliaInsightsHit)(item)) {
+          return;
+        }
+        onSelectEvent({
+          state: state,
+          event: event,
+          insights: insights,
+          item: item,
+          insightsEvents: [_objectSpread({
+            eventName: 'Item Selected'
+          }, (0,_createClickedEvent__WEBPACK_IMPORTED_MODULE_7__.createClickedEvent)({
+            item: item,
+            items: source.getItems().filter(_isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__.isAlgoliaInsightsHit)
+          }))]
+        });
+      });
+      onActive(function (_ref6) {
+        var item = _ref6.item,
+          source = _ref6.source,
+          state = _ref6.state,
+          event = _ref6.event;
+        if (!(0,_isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__.isAlgoliaInsightsHit)(item)) {
+          return;
+        }
+        onActiveEvent({
+          state: state,
+          event: event,
+          insights: insights,
+          item: item,
+          insightsEvents: [_objectSpread({
+            eventName: 'Item Active'
+          }, (0,_createClickedEvent__WEBPACK_IMPORTED_MODULE_7__.createClickedEvent)({
+            item: item,
+            items: source.getItems().filter(_isAlgoliaInsightsHit__WEBPACK_IMPORTED_MODULE_5__.isAlgoliaInsightsHit)
+          }))]
+        });
+      });
+    },
+    onStateChange: function onStateChange(_ref7) {
+      var state = _ref7.state;
+      debouncedOnStateChange({
+        state: state
+      });
+    },
+    __autocomplete_pluginOptions: options
+  };
+}
+function getAlgoliaSources() {
+  var _context$algoliaInsig;
+  var algoliaSourceBase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var context = arguments.length > 1 ? arguments[1] : undefined;
+  return [].concat(_toConsumableArray(algoliaSourceBase), ['autocomplete-internal'], _toConsumableArray((_context$algoliaInsig = context.algoliaInsightsPlugin) !== null && _context$algoliaInsig !== void 0 && _context$algoliaInsig.__automaticInsights ? ['autocomplete-automatic'] : []));
+}
+function getOptions(options) {
+  return _objectSpread({
+    onItemsChange: function onItemsChange(_ref8) {
+      var insights = _ref8.insights,
+        insightsEvents = _ref8.insightsEvents,
+        state = _ref8.state;
+      insights.viewedObjectIDs.apply(insights, _toConsumableArray(insightsEvents.map(function (event) {
+        return _objectSpread(_objectSpread({}, event), {}, {
+          algoliaSource: getAlgoliaSources(event.algoliaSource, state.context)
+        });
+      })));
+    },
+    onSelect: function onSelect(_ref9) {
+      var insights = _ref9.insights,
+        insightsEvents = _ref9.insightsEvents,
+        state = _ref9.state;
+      insights.clickedObjectIDsAfterSearch.apply(insights, _toConsumableArray(insightsEvents.map(function (event) {
+        return _objectSpread(_objectSpread({}, event), {}, {
+          algoliaSource: getAlgoliaSources(event.algoliaSource, state.context)
+        });
+      })));
+    },
+    onActive: _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_8__.noop,
+    __autocomplete_clickAnalytics: true
+  }, options);
+}
+function loadInsights(environment) {
+  var errorMessage = "[Autocomplete]: Could not load search-insights.js. Please load it manually following https://alg.li/insights-autocomplete";
+  try {
+    var script = environment.document.createElement('script');
+    script.async = true;
+    script.src = ALGOLIA_INSIGHTS_SRC;
+    script.onerror = function () {
+      // eslint-disable-next-line no-console
+      console.error(errorMessage);
+    };
+    document.body.appendChild(script);
+  } catch (cause) {
+    // eslint-disable-next-line no-console
+    console.error(errorMessage);
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createClickedEvent.js":
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createClickedEvent.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createClickedEvent: () => (/* binding */ createClickedEvent)
+/* harmony export */ });
+function createClickedEvent(_ref) {
+  var item = _ref.item,
+    _ref$items = _ref.items,
+    items = _ref$items === void 0 ? [] : _ref$items;
+  return {
+    index: item.__autocomplete_indexName,
+    items: [item],
+    positions: [1 + items.findIndex(function (x) {
+      return x.objectID === item.objectID;
+    })],
+    queryID: item.__autocomplete_queryID,
+    algoliaSource: ['autocomplete']
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createSearchInsightsApi.js":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createSearchInsightsApi.js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createSearchInsightsApi: () => (/* binding */ createSearchInsightsApi)
+/* harmony export */ });
+/* harmony import */ var _isModernInsightsClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isModernInsightsClient */ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isModernInsightsClient.js");
+var _excluded = ["items"],
+  _excluded2 = ["items"];
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function chunk(item) {
+  var chunkSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+  var chunks = [];
+  for (var i = 0; i < item.objectIDs.length; i += chunkSize) {
+    chunks.push(_objectSpread(_objectSpread({}, item), {}, {
+      objectIDs: item.objectIDs.slice(i, i + chunkSize)
+    }));
+  }
+  return chunks;
+}
+function mapToInsightsParamsApi(params) {
+  return params.map(function (_ref) {
+    var items = _ref.items,
+      param = _objectWithoutProperties(_ref, _excluded);
+    return _objectSpread(_objectSpread({}, param), {}, {
+      objectIDs: (items === null || items === void 0 ? void 0 : items.map(function (_ref2) {
+        var objectID = _ref2.objectID;
+        return objectID;
+      })) || param.objectIDs
+    });
+  });
+}
+function createSearchInsightsApi(searchInsights) {
+  var canSendHeaders = (0,_isModernInsightsClient__WEBPACK_IMPORTED_MODULE_0__.isModernInsightsClient)(searchInsights);
+  function sendToInsights(method, payloads, items) {
+    if (canSendHeaders && typeof items !== 'undefined') {
+      var _items$0$__autocomple = items[0].__autocomplete_algoliaCredentials,
+        appId = _items$0$__autocomple.appId,
+        apiKey = _items$0$__autocomple.apiKey;
+      var headers = {
+        'X-Algolia-Application-Id': appId,
+        'X-Algolia-API-Key': apiKey
+      };
+      searchInsights.apply(void 0, [method].concat(_toConsumableArray(payloads), [{
+        headers: headers
+      }]));
+    } else {
+      searchInsights.apply(void 0, [method].concat(_toConsumableArray(payloads)));
+    }
+  }
+  return {
+    /**
+     * Initializes Insights with Algolia credentials.
+     */
+    init: function init(appId, apiKey) {
+      searchInsights('init', {
+        appId: appId,
+        apiKey: apiKey
+      });
+    },
+    /**
+     * Sets the user token to attach to events.
+     */
+    setUserToken: function setUserToken(userToken) {
+      searchInsights('setUserToken', userToken);
+    },
+    /**
+     * Sends click events to capture a query and its clicked items and positions.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/clicked-object-ids-after-search/
+     */
+    clickedObjectIDsAfterSearch: function clickedObjectIDsAfterSearch() {
+      for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
+        params[_key] = arguments[_key];
+      }
+      if (params.length > 0) {
+        sendToInsights('clickedObjectIDsAfterSearch', mapToInsightsParamsApi(params), params[0].items);
+      }
+    },
+    /**
+     * Sends click events to capture clicked items.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/clicked-object-ids/
+     */
+    clickedObjectIDs: function clickedObjectIDs() {
+      for (var _len2 = arguments.length, params = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        params[_key2] = arguments[_key2];
+      }
+      if (params.length > 0) {
+        sendToInsights('clickedObjectIDs', mapToInsightsParamsApi(params), params[0].items);
+      }
+    },
+    /**
+     * Sends click events to capture the filters a user clicks on.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/clicked-filters/
+     */
+    clickedFilters: function clickedFilters() {
+      for (var _len3 = arguments.length, params = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        params[_key3] = arguments[_key3];
+      }
+      if (params.length > 0) {
+        searchInsights.apply(void 0, ['clickedFilters'].concat(params));
+      }
+    },
+    /**
+     * Sends conversion events to capture a query and its clicked items.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/converted-object-ids-after-search/
+     */
+    convertedObjectIDsAfterSearch: function convertedObjectIDsAfterSearch() {
+      for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        params[_key4] = arguments[_key4];
+      }
+      if (params.length > 0) {
+        sendToInsights('convertedObjectIDsAfterSearch', mapToInsightsParamsApi(params), params[0].items);
+      }
+    },
+    /**
+     * Sends conversion events to capture clicked items.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/converted-object-ids/
+     */
+    convertedObjectIDs: function convertedObjectIDs() {
+      for (var _len5 = arguments.length, params = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        params[_key5] = arguments[_key5];
+      }
+      if (params.length > 0) {
+        sendToInsights('convertedObjectIDs', mapToInsightsParamsApi(params), params[0].items);
+      }
+    },
+    /**
+     * Sends conversion events to capture the filters a user uses when converting.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/converted-filters/
+     */
+    convertedFilters: function convertedFilters() {
+      for (var _len6 = arguments.length, params = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        params[_key6] = arguments[_key6];
+      }
+      if (params.length > 0) {
+        searchInsights.apply(void 0, ['convertedFilters'].concat(params));
+      }
+    },
+    /**
+     * Sends view events to capture clicked items.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/viewed-object-ids/
+     */
+    viewedObjectIDs: function viewedObjectIDs() {
+      for (var _len7 = arguments.length, params = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        params[_key7] = arguments[_key7];
+      }
+      if (params.length > 0) {
+        params.reduce(function (acc, _ref3) {
+          var items = _ref3.items,
+            param = _objectWithoutProperties(_ref3, _excluded2);
+          return [].concat(_toConsumableArray(acc), _toConsumableArray(chunk(_objectSpread(_objectSpread({}, param), {}, {
+            objectIDs: (items === null || items === void 0 ? void 0 : items.map(function (_ref4) {
+              var objectID = _ref4.objectID;
+              return objectID;
+            })) || param.objectIDs
+          })).map(function (payload) {
+            return {
+              items: items,
+              payload: payload
+            };
+          })));
+        }, []).forEach(function (_ref5) {
+          var items = _ref5.items,
+            payload = _ref5.payload;
+          return sendToInsights('viewedObjectIDs', [payload], items);
+        });
+      }
+    },
+    /**
+     * Sends view events to capture the filters a user uses when viewing.
+     *
+     * @link https://www.algolia.com/doc/api-reference/api-methods/viewed-filters/
+     */
+    viewedFilters: function viewedFilters() {
+      for (var _len8 = arguments.length, params = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+        params[_key8] = arguments[_key8];
+      }
+      if (params.length > 0) {
+        searchInsights.apply(void 0, ['viewedFilters'].concat(params));
+      }
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createViewedEvents.js":
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/createViewedEvents.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createViewedEvents: () => (/* binding */ createViewedEvents)
+/* harmony export */ });
+function createViewedEvents(_ref) {
+  var items = _ref.items;
+  var itemsByIndexName = items.reduce(function (acc, current) {
+    var _acc$current$__autoco;
+    acc[current.__autocomplete_indexName] = ((_acc$current$__autoco = acc[current.__autocomplete_indexName]) !== null && _acc$current$__autoco !== void 0 ? _acc$current$__autoco : []).concat(current);
+    return acc;
+  }, {});
+  return Object.keys(itemsByIndexName).map(function (indexName) {
+    var items = itemsByIndexName[indexName];
+    return {
+      index: indexName,
+      items: items,
+      algoliaSource: ['autocomplete']
+    };
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isAlgoliaInsightsHit.js":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isAlgoliaInsightsHit.js ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isAlgoliaInsightsHit: () => (/* binding */ isAlgoliaInsightsHit)
+/* harmony export */ });
+function isAlgoliaInsightsHit(hit) {
+  return hit.objectID && hit.__autocomplete_indexName && hit.__autocomplete_queryID;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isModernInsightsClient.js":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-algolia-insights/dist/esm/isModernInsightsClient.js ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isModernInsightsClient: () => (/* binding */ isModernInsightsClient)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/**
+ * Determines if a given insights `client` supports the optional call to `init`
+ * and the ability to set credentials via extra parameters when sending events.
+ */
+function isModernInsightsClient(client) {
+  var _split$map = (client.version || '').split('.').map(Number),
+    _split$map2 = _slicedToArray(_split$map, 2),
+    major = _split$map2[0],
+    minor = _split$map2[1];
+
+  /* eslint-disable @typescript-eslint/camelcase */
+  var v3 = major >= 3;
+  var v2_4 = major === 2 && minor >= 4;
+  var v1_10 = major === 1 && minor >= 10;
+  return v3 || v2_4 || v1_10;
+  /* eslint-enable @typescript-eslint/camelcase */
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/createQuerySuggestionsPlugin.js":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/createQuerySuggestionsPlugin.js ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createQuerySuggestionsPlugin: () => (/* binding */ createQuerySuggestionsPlugin)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-js */ "./node_modules/@algolia/autocomplete-js/dist/esm/requesters/getAlgoliaResults.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getAttributeValueByPath.js");
+/* harmony import */ var _getTemplates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getTemplates */ "./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/getTemplates.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+
+function createQuerySuggestionsPlugin(options) {
+  var _getOptions = getOptions(options),
+    searchClient = _getOptions.searchClient,
+    indexName = _getOptions.indexName,
+    getSearchParams = _getOptions.getSearchParams,
+    transformSource = _getOptions.transformSource,
+    categoryAttribute = _getOptions.categoryAttribute,
+    itemsWithCategories = _getOptions.itemsWithCategories,
+    categoriesPerItem = _getOptions.categoriesPerItem;
+  return {
+    name: 'aa.querySuggestionsPlugin',
+    getSources: function getSources(_ref) {
+      var query = _ref.query,
+        setQuery = _ref.setQuery,
+        refresh = _ref.refresh,
+        state = _ref.state;
+      function onTapAhead(item) {
+        setQuery("".concat(item.query, " "));
+        refresh();
+      }
+      return [transformSource({
+        source: {
+          sourceId: 'querySuggestionsPlugin',
+          getItemInputValue: function getItemInputValue(_ref2) {
+            var item = _ref2.item;
+            return item.query;
+          },
+          getItems: function getItems() {
+            return (0,_algolia_autocomplete_js__WEBPACK_IMPORTED_MODULE_0__.getAlgoliaResults)({
+              searchClient: searchClient,
+              queries: [{
+                indexName: indexName,
+                query: query,
+                params: getSearchParams({
+                  state: state
+                })
+              }],
+              transformResponse: function transformResponse(_ref3) {
+                var hits = _ref3.hits;
+                var querySuggestionsHits = hits[0];
+                if (!query || !categoryAttribute) {
+                  return querySuggestionsHits;
+                }
+                var itemsWithCategoriesAdded = 0;
+                return querySuggestionsHits.reduce(function (acc, current) {
+                  var items = [current];
+                  if (itemsWithCategoriesAdded < itemsWithCategories) {
+                    var categories = ((0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.getAttributeValueByPath)(current, Array.isArray(categoryAttribute) ? categoryAttribute : [categoryAttribute]) || []).map(function (x) {
+                      return x.value;
+                    }).slice(0, categoriesPerItem);
+                    if (categories.length > 0) {
+                      itemsWithCategoriesAdded++;
+                    }
+                    var _iterator = _createForOfIteratorHelper(categories),
+                      _step;
+                    try {
+                      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                        var category = _step.value;
+                        items.push(_objectSpread({
+                          __autocomplete_qsCategory: category
+                        }, current));
+                      }
+                    } catch (err) {
+                      _iterator.e(err);
+                    } finally {
+                      _iterator.f();
+                    }
+                  }
+                  acc.push.apply(acc, items);
+                  return acc;
+                }, []);
+              }
+            });
+          },
+          templates: (0,_getTemplates__WEBPACK_IMPORTED_MODULE_2__.getTemplates)({
+            onTapAhead: onTapAhead
+          })
+        },
+        onTapAhead: onTapAhead,
+        state: state
+      })];
+    },
+    __autocomplete_pluginOptions: options
+  };
+}
+function getOptions(options) {
+  return _objectSpread({
+    getSearchParams: function getSearchParams() {
+      return {};
+    },
+    transformSource: function transformSource(_ref4) {
+      var source = _ref4.source;
+      return source;
+    },
+    itemsWithCategories: 1,
+    categoriesPerItem: 1
+  }, options);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/getTemplates.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/getTemplates.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTemplates: () => (/* binding */ getTemplates)
+/* harmony export */ });
+/** @jsxRuntime classic */
+/** @jsx createElement */
+
+function getTemplates(_ref) {
+  var onTapAhead = _ref.onTapAhead;
+  return {
+    item: function item(_ref2) {
+      var item = _ref2.item,
+        createElement = _ref2.createElement,
+        components = _ref2.components;
+      if (item.__autocomplete_qsCategory) {
+        return createElement("div", {
+          className: "aa-ItemWrapper"
+        }, createElement("div", {
+          className: "aa-ItemContent aa-ItemContent--indented"
+        }, createElement("div", {
+          className: "aa-ItemContentSubtitle aa-ItemContentSubtitle--standalone"
+        }, createElement("span", {
+          className: "aa-ItemContentSubtitleIcon"
+        }), createElement("span", null, "in", ' ', createElement("span", {
+          className: "aa-ItemContentSubtitleCategory"
+        }, item.__autocomplete_qsCategory)))));
+      }
+      return createElement("div", {
+        className: "aa-ItemWrapper"
+      }, createElement("div", {
+        className: "aa-ItemContent"
+      }, createElement("div", {
+        className: "aa-ItemIcon aa-ItemIcon--noBorder"
+      }, createElement("svg", {
+        viewBox: "0 0 24 24",
+        fill: "currentColor"
+      }, createElement("path", {
+        d: "M16.041 15.856c-0.034 0.026-0.067 0.055-0.099 0.087s-0.060 0.064-0.087 0.099c-1.258 1.213-2.969 1.958-4.855 1.958-1.933 0-3.682-0.782-4.95-2.050s-2.050-3.017-2.050-4.95 0.782-3.682 2.050-4.95 3.017-2.050 4.95-2.050 3.682 0.782 4.95 2.050 2.050 3.017 2.050 4.95c0 1.886-0.745 3.597-1.959 4.856zM21.707 20.293l-3.675-3.675c1.231-1.54 1.968-3.493 1.968-5.618 0-2.485-1.008-4.736-2.636-6.364s-3.879-2.636-6.364-2.636-4.736 1.008-6.364 2.636-2.636 3.879-2.636 6.364 1.008 4.736 2.636 6.364 3.879 2.636 6.364 2.636c2.125 0 4.078-0.737 5.618-1.968l3.675 3.675c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"
+      }))), createElement("div", {
+        className: "aa-ItemContentBody"
+      }, createElement("div", {
+        className: "aa-ItemContentTitle"
+      }, createElement(components.ReverseHighlight, {
+        hit: item,
+        attribute: "query"
+      })))), createElement("div", {
+        className: "aa-ItemActions"
+      }, createElement("button", {
+        className: "aa-ItemActionButton",
+        title: "Fill query with \"".concat(item.query, "\""),
+        onClick: function onClick(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          onTapAhead(item);
+        }
+      }, createElement("svg", {
+        viewBox: "0 0 24 24",
+        fill: "currentColor"
+      }, createElement("path", {
+        d: "M8 17v-7.586l8.293 8.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-8.293-8.293h7.586c0.552 0 1-0.448 1-1s-0.448-1-1-1h-10c-0.552 0-1 0.448-1 1v10c0 0.552 0.448 1 1 1s1-0.448 1-1z"
+      })))));
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/addHighlightedAttribute.js":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/addHighlightedAttribute.js ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addHighlightedAttribute: () => (/* binding */ addHighlightedAttribute)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function addHighlightedAttribute(_ref) {
+  var item = _ref.item,
+    query = _ref.query;
+  return _objectSpread(_objectSpread({}, item), {}, {
+    _highlightResult: {
+      label: {
+        value: query ? item.label.replace(new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi'), function (match) {
+          return "__aa-highlight__".concat(match, "__/aa-highlight__");
+        }) : item.label
+      }
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/constants.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/constants.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LOCAL_STORAGE_KEY: () => (/* binding */ LOCAL_STORAGE_KEY),
+/* harmony export */   LOCAL_STORAGE_KEY_TEST: () => (/* binding */ LOCAL_STORAGE_KEY_TEST)
+/* harmony export */ });
+var LOCAL_STORAGE_KEY = 'AUTOCOMPLETE_RECENT_SEARCHES';
+var LOCAL_STORAGE_KEY_TEST = '__AUTOCOMPLETE_RECENT_SEARCHES_PLUGIN_TEST_KEY__';
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorage.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorage.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createLocalStorage: () => (/* binding */ createLocalStorage)
+/* harmony export */ });
+/* harmony import */ var _getLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getLocalStorage */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getLocalStorage.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+function createLocalStorage(_ref) {
+  var key = _ref.key,
+    limit = _ref.limit,
+    search = _ref.search;
+  var storage = (0,_getLocalStorage__WEBPACK_IMPORTED_MODULE_0__.getLocalStorage)({
+    key: key
+  });
+  return {
+    onAdd: function onAdd(item) {
+      storage.setItem([item].concat(_toConsumableArray(storage.getItem())));
+    },
+    onRemove: function onRemove(id) {
+      storage.setItem(storage.getItem().filter(function (x) {
+        return x.id !== id;
+      }));
+    },
+    getAll: function getAll() {
+      var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      return search({
+        query: query,
+        items: storage.getItem(),
+        limit: limit
+      }).slice(0, limit);
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorageRecentSearchesPlugin.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorageRecentSearchesPlugin.js ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createLocalStorageRecentSearchesPlugin: () => (/* binding */ createLocalStorageRecentSearchesPlugin)
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/constants.js");
+/* harmony import */ var _createLocalStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createLocalStorage */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorage.js");
+/* harmony import */ var _createRecentSearchesPlugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createRecentSearchesPlugin */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createRecentSearchesPlugin.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./search */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/search.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+function createLocalStorageRecentSearchesPlugin(options) {
+  var _getOptions = getOptions(options),
+    key = _getOptions.key,
+    limit = _getOptions.limit,
+    transformSource = _getOptions.transformSource,
+    search = _getOptions.search,
+    subscribe = _getOptions.subscribe;
+  var storage = (0,_createLocalStorage__WEBPACK_IMPORTED_MODULE_0__.createLocalStorage)({
+    key: [_constants__WEBPACK_IMPORTED_MODULE_1__.LOCAL_STORAGE_KEY, key].join(':'),
+    limit: limit,
+    search: search
+  });
+  var recentSearchesPlugin = (0,_createRecentSearchesPlugin__WEBPACK_IMPORTED_MODULE_2__.createRecentSearchesPlugin)({
+    transformSource: transformSource,
+    storage: storage,
+    subscribe: subscribe
+  });
+  return _objectSpread(_objectSpread({}, recentSearchesPlugin), {}, {
+    name: 'aa.localStorageRecentSearchesPlugin',
+    __autocomplete_pluginOptions: options
+  });
+}
+function getOptions(options) {
+  return _objectSpread({
+    limit: 5,
+    search: _search__WEBPACK_IMPORTED_MODULE_3__.search,
+    transformSource: function transformSource(_ref) {
+      var source = _ref.source;
+      return source;
+    }
+  }, options);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createRecentSearchesPlugin.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createRecentSearchesPlugin.js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createRecentSearchesPlugin: () => (/* binding */ createRecentSearchesPlugin)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/createRef.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+/* harmony import */ var _createStorageApi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createStorageApi */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createStorageApi.js");
+/* harmony import */ var _getTemplates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getTemplates */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getTemplates.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+function getDefaultSubscribe(store) {
+  return function subscribe(_ref) {
+    var onSelect = _ref.onSelect;
+    onSelect(function (_ref2) {
+      var item = _ref2.item,
+        state = _ref2.state,
+        source = _ref2.source;
+      var inputValue = source.getItemInputValue({
+        item: item,
+        state: state
+      });
+      if (source.sourceId === 'querySuggestionsPlugin' && inputValue) {
+        var recentItem = {
+          id: inputValue,
+          label: inputValue,
+          category: item.__autocomplete_qsCategory
+        };
+        store.addItem(recentItem);
+      }
+    });
+  };
+}
+function createRecentSearchesPlugin(options) {
+  var _getOptions = getOptions(options),
+    storage = _getOptions.storage,
+    transformSource = _getOptions.transformSource,
+    subscribe = _getOptions.subscribe;
+  var store = (0,_createStorageApi__WEBPACK_IMPORTED_MODULE_0__.createStorageApi)(storage);
+  var lastItemsRef = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.createRef)([]);
+  return {
+    name: 'aa.recentSearchesPlugin',
+    subscribe: subscribe !== null && subscribe !== void 0 ? subscribe : getDefaultSubscribe(store),
+    onSubmit: function onSubmit(_ref3) {
+      var state = _ref3.state;
+      var query = state.query;
+      if (query) {
+        var recentItem = {
+          id: query,
+          label: query
+        };
+        store.addItem(recentItem);
+      }
+    },
+    getSources: function getSources(_ref4) {
+      var query = _ref4.query,
+        setQuery = _ref4.setQuery,
+        refresh = _ref4.refresh,
+        state = _ref4.state;
+      lastItemsRef.current = store.getAll(query);
+      function onRemove(id) {
+        store.removeItem(id);
+        refresh();
+      }
+      function onTapAhead(item) {
+        setQuery(item.label);
+        refresh();
+      }
+      return Promise.resolve(lastItemsRef.current).then(function (items) {
+        if (items.length === 0) {
+          return [];
+        }
+        return [transformSource({
+          source: {
+            sourceId: 'recentSearchesPlugin',
+            getItemInputValue: function getItemInputValue(_ref5) {
+              var item = _ref5.item;
+              return item.label;
+            },
+            getItems: function getItems() {
+              return items;
+            },
+            templates: (0,_getTemplates__WEBPACK_IMPORTED_MODULE_2__.getTemplates)({
+              onRemove: onRemove,
+              onTapAhead: onTapAhead
+            })
+          },
+          onRemove: onRemove,
+          onTapAhead: onTapAhead,
+          state: state
+        })];
+      });
+    },
+    data: _objectSpread(_objectSpread({}, store), {}, {
+      // @ts-ignore SearchOptions `facetFilters` is ReadonlyArray
+      getAlgoliaSearchParams: function getAlgoliaSearchParams() {
+        var _params$facetFilters, _params$hitsPerPage;
+        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        // If the items returned by `store.getAll` are contained in a Promise,
+        // we cannot provide the search params in time when this function is called
+        // because we need to resolve the promise before getting the value.
+        if (!Array.isArray(lastItemsRef.current)) {
+           true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_3__.warn)(false, 'The `getAlgoliaSearchParams` function is not supported with storages that return promises in `getAll`.') : 0;
+          return params;
+        }
+        return _objectSpread(_objectSpread({}, params), {}, {
+          facetFilters: [].concat(_toConsumableArray((_params$facetFilters = params.facetFilters) !== null && _params$facetFilters !== void 0 ? _params$facetFilters : []), _toConsumableArray(lastItemsRef.current.map(function (item) {
+            return ["objectID:-".concat(item.label)];
+          }))),
+          hitsPerPage: Math.max(1, ((_params$hitsPerPage = params.hitsPerPage) !== null && _params$hitsPerPage !== void 0 ? _params$hitsPerPage : 10) - lastItemsRef.current.length)
+        });
+      }
+    }),
+    __autocomplete_pluginOptions: options
+  };
+}
+function getOptions(options) {
+  return _objectSpread({
+    transformSource: function transformSource(_ref6) {
+      var source = _ref6.source;
+      return source;
+    }
+  }, options);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createStorageApi.js":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createStorageApi.js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createStorageApi: () => (/* binding */ createStorageApi)
+/* harmony export */ });
+function createStorageApi(storage) {
+  return {
+    addItem: function addItem(item) {
+      storage.onRemove(item.id);
+      storage.onAdd(item);
+    },
+    removeItem: function removeItem(id) {
+      storage.onRemove(id);
+    },
+    getAll: function getAll(query) {
+      return storage.getAll(query);
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getLocalStorage.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getLocalStorage.js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getLocalStorage: () => (/* binding */ getLocalStorage)
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/constants.js");
+
+function isLocalStorageSupported() {
+  try {
+    localStorage.setItem(_constants__WEBPACK_IMPORTED_MODULE_0__.LOCAL_STORAGE_KEY_TEST, '');
+    localStorage.removeItem(_constants__WEBPACK_IMPORTED_MODULE_0__.LOCAL_STORAGE_KEY_TEST);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+function getLocalStorage(_ref) {
+  var key = _ref.key;
+  if (!isLocalStorageSupported()) {
+    return {
+      setItem: function setItem() {},
+      getItem: function getItem() {
+        return [];
+      }
+    };
+  }
+  return {
+    setItem: function setItem(items) {
+      return window.localStorage.setItem(key, JSON.stringify(items));
+    },
+    getItem: function getItem() {
+      var items = window.localStorage.getItem(key);
+      return items ? JSON.parse(items) : [];
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getTemplates.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/getTemplates.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTemplates: () => (/* binding */ getTemplates)
+/* harmony export */ });
+/** @jsxRuntime classic */
+/** @jsx createElement */
+
+function getTemplates(_ref) {
+  var onRemove = _ref.onRemove,
+    onTapAhead = _ref.onTapAhead;
+  return {
+    item: function item(_ref2) {
+      var item = _ref2.item,
+        createElement = _ref2.createElement,
+        components = _ref2.components;
+      return createElement("div", {
+        className: "aa-ItemWrapper"
+      }, createElement("div", {
+        className: "aa-ItemContent"
+      }, createElement("div", {
+        className: "aa-ItemIcon aa-ItemIcon--noBorder"
+      }, createElement("svg", {
+        viewBox: "0 0 24 24",
+        fill: "currentColor"
+      }, createElement("path", {
+        d: "M12.516 6.984v5.25l4.5 2.672-0.75 1.266-5.25-3.188v-6h1.5zM12 20.016q3.281 0 5.648-2.367t2.367-5.648-2.367-5.648-5.648-2.367-5.648 2.367-2.367 5.648 2.367 5.648 5.648 2.367zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93z"
+      }))), createElement("div", {
+        className: "aa-ItemContentBody"
+      }, createElement("div", {
+        className: "aa-ItemContentTitle"
+      }, createElement(components.ReverseHighlight, {
+        hit: item,
+        attribute: "label"
+      }), item.category && createElement("span", {
+        className: "aa-ItemContentSubtitle aa-ItemContentSubtitle--inline"
+      }, createElement("span", {
+        className: "aa-ItemContentSubtitleIcon"
+      }), " in", ' ', createElement("span", {
+        className: "aa-ItemContentSubtitleCategory"
+      }, item.category))))), createElement("div", {
+        className: "aa-ItemActions"
+      }, createElement("button", {
+        className: "aa-ItemActionButton",
+        title: "Remove this search",
+        onClick: function onClick(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          onRemove(item.id);
+        }
+      }, createElement("svg", {
+        viewBox: "0 0 24 24",
+        fill: "currentColor"
+      }, createElement("path", {
+        d: "M18 7v13c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-10c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-13zM17 5v-1c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879h-4c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v1h-4c-0.552 0-1 0.448-1 1s0.448 1 1 1h1v13c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h10c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-13h1c0.552 0 1-0.448 1-1s-0.448-1-1-1zM9 5v-1c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h4c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707v1zM9 11v6c0 0.552 0.448 1 1 1s1-0.448 1-1v-6c0-0.552-0.448-1-1-1s-1 0.448-1 1zM13 11v6c0 0.552 0.448 1 1 1s1-0.448 1-1v-6c0-0.552-0.448-1-1-1s-1 0.448-1 1z"
+      }))), createElement("button", {
+        className: "aa-ItemActionButton",
+        title: "Fill query with \"".concat(item.label, "\""),
+        onClick: function onClick(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          onTapAhead(item);
+        }
+      }, createElement("svg", {
+        viewBox: "0 0 24 24",
+        fill: "currentColor"
+      }, createElement("path", {
+        d: "M8 17v-7.586l8.293 8.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-8.293-8.293h7.586c0.552 0 1-0.448 1-1s-0.448-1-1-1h-10c-0.552 0-1 0.448-1 1v10c0 0.552 0.448 1 1 1s1-0.448 1-1z"
+      })))));
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/search.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/search.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   search: () => (/* binding */ search)
+/* harmony export */ });
+/* harmony import */ var _addHighlightedAttribute__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addHighlightedAttribute */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/addHighlightedAttribute.js");
+
+function search(_ref) {
+  var query = _ref.query,
+    items = _ref.items,
+    limit = _ref.limit;
+  if (!query) {
+    return items.slice(0, limit).map(function (item) {
+      return (0,_addHighlightedAttribute__WEBPACK_IMPORTED_MODULE_0__.addHighlightedAttribute)({
+        item: item,
+        query: query
+      });
+    });
+  }
+  return items.filter(function (item) {
+    return item.label.toLowerCase().includes(query.toLowerCase());
+  }).slice(0, limit).map(function (item) {
+    return (0,_addHighlightedAttribute__WEBPACK_IMPORTED_MODULE_0__.addHighlightedAttribute)({
+      item: item,
+      query: query
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/constants/index.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/constants/index.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HIGHLIGHT_POST_TAG: () => (/* binding */ HIGHLIGHT_POST_TAG),
+/* harmony export */   HIGHLIGHT_PRE_TAG: () => (/* binding */ HIGHLIGHT_PRE_TAG)
+/* harmony export */ });
+var HIGHLIGHT_PRE_TAG = '__aa-highlight__';
+var HIGHLIGHT_POST_TAG = '__/aa-highlight__';
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/isPartHighlighted.js":
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/isPartHighlighted.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isPartHighlighted: () => (/* binding */ isPartHighlighted)
+/* harmony export */ });
+var htmlEscapes = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'"
+};
+var hasAlphanumeric = new RegExp(/\w/i);
+var regexEscapedHtml = /&(amp|quot|lt|gt|#39);/g;
+var regexHasEscapedHtml = RegExp(regexEscapedHtml.source);
+function unescape(value) {
+  return value && regexHasEscapedHtml.test(value) ? value.replace(regexEscapedHtml, function (character) {
+    return htmlEscapes[character];
+  }) : value;
+}
+function isPartHighlighted(parts, i) {
+  var _parts, _parts2;
+  var current = parts[i];
+  var isNextHighlighted = ((_parts = parts[i + 1]) === null || _parts === void 0 ? void 0 : _parts.isHighlighted) || true;
+  var isPreviousHighlighted = ((_parts2 = parts[i - 1]) === null || _parts2 === void 0 ? void 0 : _parts2.isHighlighted) || true;
+  if (!hasAlphanumeric.test(unescape(current.value)) && isPreviousHighlighted === isNextHighlighted) {
+    return isPreviousHighlighted;
+  }
+  return current.isHighlighted;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitHighlight.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitHighlight.js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseAlgoliaHitHighlight: () => (/* binding */ parseAlgoliaHitHighlight)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getAttributeValueByPath.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+/* harmony import */ var _parseAttribute__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parseAttribute */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAttribute.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+function parseAlgoliaHitHighlight(_ref) {
+  var hit = _ref.hit,
+    attribute = _ref.attribute;
+  var path = Array.isArray(attribute) ? attribute : [attribute];
+  var highlightedValue = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.getAttributeValueByPath)(hit, ['_highlightResult'].concat(_toConsumableArray(path), ['value']));
+  if (typeof highlightedValue !== 'string') {
+     true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.warn)(false, "The attribute \"".concat(path.join('.'), "\" described by the path ").concat(JSON.stringify(path), " does not exist on the hit. Did you set it in `attributesToHighlight`?") + '\nSee https://www.algolia.com/doc/api-reference/api-parameters/attributesToHighlight/') : 0;
+    highlightedValue = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.getAttributeValueByPath)(hit, path) || '';
+  }
+  return (0,_parseAttribute__WEBPACK_IMPORTED_MODULE_2__.parseAttribute)({
+    highlightedValue: highlightedValue
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseHighlight.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseHighlight.js ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseAlgoliaHitReverseHighlight: () => (/* binding */ parseAlgoliaHitReverseHighlight)
+/* harmony export */ });
+/* harmony import */ var _parseAlgoliaHitHighlight__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parseAlgoliaHitHighlight */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitHighlight.js");
+/* harmony import */ var _reverseHighlightedParts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reverseHighlightedParts */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/reverseHighlightedParts.js");
+
+
+function parseAlgoliaHitReverseHighlight(props) {
+  return (0,_reverseHighlightedParts__WEBPACK_IMPORTED_MODULE_0__.reverseHighlightedParts)((0,_parseAlgoliaHitHighlight__WEBPACK_IMPORTED_MODULE_1__.parseAlgoliaHitHighlight)(props));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseSnippet.js":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitReverseSnippet.js ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseAlgoliaHitReverseSnippet: () => (/* binding */ parseAlgoliaHitReverseSnippet)
+/* harmony export */ });
+/* harmony import */ var _parseAlgoliaHitSnippet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parseAlgoliaHitSnippet */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitSnippet.js");
+/* harmony import */ var _reverseHighlightedParts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reverseHighlightedParts */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/reverseHighlightedParts.js");
+
+
+function parseAlgoliaHitReverseSnippet(props) {
+  return (0,_reverseHighlightedParts__WEBPACK_IMPORTED_MODULE_0__.reverseHighlightedParts)((0,_parseAlgoliaHitSnippet__WEBPACK_IMPORTED_MODULE_1__.parseAlgoliaHitSnippet)(props));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitSnippet.js":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAlgoliaHitSnippet.js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseAlgoliaHitSnippet: () => (/* binding */ parseAlgoliaHitSnippet)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/getAttributeValueByPath.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js");
+/* harmony import */ var _parseAttribute__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parseAttribute */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAttribute.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+function parseAlgoliaHitSnippet(_ref) {
+  var hit = _ref.hit,
+    attribute = _ref.attribute;
+  var path = Array.isArray(attribute) ? attribute : [attribute];
+  var highlightedValue = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.getAttributeValueByPath)(hit, ['_snippetResult'].concat(_toConsumableArray(path), ['value']));
+  if (typeof highlightedValue !== 'string') {
+     true ? (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_1__.warn)(false, "The attribute \"".concat(path.join('.'), "\" described by the path ").concat(JSON.stringify(path), " does not exist on the hit. Did you set it in `attributesToSnippet`?") + '\nSee https://www.algolia.com/doc/api-reference/api-parameters/attributesToSnippet/') : 0;
+    highlightedValue = (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.getAttributeValueByPath)(hit, path) || '';
+  }
+  return (0,_parseAttribute__WEBPACK_IMPORTED_MODULE_2__.parseAttribute)({
+    highlightedValue: highlightedValue
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAttribute.js":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/parseAttribute.js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseAttribute: () => (/* binding */ parseAttribute)
+/* harmony export */ });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/constants/index.js");
+
+/**
+ * Creates a data structure that allows to concatenate similar highlighting
+ * parts in a single value.
+ */
+function createAttributeSet() {
+  var initialValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var value = initialValue;
+  return {
+    get: function get() {
+      return value;
+    },
+    add: function add(part) {
+      var lastPart = value[value.length - 1];
+      if ((lastPart === null || lastPart === void 0 ? void 0 : lastPart.isHighlighted) === part.isHighlighted) {
+        value[value.length - 1] = {
+          value: lastPart.value + part.value,
+          isHighlighted: lastPart.isHighlighted
+        };
+      } else {
+        value.push(part);
+      }
+    }
+  };
+}
+function parseAttribute(_ref) {
+  var highlightedValue = _ref.highlightedValue;
+  var preTagParts = highlightedValue.split(_constants__WEBPACK_IMPORTED_MODULE_0__.HIGHLIGHT_PRE_TAG);
+  var firstValue = preTagParts.shift();
+  var parts = createAttributeSet(firstValue ? [{
+    value: firstValue,
+    isHighlighted: false
+  }] : []);
+  preTagParts.forEach(function (part) {
+    var postTagParts = part.split(_constants__WEBPACK_IMPORTED_MODULE_0__.HIGHLIGHT_POST_TAG);
+    parts.add({
+      value: postTagParts[0],
+      isHighlighted: true
+    });
+    if (postTagParts[1] !== '') {
+      parts.add({
+        value: postTagParts[1],
+        isHighlighted: false
+      });
+    }
+  });
+  return parts.get();
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/reverseHighlightedParts.js":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/reverseHighlightedParts.js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   reverseHighlightedParts: () => (/* binding */ reverseHighlightedParts)
+/* harmony export */ });
+/* harmony import */ var _isPartHighlighted__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isPartHighlighted */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/highlight/isPartHighlighted.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+function reverseHighlightedParts(parts) {
+  // We don't want to highlight the whole word when no parts match.
+  if (!parts.some(function (part) {
+    return part.isHighlighted;
+  })) {
+    return parts.map(function (part) {
+      return _objectSpread(_objectSpread({}, part), {}, {
+        isHighlighted: false
+      });
+    });
+  }
+  return parts.map(function (part, i) {
+    return _objectSpread(_objectSpread({}, part), {}, {
+      isHighlighted: !(0,_isPartHighlighted__WEBPACK_IMPORTED_MODULE_0__.isPartHighlighted)(parts, i)
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/requester/createRequester.js":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/requester/createRequester.js ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createRequester: () => (/* binding */ createRequester)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function createRequester(fetcher, requesterId) {
+  function execute(fetcherParams) {
+    return fetcher({
+      searchClient: fetcherParams.searchClient,
+      queries: fetcherParams.requests.map(function (x) {
+        return x.query;
+      })
+    }).then(function (responses) {
+      return responses.map(function (response, index) {
+        var _fetcherParams$reques = fetcherParams.requests[index],
+          sourceId = _fetcherParams$reques.sourceId,
+          transformResponse = _fetcherParams$reques.transformResponse;
+        return {
+          items: response,
+          sourceId: sourceId,
+          transformResponse: transformResponse
+        };
+      });
+    });
+  }
+  return function createSpecifiedRequester(requesterParams) {
+    return function requester(requestParams) {
+      return _objectSpread(_objectSpread({
+        requesterId: requesterId,
+        execute: execute
+      }, requesterParams), requestParams);
+    };
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/search/fetchAlgoliaResults.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/search/fetchAlgoliaResults.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fetchAlgoliaResults: () => (/* binding */ fetchAlgoliaResults)
+/* harmony export */ });
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/userAgents.js");
+/* harmony import */ var _algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @algolia/autocomplete-shared */ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/constants/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/utils/getAppIdAndApiKey.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["params"];
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+
+function fetchAlgoliaResults(_ref) {
+  var searchClient = _ref.searchClient,
+    queries = _ref.queries,
+    _ref$userAgents = _ref.userAgents,
+    userAgents = _ref$userAgents === void 0 ? [] : _ref$userAgents;
+  if (typeof searchClient.addAlgoliaAgent === 'function') {
+    var algoliaAgents = [].concat(_toConsumableArray(_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_0__.userAgents), _toConsumableArray(userAgents));
+    algoliaAgents.forEach(function (_ref2) {
+      var segment = _ref2.segment,
+        version = _ref2.version;
+      searchClient.addAlgoliaAgent(segment, version);
+    });
+  }
+  var _getAppIdAndApiKey = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getAppIdAndApiKey)(searchClient),
+    appId = _getAppIdAndApiKey.appId,
+    apiKey = _getAppIdAndApiKey.apiKey;
+  (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.invariant)(Boolean(appId), 'The Algolia `appId` was not accessible from the searchClient passed.');
+  (0,_algolia_autocomplete_shared__WEBPACK_IMPORTED_MODULE_2__.invariant)(Boolean(apiKey), 'The Algolia `apiKey` was not accessible from the searchClient passed.');
+  return searchClient.search(queries.map(function (searchParameters) {
+    var params = searchParameters.params,
+      headers = _objectWithoutProperties(searchParameters, _excluded);
+    return _objectSpread(_objectSpread({}, headers), {}, {
+      params: _objectSpread({
+        hitsPerPage: 5,
+        highlightPreTag: _constants__WEBPACK_IMPORTED_MODULE_3__.HIGHLIGHT_PRE_TAG,
+        highlightPostTag: _constants__WEBPACK_IMPORTED_MODULE_3__.HIGHLIGHT_POST_TAG
+      }, params)
+    });
+  })).then(function (response) {
+    return response.results.map(function (result, resultIndex) {
+      var _result$hits;
+      return _objectSpread(_objectSpread({}, result), {}, {
+        hits: (_result$hits = result.hits) === null || _result$hits === void 0 ? void 0 : _result$hits.map(function (hit) {
+          return _objectSpread(_objectSpread({}, hit), {}, {
+            // Bring support for the Insights plugin.
+            __autocomplete_indexName: result.index || queries[resultIndex].indexName,
+            __autocomplete_queryID: result.queryID,
+            __autocomplete_algoliaCredentials: {
+              appId: appId,
+              apiKey: apiKey
+            }
+          });
+        })
+      });
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/utils/getAppIdAndApiKey.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-preset-algolia/dist/esm/utils/getAppIdAndApiKey.js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAppIdAndApiKey: () => (/* binding */ getAppIdAndApiKey)
+/* harmony export */ });
+function getAppIdAndApiKey(searchClient) {
+  var _ref = searchClient.transporter || {},
+    _ref$headers = _ref.headers,
+    headers = _ref$headers === void 0 ? {} : _ref$headers,
+    _ref$queryParameters = _ref.queryParameters,
+    queryParameters = _ref$queryParameters === void 0 ? {} : _ref$queryParameters;
+  var APP_ID = 'x-algolia-application-id';
+  var API_KEY = 'x-algolia-api-key';
+  var appId = headers[APP_ID] || queryParameters[APP_ID];
+  var apiKey = headers[API_KEY] || queryParameters[API_KEY];
+  return {
+    appId: appId,
+    apiKey: apiKey
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/createRef.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/createRef.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createRef: () => (/* binding */ createRef)
+/* harmony export */ });
+function createRef(initialValue) {
+  return {
+    current: initialValue
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/debounce.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/debounce.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   debounce: () => (/* binding */ debounce)
+/* harmony export */ });
+function debounce(fn, time) {
+  var timerId = undefined;
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(function () {
+      return fn.apply(void 0, args);
+    }, time);
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/decycle.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/decycle.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   decycle: () => (/* binding */ decycle)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+/**
+ * Decycles objects with circular references.
+ * This is used to print cyclic structures in development environment only.
+ */
+function decycle(obj) {
+  var seen = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Set();
+  if ( false || !obj || _typeof(obj) !== 'object') {
+    return obj;
+  }
+  if (seen.has(obj)) {
+    return '[Circular]';
+  }
+  var newSeen = seen.add(obj);
+  if (Array.isArray(obj)) {
+    return obj.map(function (x) {
+      return decycle(x, newSeen);
+    });
+  }
+  return Object.fromEntries(Object.entries(obj).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+      key = _ref2[0],
+      value = _ref2[1];
+    return [key, decycle(value, newSeen)];
+  }));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/flatten.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   flatten: () => (/* binding */ flatten)
+/* harmony export */ });
+function flatten(values) {
+  return values.reduce(function (a, b) {
+    return a.concat(b);
+  }, []);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/generateAutocompleteId.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/generateAutocompleteId.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   generateAutocompleteId: () => (/* binding */ generateAutocompleteId)
+/* harmony export */ });
+var autocompleteId = 0;
+function generateAutocompleteId() {
+  return "autocomplete-".concat(autocompleteId++);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/getAttributeValueByPath.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/getAttributeValueByPath.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAttributeValueByPath: () => (/* binding */ getAttributeValueByPath)
+/* harmony export */ });
+function getAttributeValueByPath(record, path) {
+  return path.reduce(function (current, key) {
+    return current && current[key];
+  }, record);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/getItemsCount.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/getItemsCount.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getItemsCount: () => (/* binding */ getItemsCount)
+/* harmony export */ });
+function getItemsCount(state) {
+  if (state.collections.length === 0) {
+    return 0;
+  }
+  return state.collections.reduce(function (sum, collection) {
+    return sum + collection.items.length;
+  }, 0);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/invariant.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   invariant: () => (/* binding */ invariant)
+/* harmony export */ });
+/**
+ * Throws an error if the condition is not met in development mode.
+ * This is used to make development a better experience to provide guidance as
+ * to where the error comes from.
+ */
+function invariant(condition, message) {
+  if (false) {}
+  if (!condition) {
+    throw new Error("[Autocomplete] ".concat(typeof message === 'function' ? message() : message));
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/isEqual.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/isEqual.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isEqual: () => (/* binding */ isEqual)
+/* harmony export */ });
+function isPrimitive(obj) {
+  return obj !== Object(obj);
+}
+function isEqual(first, second) {
+  if (first === second) {
+    return true;
+  }
+  if (isPrimitive(first) || isPrimitive(second) || typeof first === 'function' || typeof second === 'function') {
+    return first === second;
+  }
+  if (Object.keys(first).length !== Object.keys(second).length) {
+    return false;
+  }
+  for (var _i = 0, _Object$keys = Object.keys(first); _i < _Object$keys.length; _i++) {
+    var key = _Object$keys[_i];
+    if (!(key in second)) {
+      return false;
+    }
+    if (!isEqual(first[key], second[key])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/noop.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/noop.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   noop: () => (/* binding */ noop)
+/* harmony export */ });
+var noop = function noop() {};
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/safelyRunOnBrowser.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/safelyRunOnBrowser.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   safelyRunOnBrowser: () => (/* binding */ safelyRunOnBrowser)
+/* harmony export */ });
+/**
+ * Safely runs code meant for browser environments only.
+ */
+function safelyRunOnBrowser(callback) {
+  if (typeof window !== 'undefined') {
+    return callback({
+      window: window
+    });
+  }
+  return undefined;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/userAgents.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/userAgents.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   userAgents: () => (/* binding */ userAgents)
+/* harmony export */ });
+/* harmony import */ var _version__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./version */ "./node_modules/@algolia/autocomplete-shared/dist/esm/version.js");
+
+var userAgents = [{
+  segment: 'autocomplete-core',
+  version: _version__WEBPACK_IMPORTED_MODULE_0__.version
+}];
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/version.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/version.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   version: () => (/* binding */ version)
+/* harmony export */ });
+var version = '1.12.2';
+
+/***/ }),
+
+/***/ "./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@algolia/autocomplete-shared/dist/esm/warn.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   warn: () => (/* binding */ warn),
+/* harmony export */   warnCache: () => (/* binding */ warnCache)
+/* harmony export */ });
+var warnCache = {
+  current: {}
+};
+
+/**
+ * Logs a warning if the condition is not met.
+ * This is used to log issues in development environment only.
+ */
+function warn(condition, message) {
+  if (false) {}
+  if (condition) {
+    return;
+  }
+  var sanitizedMessage = message.trim();
+  var hasAlreadyPrinted = warnCache.current[sanitizedMessage];
+  if (!hasAlreadyPrinted) {
+    warnCache.current[sanitizedMessage] = true;
+
+    // eslint-disable-next-line no-console
+    console.warn("[Autocomplete] ".concat(sanitizedMessage));
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/@algolia/events/events.js":
 /*!************************************************!*\
   !*** ./node_modules/@algolia/events/events.js ***!
@@ -6484,11 +12208,28 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/configure/configure.js");
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/search-box/search-box.js");
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/hits/hits.js");
-/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/index/index.js");
+/* harmony import */ var _algolia_autocomplete_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @algolia/autocomplete-js */ "./node_modules/@algolia/autocomplete-js/dist/esm/autocomplete.js");
+/* harmony import */ var instantsearch_js_es_lib_routers_history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! instantsearch.js/es/lib/routers/history */ "./node_modules/instantsearch.js/es/lib/routers/history.js");
+/* harmony import */ var instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! instantsearch.js/es/connectors */ "./node_modules/instantsearch.js/es/connectors/search-box/connectSearchBox.js");
+/* harmony import */ var _algolia_autocomplete_plugin_recent_searches__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @algolia/autocomplete-plugin-recent-searches */ "./node_modules/@algolia/autocomplete-plugin-recent-searches/dist/esm/createLocalStorageRecentSearchesPlugin.js");
+/* harmony import */ var _algolia_autocomplete_plugin_query_suggestions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @algolia/autocomplete-plugin-query-suggestions */ "./node_modules/@algolia/autocomplete-plugin-query-suggestions/dist/esm/createQuerySuggestionsPlugin.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/configure/configure.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/hits/hits.js");
+/* harmony import */ var instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! instantsearch.js/es/widgets */ "./node_modules/instantsearch.js/es/widgets/index/index.js");
+var _templateObject;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var algoliasearch = __webpack_require__(/*! algoliasearch/lite */ "./node_modules/algoliasearch/dist/algoliasearch-lite.umd.js");
+
+
+
+
+
 var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules/instantsearch.js/es/index.js")["default"]);
 
 (function (w, $) {
@@ -6501,56 +12242,65 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
   if (!APP_ID || !API_KEY) {
     return;
   }
+  var INSTANT_SEARCH_INDEX_NAME = 'wp_posts_product';
   var width = window.innerWidth > 0 ? window.innerWidth : screen.width;
   var is_mobile = width <= 980 ? true : false;
+  // Mount a virtual search box to manipulate InstantSearch's `query` UI
+  // state parameter.
+  var virtualSearchBox = (0,instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {});
+  var instantSearchRouter = (0,instantsearch_js_es_lib_routers_history__WEBPACK_IMPORTED_MODULE_1__["default"])();
   var searchClient = algoliasearch(APP_ID, API_KEY);
   var search = instantsearch({
     indexName: 'wp_posts_product',
     searchClient: searchClient,
-    insights: true
+    insights: true,
+    routing: instantSearchRouter
   });
-  search.addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  search.addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
     hitsPerPage: 6
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_1__["default"])({
-    container: is_mobile ? '#searchbox_MB' : '#searchbox',
-    showReset: false,
-    showSubmit: false,
-    placeholder: 'Search...',
-    cssClasses: {
-      input: 'algolia-search__text-field'
-    }
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PRODUCT_MB' : '#ALGOLIA_SEARCH_RESULT_PRODUCT',
+  }), virtualSearchBox({}),
+  // searchBox({
+  //     container: '#searchbox',
+  //     showReset: false,
+  //     showSubmit: false,
+  //     placeholder: 'Search...',
+  //     cssClasses: {
+  //       input: 'algolia-search__text-field',
+  //     },
+  // }),
+
+  (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    container: '#ALGOLIA_SEARCH_RESULT_PRODUCT',
     templates: {
       empty: 'No results for <q>{{ query }}</q>',
       item: wp.template('ALGOLIA_SEARCH_RESULT_PRODUCT')
     }
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_4__["default"])({
     indexName: 'wp_terms_product_cat'
-  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
     hitsPerPage: 4
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_CAT_MB' : '#ALGOLIA_SEARCH_RESULT_CAT',
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    container: '#ALGOLIA_SEARCH_RESULT_CAT',
     templates: {
       empty: 'No results for <q>{{ query }}</q>',
       item: wp.template('ALGOLIA_SEARCH_RESULT_CAT')
     }
-  })]), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  })]), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_4__["default"])({
     indexName: 'wp_posts_page'
-  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
     hitsPerPage: 3
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PAGE_MB' : '#ALGOLIA_SEARCH_RESULT_PAGE',
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    container: '#ALGOLIA_SEARCH_RESULT_PAGE',
     templates: {
       empty: 'No results for <q>{{ query }}</q>',
       item: wp.template('ALGOLIA_SEARCH_RESULT_PAGE')
     }
-  })]), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  })]), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_4__["default"])({
     indexName: 'wp_posts_post'
-  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  }).addWidgets([(0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
     hitsPerPage: 3
-  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_POST_MB' : '#ALGOLIA_SEARCH_RESULT_POST',
+  }), (0,instantsearch_js_es_widgets__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    container: '#ALGOLIA_SEARCH_RESULT_POST',
     templates: {
       empty: 'No results for <q>{{ query }}</q>',
       item: wp.template('ALGOLIA_SEARCH_RESULT_POST')
@@ -6558,27 +12308,243 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
   })])]);
   search.on('render', function () {});
   search.start();
+  // Build URLs that InstantSearch understands.
+  function getInstantSearchUrl(indexUiState) {
+    return search.createURL(_defineProperty({}, INSTANT_SEARCH_INDEX_NAME, indexUiState));
+  }
+
+  // Detect when an event is modified with a special key to let the browser
+  // trigger its default behavior.
+  function isModifierEvent(event) {
+    var isMiddleClick = event.button === 1;
+    return isMiddleClick || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+  }
+  function _onSelect(_ref) {
+    var setIsOpen = _ref.setIsOpen,
+      setQuery = _ref.setQuery,
+      event = _ref.event,
+      query = _ref.query;
+    // You want to trigger the default browser behavior if the event is modified.
+    if (isModifierEvent(event)) {
+      return;
+    }
+    setQuery(query);
+    setIsOpen(false);
+    setInstantSearchUiState({
+      query: query
+    });
+  }
+  function _getItemUrl(_ref2) {
+    var query = _ref2.query;
+    return getInstantSearchUrl({
+      query: query
+    });
+  }
+  function createItemWrapperTemplate(_ref3) {
+    var children = _ref3.children,
+      query = _ref3.query,
+      html = _ref3.html;
+    var uiState = {
+      query: query
+    };
+    return html(_templateObject || (_templateObject = _taggedTemplateLiteral(["<a\n        class=\"aa-ItemLink\"\n        href=\"", "\"\n        onClick=\"", "\"\n      >\n        ", "\n      </a>"])), getInstantSearchUrl(uiState), function (event) {
+      if (!isModifierEvent(event)) {
+        // Bypass the original link behavior if there's no event modifier
+        // to set the InstantSearch UI state without reloading the page.
+        event.preventDefault();
+      }
+    }, children);
+  }
+  var recentSearchesPlugin = (0,_algolia_autocomplete_plugin_recent_searches__WEBPACK_IMPORTED_MODULE_5__.createLocalStorageRecentSearchesPlugin)({
+    key: 'instantsearch',
+    limit: 3,
+    transformSource: function transformSource(_ref4) {
+      var source = _ref4.source;
+      return _objectSpread(_objectSpread({}, source), {}, {
+        getItemUrl: function getItemUrl(_ref5) {
+          var item = _ref5.item;
+          return _getItemUrl({
+            query: item.label
+          });
+        },
+        onSelect: function onSelect(_ref6) {
+          var setIsOpen = _ref6.setIsOpen,
+            setQuery = _ref6.setQuery,
+            item = _ref6.item,
+            event = _ref6.event;
+          _onSelect({
+            setQuery: setQuery,
+            setIsOpen: setIsOpen,
+            event: event,
+            query: item.label
+          });
+        },
+        // Update the default `item` template to wrap it with a link
+        // and plug it to the InstantSearch router.
+        templates: _objectSpread(_objectSpread({}, source.templates), {}, {
+          item: function item(params) {
+            var children = source.templates.item(params).props.children;
+            return createItemWrapperTemplate({
+              query: params.item.label,
+              children: children,
+              html: params.html
+            });
+          }
+        })
+      });
+    }
+  });
+  // end recent
+  // build suggess
+  function debounce(fn, time) {
+    var timerId = undefined;
+    return function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(function () {
+        return fn.apply(void 0, args);
+      }, time);
+    };
+  }
+  var debouncedSetInstantSearchUiState = debounce(setInstantSearchUiState, 500);
+  var querySuggestionsPlugin = (0,_algolia_autocomplete_plugin_query_suggestions__WEBPACK_IMPORTED_MODULE_6__.createQuerySuggestionsPlugin)({
+    searchClient: searchClient,
+    indexName: 'wp_posts_product_query_suggestions',
+    getSearchParams: function getSearchParams() {
+      // This creates a shared `hitsPerPage` value once the duplicates
+      // between recent searches and Query Suggestions are removed.
+      return recentSearchesPlugin.data.getAlgoliaSearchParams({
+        hitsPerPage: 6
+      });
+    },
+    transformSource: function transformSource(_ref7) {
+      var source = _ref7.source;
+      return _objectSpread(_objectSpread({}, source), {}, {
+        sourceId: 'querySuggestionsPlugin',
+        getItemUrl: function getItemUrl(_ref8) {
+          var item = _ref8.item;
+          return _getItemUrl({
+            query: item.query
+          });
+        },
+        onSelect: function onSelect(_ref9) {
+          var setIsOpen = _ref9.setIsOpen,
+            setQuery = _ref9.setQuery,
+            event = _ref9.event,
+            item = _ref9.item;
+          _onSelect({
+            setQuery: setQuery,
+            setIsOpen: setIsOpen,
+            event: event,
+            query: item.query
+          });
+        },
+        getItems: function getItems(params) {
+          // We don't display Query Suggestions when there's no query.
+          if (!params.state.query) {
+            return [];
+          }
+          return source.getItems(params);
+        },
+        templates: _objectSpread(_objectSpread({}, source.templates), {}, {
+          item: function item(params) {
+            var children = source.templates.item(params).props.children;
+            return createItemWrapperTemplate({
+              query: params.item.label,
+              children: children,
+              html: params.html
+            });
+          }
+        })
+      });
+    }
+  });
+  // Set the InstantSearch index UI state from external events.
+  function setInstantSearchUiState(indexUiState) {
+    search.setUiState(function (uiState) {
+      return _objectSpread(_objectSpread({}, uiState), {}, _defineProperty({}, INSTANT_SEARCH_INDEX_NAME, _objectSpread(_objectSpread({}, uiState[INSTANT_SEARCH_INDEX_NAME]), {}, {
+        // We reset the page when the search state changes.
+        page: 1
+      }, indexUiState)));
+    });
+  }
+
+  // Return the InstantSearch index UI state.
+  function getInstantSearchUiState() {
+    var uiState = instantSearchRouter.read();
+    return uiState && uiState[INSTANT_SEARCH_INDEX_NAME] || {};
+  }
+  var searchPageState = getInstantSearchUiState();
+  var skipInstantSearchUiStateUpdate = false;
+  var _autocomplete = (0,_algolia_autocomplete_js__WEBPACK_IMPORTED_MODULE_7__.autocomplete)({
+      container: is_mobile ? '#searchbox_MB' : '#searchbox',
+      showReset: false,
+      showSubmit: false,
+      placeholder: 'Search...',
+      classNames: {
+        input: 'algolia-search__text-field'
+      },
+      // container: '#autocomplete',
+      detachedMediaQuery: 'none',
+      openOnFocus: true,
+      // Add the recent searches plugin.
+      plugins: [recentSearchesPlugin, querySuggestionsPlugin],
+      initialState: {
+        query: searchPageState.query || ''
+      },
+      onSubmit: function onSubmit(_ref10) {
+        var state = _ref10.state;
+        setInstantSearchUiState({
+          query: state.query
+        });
+      },
+      onReset: function onReset() {
+        setInstantSearchUiState({
+          query: ''
+        });
+      },
+      onStateChange: function onStateChange(_ref11) {
+        var prevState = _ref11.prevState,
+          state = _ref11.state;
+        if (!skipInstantSearchUiStateUpdate && prevState.query !== state.query) {
+          debouncedSetInstantSearchUiState({
+            query: state.query
+          });
+        }
+        skipInstantSearchUiStateUpdate = false;
+      }
+    }),
+    setQuery = _autocomplete.setQuery;
+
+  // This keeps Autocomplete aware of state changes coming from routing
+  // and updates its query accordingly
+  window.addEventListener('popstate', function () {
+    var _search$helper;
+    skipInstantSearchUiStateUpdate = true;
+    setQuery(((_search$helper = search.helper) === null || _search$helper === void 0 ? void 0 : _search$helper.state.query) || '');
+  });
   var searchResultActive = function searchResultActive() {
     $(document.body).on('Algolia:SearchResultActive', function (e, active) {
       if (active == true) {
         document.body.classList.add('__algolia-search-result-active');
       } else {
-        //  document.body.classList.remove('__algolia-search-result-active')
-      }
-    });
-    $(document).on('click', function (e) {
-      if ($(e.target).closest(".algolia-search__result-entry").length === 0 && !$(e.target).hasClass('ais-SearchBox-input')) {
-        document.body.classList.remove('__algolia-search-result-active');
+        // document.body.classList.remove('__algolia-search-result-active')
       }
     });
   };
   var searchFieldHandle = function searchFieldHandle() {
-    var $input = $('input.ais-SearchBox-input');
-    $('body').on('input', 'input.ais-SearchBox-input', function (e) {
+    var $input = $('input.algolia-search__text-field');
+    $('body').on('input', 'input.algolia-search__text-field', function (e) {
       e.preventDefault();
     });
-    $(window).on('scroll', function (e) {
-      $input.trigger('blur');
+    $(document).on('click', function (e) {
+      if ($(e.target).closest(".algolia-search__result-entry").length === 0 && !$(e.target).hasClass('algolia-search__text-field') && !$(e.target).hasClass('aa-SubmitButton')) {
+        document.body.classList.remove('__algolia-search-result-active');
+      }
     });
     $input.on({
       'focus': function focus() {
@@ -8984,240 +14950,6 @@ function ReverseSnippet(_ref) {
     }
   }, props));
 }
-
-/***/ }),
-
-/***/ "./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
-/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/noop.js");
-/* harmony import */ var _Template_Template_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Template/Template.js */ "./node_modules/instantsearch.js/es/components/Template/Template.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
-
-
-var defaultProps = {
-  query: '',
-  showSubmit: true,
-  showReset: true,
-  showLoadingIndicator: true,
-  autofocus: false,
-  searchAsYouType: true,
-  isSearchStalled: false,
-  disabled: false,
-  ariaLabel: 'Search',
-  onChange: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
-  onSubmit: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
-  onReset: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop,
-  refine: _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.noop
-};
-var SearchBox = /*#__PURE__*/function (_Component) {
-  _inherits(SearchBox, _Component);
-  var _super = _createSuper(SearchBox);
-  function SearchBox() {
-    var _this;
-    _classCallCheck(this, SearchBox);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      query: _this.props.query,
-      focused: false
-    });
-    _defineProperty(_assertThisInitialized(_this), "input", (0,preact__WEBPACK_IMPORTED_MODULE_0__.createRef)());
-    _defineProperty(_assertThisInitialized(_this), "onInput", function (event) {
-      var _this$props = _this.props,
-        searchAsYouType = _this$props.searchAsYouType,
-        refine = _this$props.refine,
-        onChange = _this$props.onChange;
-      var query = event.target.value;
-      if (searchAsYouType) {
-        refine(query);
-      }
-      _this.setState({
-        query: query
-      });
-      onChange(event);
-    });
-    _defineProperty(_assertThisInitialized(_this), "onSubmit", function (event) {
-      var _this$props2 = _this.props,
-        searchAsYouType = _this$props2.searchAsYouType,
-        refine = _this$props2.refine,
-        onSubmit = _this$props2.onSubmit;
-      event.preventDefault();
-      event.stopPropagation();
-      if (_this.input.current) {
-        _this.input.current.blur();
-      }
-      if (!searchAsYouType) {
-        refine(_this.state.query);
-      }
-      onSubmit(event);
-      return false;
-    });
-    _defineProperty(_assertThisInitialized(_this), "onReset", function (event) {
-      var _this$props3 = _this.props,
-        refine = _this$props3.refine,
-        onReset = _this$props3.onReset;
-      var query = '';
-      if (_this.input.current) {
-        _this.input.current.focus();
-      }
-      refine(query);
-      _this.setState({
-        query: query
-      });
-      onReset(event);
-    });
-    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
-      _this.setState({
-        focused: false
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
-      _this.setState({
-        focused: true
-      });
-    });
-    return _this;
-  }
-  _createClass(SearchBox, [{
-    key: "resetInput",
-    value:
-    /**
-     * This public method is used in the RefinementList SFFV search box
-     * to reset the input state when an item is selected.
-     *
-     * @see RefinementList#componentWillReceiveProps
-     * @return {undefined}
-     */
-    function resetInput() {
-      this.setState({
-        query: ''
-      });
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      /**
-       * when the user is typing, we don't want to replace the query typed
-       * by the user (state.query) with the query exposed by the connector (props.query)
-       * see: https://github.com/algolia/instantsearch/issues/4141
-       */
-      if (!this.state.focused && nextProps.query !== this.state.query) {
-        this.setState({
-          query: nextProps.query
-        });
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props4 = this.props,
-        cssClasses = _this$props4.cssClasses,
-        placeholder = _this$props4.placeholder,
-        autofocus = _this$props4.autofocus,
-        showSubmit = _this$props4.showSubmit,
-        showReset = _this$props4.showReset,
-        showLoadingIndicator = _this$props4.showLoadingIndicator,
-        templates = _this$props4.templates,
-        isSearchStalled = _this$props4.isSearchStalled,
-        ariaLabel = _this$props4.ariaLabel;
-      return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("div", {
-        className: cssClasses.root
-      }, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("form", {
-        action: "",
-        role: "search",
-        className: cssClasses.form,
-        noValidate: true,
-        onSubmit: this.onSubmit,
-        onReset: this.onReset
-      }, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("input", {
-        ref: this.input,
-        value: this.state.query,
-        disabled: this.props.disabled,
-        className: cssClasses.input,
-        type: "search",
-        placeholder: placeholder,
-        autoFocus: autofocus,
-        autoComplete: "off",
-        autoCorrect: "off",
-        autoCapitalize: "off"
-        // @ts-expect-error `spellCheck` attribute is missing in preact JSX types
-        ,
-        spellCheck: "false",
-        maxLength: 512,
-        onInput: this.onInput,
-        onBlur: this.onBlur,
-        onFocus: this.onFocus,
-        "aria-label": ariaLabel
-      }), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        templateKey: "submit",
-        rootTagName: "button",
-        rootProps: {
-          className: cssClasses.submit,
-          type: 'submit',
-          title: 'Submit the search query',
-          hidden: !showSubmit
-        },
-        templates: templates,
-        data: {
-          cssClasses: cssClasses
-        }
-      }), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        templateKey: "reset",
-        rootTagName: "button",
-        rootProps: {
-          className: cssClasses.reset,
-          type: 'reset',
-          title: 'Clear the search query',
-          hidden: !(showReset && this.state.query.trim() && !isSearchStalled)
-        },
-        templates: templates,
-        data: {
-          cssClasses: cssClasses
-        }
-      }), showLoadingIndicator && (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_Template_Template_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        templateKey: "loadingIndicator",
-        rootTagName: "span",
-        rootProps: {
-          className: cssClasses.loadingIndicator,
-          hidden: !isSearchStalled
-        },
-        templates: templates,
-        data: {
-          cssClasses: cssClasses
-        }
-      })));
-    }
-  }]);
-  return SearchBox;
-}(preact__WEBPACK_IMPORTED_MODULE_0__.Component);
-_defineProperty(SearchBox, "defaultProps", defaultProps);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBox);
 
 /***/ }),
 
@@ -14834,241 +20566,6 @@ function storeRenderState(_ref7) {
   var parentIndexName = parent ? parent.getIndexId() : instantSearchInstance.mainIndex.getIndexId();
   instantSearchInstance.renderState = _objectSpread(_objectSpread({}, instantSearchInstance.renderState), {}, _defineProperty({}, parentIndexName, _objectSpread(_objectSpread({}, instantSearchInstance.renderState[parentIndexName]), renderState)));
 }
-
-/***/ }),
-
-/***/ "./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
-
-var _ref2 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
-  d: "M8.114 10L.944 2.83 0 1.885 1.886 0l.943.943L10 8.113l7.17-7.17.944-.943L20 1.886l-.943.943-7.17 7.17 7.17 7.17.943.944L18.114 20l-.943-.943-7.17-7.17-7.17 7.17-.944.943L0 18.114l.943-.943L8.113 10z"
-});
-var _ref4 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
-  d: "M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"
-});
-var _ref6 = (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("g", {
-  fill: "none",
-  "fill-rule": "evenodd"
-}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("g", {
-  transform: "translate(1 1)",
-  "stroke-width": "2"
-}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("circle", {
-  "stroke-opacity": ".5",
-  cx: "18",
-  cy: "18",
-  r: "18"
-}), (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("path", {
-  d: "M36 18c0-9.94-8.06-18-18-18"
-}, (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("animateTransform", {
-  attributeName: "transform",
-  type: "rotate",
-  from: "0 18 18",
-  to: "360 18 18",
-  dur: "1s",
-  repeatCount: "indefinite"
-}))));
-var defaultTemplate = {
-  reset: function reset(_ref) {
-    var cssClasses = _ref.cssClasses;
-    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
-      className: cssClasses.resetIcon,
-      viewBox: "0 0 20 20",
-      width: "10",
-      height: "10",
-      "aria-hidden": "true"
-    }, _ref2);
-  },
-  submit: function submit(_ref3) {
-    var cssClasses = _ref3.cssClasses;
-    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
-      className: cssClasses.submitIcon,
-      width: "10",
-      height: "10",
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, _ref4);
-  },
-  loadingIndicator: function loadingIndicator(_ref5) {
-    var cssClasses = _ref5.cssClasses;
-    /* eslint-disable react/no-unknown-property */
-    // Preact supports kebab case attributes, and using camel case would
-    // require using `preact/compat`.
-    // @TODO: reconsider using the `react` ESLint preset
-    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.h)("svg", {
-      "aria-label": "Results are loading",
-      className: cssClasses.loadingIcon,
-      width: "16",
-      height: "16",
-      viewBox: "0 0 38 38",
-      stroke: "#444",
-      "aria-hidden": "true"
-    }, _ref6);
-    /* eslint-enable react/no-unknown-property */
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (defaultTemplate);
-
-/***/ }),
-
-/***/ "./node_modules/instantsearch.js/es/widgets/search-box/search-box.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/instantsearch.js/es/widgets/search-box/search-box.js ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @algolia/ui-components-shared */ "./node_modules/@algolia/ui-components-shared/dist/esm/cx.js");
-/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
-/* harmony import */ var _components_SearchBox_SearchBox_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/SearchBox/SearchBox.js */ "./node_modules/instantsearch.js/es/components/SearchBox/SearchBox.js");
-/* harmony import */ var _connectors_search_box_connectSearchBox_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../connectors/search-box/connectSearchBox.js */ "./node_modules/instantsearch.js/es/connectors/search-box/connectSearchBox.js");
-/* harmony import */ var _lib_suit_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/suit.js */ "./node_modules/instantsearch.js/es/lib/suit.js");
-/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/documentation.js");
-/* harmony import */ var _lib_utils_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/utils/index.js */ "./node_modules/instantsearch.js/es/lib/utils/getContainerNode.js");
-/* harmony import */ var _defaultTemplates_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./defaultTemplates.js */ "./node_modules/instantsearch.js/es/widgets/search-box/defaultTemplates.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
-
-
-
-
-
-
-var withUsage = (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_1__.createDocumentationMessageGenerator)({
-  name: 'search-box'
-});
-var suit = (0,_lib_suit_js__WEBPACK_IMPORTED_MODULE_2__.component)('SearchBox');
-var renderer = function renderer(_ref) {
-  var containerNode = _ref.containerNode,
-    cssClasses = _ref.cssClasses,
-    placeholder = _ref.placeholder,
-    templates = _ref.templates,
-    autofocus = _ref.autofocus,
-    searchAsYouType = _ref.searchAsYouType,
-    showReset = _ref.showReset,
-    showSubmit = _ref.showSubmit,
-    showLoadingIndicator = _ref.showLoadingIndicator;
-  return function (_ref2) {
-    var refine = _ref2.refine,
-      query = _ref2.query,
-      isSearchStalled = _ref2.isSearchStalled;
-    (0,preact__WEBPACK_IMPORTED_MODULE_0__.render)((0,preact__WEBPACK_IMPORTED_MODULE_0__.h)(_components_SearchBox_SearchBox_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      query: query,
-      placeholder: placeholder,
-      autofocus: autofocus,
-      refine: refine,
-      searchAsYouType: searchAsYouType,
-      templates: templates,
-      showSubmit: showSubmit,
-      showReset: showReset,
-      showLoadingIndicator: showLoadingIndicator,
-      isSearchStalled: isSearchStalled,
-      cssClasses: cssClasses
-    }), containerNode);
-  };
-};
-
-/**
- * The searchbox widget is used to let the user set a text based query.
- *
- * This is usually the  main entry point to start the search in an instantsearch context. For that
- * reason is usually placed on top, and not hidden so that the user can start searching right
- * away.
- *
- */
-
-var searchBox = function searchBox(widgetParams) {
-  var _ref3 = widgetParams || {},
-    container = _ref3.container,
-    _ref3$placeholder = _ref3.placeholder,
-    placeholder = _ref3$placeholder === void 0 ? '' : _ref3$placeholder,
-    _ref3$cssClasses = _ref3.cssClasses,
-    userCssClasses = _ref3$cssClasses === void 0 ? {} : _ref3$cssClasses,
-    _ref3$autofocus = _ref3.autofocus,
-    autofocus = _ref3$autofocus === void 0 ? false : _ref3$autofocus,
-    _ref3$searchAsYouType = _ref3.searchAsYouType,
-    searchAsYouType = _ref3$searchAsYouType === void 0 ? true : _ref3$searchAsYouType,
-    _ref3$showReset = _ref3.showReset,
-    showReset = _ref3$showReset === void 0 ? true : _ref3$showReset,
-    _ref3$showSubmit = _ref3.showSubmit,
-    showSubmit = _ref3$showSubmit === void 0 ? true : _ref3$showSubmit,
-    _ref3$showLoadingIndi = _ref3.showLoadingIndicator,
-    showLoadingIndicator = _ref3$showLoadingIndi === void 0 ? true : _ref3$showLoadingIndi,
-    queryHook = _ref3.queryHook,
-    _ref3$templates = _ref3.templates,
-    userTemplates = _ref3$templates === void 0 ? {} : _ref3$templates;
-  if (!container) {
-    throw new Error(withUsage('The `container` option is required.'));
-  }
-  var containerNode = (0,_lib_utils_index_js__WEBPACK_IMPORTED_MODULE_4__.getContainerNode)(container);
-  var cssClasses = {
-    root: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit(), userCssClasses.root),
-    form: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'form'
-    }), userCssClasses.form),
-    input: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'input'
-    }), userCssClasses.input),
-    submit: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'submit'
-    }), userCssClasses.submit),
-    submitIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'submitIcon'
-    }), userCssClasses.submitIcon),
-    reset: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'reset'
-    }), userCssClasses.reset),
-    resetIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'resetIcon'
-    }), userCssClasses.resetIcon),
-    loadingIndicator: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'loadingIndicator'
-    }), userCssClasses.loadingIndicator),
-    loadingIcon: (0,_algolia_ui_components_shared__WEBPACK_IMPORTED_MODULE_5__.cx)(suit({
-      descendantName: 'loadingIcon'
-    }), userCssClasses.loadingIcon)
-  };
-  var templates = _objectSpread(_objectSpread({}, _defaultTemplates_js__WEBPACK_IMPORTED_MODULE_6__["default"]), userTemplates);
-  var specializedRenderer = renderer({
-    containerNode: containerNode,
-    cssClasses: cssClasses,
-    placeholder: placeholder,
-    templates: templates,
-    autofocus: autofocus,
-    searchAsYouType: searchAsYouType,
-    showReset: showReset,
-    showSubmit: showSubmit,
-    showLoadingIndicator: showLoadingIndicator
-  });
-  var makeWidget = (0,_connectors_search_box_connectSearchBox_js__WEBPACK_IMPORTED_MODULE_7__["default"])(specializedRenderer, function () {
-    return (0,preact__WEBPACK_IMPORTED_MODULE_0__.render)(null, containerNode);
-  });
-  return _objectSpread(_objectSpread({}, makeWidget({
-    queryHook: queryHook
-  })), {}, {
-    $$widgetType: 'ais.searchBox'
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (searchBox);
 
 /***/ })
 

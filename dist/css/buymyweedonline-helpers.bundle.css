@@ -684,6 +684,124 @@ table.shop_table td {
   margin-left: 0 !important;
 }
 
+.wrapper-age-gate-custom {
+  box-sizing: border-box;
+  display: flex;
+  height: calc(100vh - var(--vh-offset, 0px));
+  left: 0;
+  overflow-y: auto;
+  padding: 20px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transition-duration: 0.3s;
+  transition-property: all;
+  transition-timing-function: ease;
+  width: 100%;
+  z-index: 10000;
+}
+.wrapper-age-gate-custom .inamate-loading-age-gate svg {
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  margin-left: 27px;
+}
+.wrapper-age-gate-custom .overlay-custom-age-gate {
+  height: calc(100vh - var(--vh-offset, 0px));
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: var(--ag-overlay-width, 100%);
+  -webkit-backdrop-filter: blur(var(--ag-blur));
+  backdrop-filter: blur(var(--ag-blur));
+  background: var(--ag-background-color, #fff);
+  opacity: var(--ag-background-opacity, 1);
+  z-index: 1;
+}
+.wrapper-age-gate-custom .inamate-loading-age-gate {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--ag-loader-color, #000);
+  height: calc(100vh - var(--vh-offset, 0px));
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100000;
+  display: none;
+  align-items: center;
+}
+.wrapper-age-gate-custom .age-gate-note-content {
+  background-color: #fff;
+  border: 0;
+  border-radius: 0;
+  border-width: 0;
+  border-radius: 12px;
+  box-shadow: none;
+  color: #333;
+  margin: auto;
+  max-height: calc(94vh - var(--vh-offset, 0px));
+  max-width: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  position: relative;
+  scrollbar-width: none;
+  width: 100%;
+  z-index: 10000;
+}
+.wrapper-age-gate-custom .age-gate-note-content .icon-logo-age {
+  width: 100px;
+  margin-bottom: 16px;
+}
+.wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate h2 {
+  font-size: 35px;
+  margin-bottom: 5px;
+  line-height: 1.2;
+  text-transform: none;
+  color: rgb(10, 10, 10);
+}
+.wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+  color: rgb(10, 10, 10);
+}
+.wrapper-age-gate-custom .age-gate-note-content .text-confirm-age-gate {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgb(10, 10, 10);
+  margin-bottom: 27px;
+}
+.wrapper-age-gate-custom .age-gate-note-content .button-confirm-age-gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.wrapper-age-gate-custom .age-gate-note-content .button-confirm-age-gate a.confirm-yes {
+  margin-right: 10px;
+}
+.wrapper-age-gate-custom .age-gate-note-content .button-confirm-age-gate a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgb(51, 51, 51);
+  border-radius: 3px;
+}
+.wrapper-age-gate-custom .age-gate-note-content .text-age-gate-error {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(204, 0, 0);
+  margin-bottom: 27px;
+  display: none;
+}
+
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;
   opacity: 0.3;

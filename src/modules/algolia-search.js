@@ -312,10 +312,10 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 
     // This keeps Autocomplete aware of state changes coming from routing
     // and updates its query accordingly
-    window.addEventListener('popstate', () => {
-      skipInstantSearchUiStateUpdate = true;
-      setQuery(search.helper?.state.query || '');
-    });
+    // window.addEventListener('popstate', () => {
+    //   skipInstantSearchUiStateUpdate = true;
+    //   setQuery(search.helper?.state.query || '');
+    // });
 
 
     const searchResultActive = () => {

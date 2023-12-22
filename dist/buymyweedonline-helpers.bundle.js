@@ -12189,12 +12189,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_algolia_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/algolia-search */ "./src/modules/algolia-search.js");
 /* harmony import */ var _modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/product-ajax-add-to-cart */ "./src/modules/product-ajax-add-to-cart.js");
 /* harmony import */ var _modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_product_ajax_add_to_cart__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _modules_age_gate_custom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/age-gate-custom */ "./src/modules/age-gate-custom.js");
+/* harmony import */ var _modules_age_gate_custom__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_modules_age_gate_custom__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * Scripts
  */
 
 
 
+
+
+
+
+/***/ }),
+
+/***/ "./src/modules/age-gate-custom.js":
+/*!****************************************!*\
+  !*** ./src/modules/age-gate-custom.js ***!
+  \****************************************/
+/***/ (() => {
 
 
 
@@ -12530,11 +12543,11 @@ var instantsearch = (__webpack_require__(/*! instantsearch.js */ "./node_modules
 
   // This keeps Autocomplete aware of state changes coming from routing
   // and updates its query accordingly
-  window.addEventListener('popstate', function () {
-    var _search$helper;
-    skipInstantSearchUiStateUpdate = true;
-    setQuery(((_search$helper = search.helper) === null || _search$helper === void 0 ? void 0 : _search$helper.state.query) || '');
-  });
+  // window.addEventListener('popstate', () => {
+  //   skipInstantSearchUiStateUpdate = true;
+  //   setQuery(search.helper?.state.query || '');
+  // });
+
   var searchResultActive = function searchResultActive() {
     $(document.body).on('Algolia:SearchResultActive', function (e, active) {
       if (active == true) {

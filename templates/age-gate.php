@@ -46,7 +46,7 @@ if($data_age_gate['bh_remember_age_gate']) {
     <div class="button-confirm-age-gate">
         <button class="confirm-yes">
             <?php
-                echo __('Yes', 'tb-helpers');
+                echo __('Yes', 'b-helpers');
             ?>
         </button>
         <button class="confirm-no" data-redirect="<?php echo $data_age_gate['bh_redirect_failures_age_gate']?>">

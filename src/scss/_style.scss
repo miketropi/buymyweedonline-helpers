@@ -874,11 +874,11 @@ table.shop_table {
 			align-items: center;
 			justify-content: center;
 			margin-bottom: 16px;
-			a.confirm-yes {
+			button.confirm-yes {
 				margin-right: 10px;
 			}
-			a {
-				display: flex;
+			button {
+				display: flex; 
 				align-items: center;
 				justify-content: center;
 				width: 56px;

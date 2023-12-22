@@ -758,7 +758,7 @@ table.shop_table {
 
 .wrapper-age-gate-custom {
 	box-sizing: border-box;
-    display: flex;
+    display: none;
     height: calc(100vh - var(--vh-offset, 0px));
     left: 0;
     overflow-y: auto;
@@ -786,11 +786,21 @@ table.shop_table {
 		position: fixed;
 		top: 0;
 		width: var(--ag-overlay-width,100%);
-		-webkit-backdrop-filter: blur(var(--ag-blur));
-		backdrop-filter: blur(var(--ag-blur));
-		background: var(--ag-background-color,#fff);
-		opacity: var(--ag-background-opacity,1);
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+		background: var(#000);
 		z-index: 1;
+		opacity:1;
+	}
+	.overlay-custom-age-gate-new {
+		height: calc(100vh - var(--vh-offset, 0px));
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		background: #000;
+		z-index: 2;
+		opacity: 0.7;
 	}
 	.inamate-loading-age-gate {
 		background: rgba(0,0,0,.4);
@@ -834,12 +844,19 @@ table.shop_table {
 				line-height: 1.2;
 				text-transform: none;
 				color: rgb(10, 10, 10);
+				@media(max-width:450px) {
+					font-size: 25px;
+					margin-bottom: 10px;
+				}
 			}
 			p {
 				font-size: 1.2rem;
 				font-weight: 500;
 				margin: 0 0 1rem;
 				color: rgb(10, 10, 10);
+				@media(max-width:450px) {
+					font-size: 16px;
+				}
 			}
 		}
 		.text-confirm-age-gate {
@@ -847,6 +864,10 @@ table.shop_table {
 			font-weight: 400;
 			color: rgb(10, 10, 10);
 			margin-bottom: 27px;
+			@media(max-width:450px) {
+				font-size: 16px;
+				margin-bottom: 15px;
+			}
 		}
 		.button-confirm-age-gate {
 			display: flex;

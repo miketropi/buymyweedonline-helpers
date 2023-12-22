@@ -177,24 +177,26 @@ function bt_generate_elements_custom_args($args){
 
 // age gate app
 
-
-if(!empty($_GET['test'])) {
-add_action('init','custom_template_age_gate');
+add_action('wp_head','custom_template_age_gate');
 
 function custom_template_age_gate() {
   $active_age_gate = get_field('active_age_gate','options');
   $data_age_gate = get_field('bh_age_gate_app','options');
   $login_age_gate = $data_age_gate['bh_ignore_logged_in_age_gate'];
-  // if($login_age_gate && is_user_logged_in()) {
-  //   return;
-  // }
-  $length_remember = $data_age_gate['bh_time_remember_age_gate'];
+  if($login_age_gate && is_user_logged_in()) {
+    return;
+  }
   
+  $length_remember = 0;
+  if($data_age_gate['bh_remember_age_gate']) {
+    $length_remember = $data_age_gate['bh_time_remember_age_gate'];
+  }
 
   if($active_age_gate) {
     ?>
       <div class="wrapper-age-gate-custom">
         <div class="overlay-custom-age-gate"></div>
+        <div class="overlay-custom-age-gate-new"></div>
         <div class="inamate-loading-age-gate">
             <svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
               <circle fill="currentColor" stroke="none" cx="6" cy="50" r="6">
@@ -208,13 +210,7 @@ function custom_template_age_gate() {
               </circle>
             </svg>  
           </div>
-        <?php 
-          if($length_remember>0) {
-            ?>
-              <input type="hidden" class="remember-length-age-gate" value="<?php echo   $length_remember?>" />
-            <?php 
-          }
-        ?>
+        <input type="hidden" class="remember-length-age-gate" value="<?php echo  $length_remember?>" />
         <div class="age-gate-note-content">
 
           <?php 
@@ -262,7 +258,7 @@ function custom_template_age_gate() {
     <?php
   }
 }
-}
+
 
 
 

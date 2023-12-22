@@ -686,7 +686,7 @@ table.shop_table td {
 
 .wrapper-age-gate-custom {
   box-sizing: border-box;
-  display: flex;
+  display: none;
   height: calc(100vh - var(--vh-offset, 0px));
   left: 0;
   overflow-y: auto;
@@ -713,11 +713,21 @@ table.shop_table td {
   position: fixed;
   top: 0;
   width: var(--ag-overlay-width, 100%);
-  -webkit-backdrop-filter: blur(var(--ag-blur));
-  backdrop-filter: blur(var(--ag-blur));
-  background: var(--ag-background-color, #fff);
-  opacity: var(--ag-background-opacity, 1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: var(#000);
   z-index: 1;
+  opacity: 1;
+}
+.wrapper-age-gate-custom .overlay-custom-age-gate-new {
+  height: calc(100vh - var(--vh-offset, 0px));
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #000;
+  z-index: 2;
+  opacity: 0.7;
 }
 .wrapper-age-gate-custom .inamate-loading-age-gate {
   background: rgba(0, 0, 0, 0.4);
@@ -761,17 +771,34 @@ table.shop_table td {
   text-transform: none;
   color: rgb(10, 10, 10);
 }
+@media (max-width: 450px) {
+  .wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+}
 .wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate p {
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0 0 1rem;
   color: rgb(10, 10, 10);
 }
+@media (max-width: 450px) {
+  .wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate p {
+    font-size: 16px;
+  }
+}
 .wrapper-age-gate-custom .age-gate-note-content .text-confirm-age-gate {
   font-size: 18px;
   font-weight: 400;
   color: rgb(10, 10, 10);
   margin-bottom: 27px;
+}
+@media (max-width: 450px) {
+  .wrapper-age-gate-custom .age-gate-note-content .text-confirm-age-gate {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
 }
 .wrapper-age-gate-custom .age-gate-note-content .button-confirm-age-gate {
   display: flex;
@@ -1833,5 +1860,11 @@ form.woocommerce-ordering select[name=orderby] {
   }
   .single-product .entry-summary .variations_form._long_variations .variable-item-contents .option_name {
     display: none;
+  }
+}
+@media (max-width: 768px) {
+  .single-product .woobt-title .single-product-variable-items .variable-item.image-variable-item {
+    width: 50px !important;
+    height: 50px !important;
   }
 }

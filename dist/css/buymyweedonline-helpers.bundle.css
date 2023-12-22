@@ -770,6 +770,7 @@ table.shop_table td {
   line-height: 1.2;
   text-transform: none;
   color: rgb(10, 10, 10);
+  font-family: "Lato";
 }
 @media (max-width: 450px) {
   .wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate h2 {

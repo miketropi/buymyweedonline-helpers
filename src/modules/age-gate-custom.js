@@ -78,7 +78,6 @@
 
 
     $(document).ready(function() {
-        
         age_gate_main_action();
     })
     $(window).on('resize',function(){

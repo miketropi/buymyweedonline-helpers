@@ -178,7 +178,6 @@ function bt_generate_elements_custom_args($args){
 // age gate app
 
 add_action('wp_head','custom_template_age_gate');
-
 function custom_template_age_gate() {
   b_helpers_load_template('age-gate');
 }

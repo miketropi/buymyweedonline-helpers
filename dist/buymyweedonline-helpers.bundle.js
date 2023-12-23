@@ -12228,14 +12228,18 @@ __webpack_require__.r(__webpack_exports__);
     if (time_expired_init) {
       if (time_current_load_page_init > time_expired_init) {
         $('.wrapper-age-gate-custom').css('display', 'flex');
+        $('body').addClass('age-gate-active');
       } else {
         $('.wrapper-age-gate-custom').hide();
+        $('body').removeClass('age-gate-active');
       }
     } else {
       if (time_not_re_rem == '1') {
         $('.wrapper-age-gate-custom').hide();
+        $('body').removeClass('age-gate-active');
       } else {
         $('.wrapper-age-gate-custom').css('display', 'flex');
+        $('body').addClass('age-gate-active');
       }
     }
     $('body').on('click', '.button-confirm-age-gate .confirm-no', function (e) {
@@ -12265,6 +12269,7 @@ __webpack_require__.r(__webpack_exports__);
           setTimeout(function () {
             $('.inamate-loading-age-gate').css('display', 'none');
             $('.wrapper-age-gate-custom').hide();
+            $('body').removeClass('age-gate-active');
             var time_expired = Date.now() + time_remember * 24 * 60 * 60 * 1000;
             localStorage.setItem("time_expired", time_expired);
           }, 1000);
@@ -12273,6 +12278,7 @@ __webpack_require__.r(__webpack_exports__);
           setTimeout(function () {
             $('.inamate-loading-age-gate').css('display', 'none');
             $('.wrapper-age-gate-custom').hide();
+            $('body').removeClass('age-gate-active');
             localStorage.setItem('not_time_remember', '1');
           }, 1000);
         }

@@ -4,6 +4,8 @@ import historyRouter from 'instantsearch.js/es/lib/routers/history';
 import { connectSearchBox } from 'instantsearch.js/es/connectors';
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
 import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
+import '@algolia/autocomplete-theme-classic';
+
 const instantsearch = require('instantsearch.js').default;
 import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 ((w, $) => {
@@ -45,7 +47,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
         // }),
 
         hits({
-            container: '#ALGOLIA_SEARCH_RESULT_PRODUCT',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PRODUCT_MB' : '#ALGOLIA_SEARCH_RESULT_PRODUCT',
             templates: {
                 empty: 'No results for <q>{{ query }}</q>',
                 item: wp.template('ALGOLIA_SEARCH_RESULT_PRODUCT')
@@ -58,7 +60,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 4,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_CAT',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_CAT_MB' : '#ALGOLIA_SEARCH_RESULT_CAT',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_CAT')
@@ -72,7 +74,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 3,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_PAGE',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_PAGE_MB' : '#ALGOLIA_SEARCH_RESULT_PAGE',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_PAGE')
@@ -86,7 +88,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
             hitsPerPage: 3,
           }),
           hits({
-            container: '#ALGOLIA_SEARCH_RESULT_POST',
+            container: is_mobile ? '#ALGOLIA_SEARCH_RESULT_POST_MB' : '#ALGOLIA_SEARCH_RESULT_POST',
             templates: {
               empty: 'No results for <q>{{ query }}</q>',
               item: wp.template('ALGOLIA_SEARCH_RESULT_POST')
@@ -121,7 +123,6 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
       if (isModifierEvent(event)) {
         return;
       }
-
       setQuery(query);
       setIsOpen(false);
       setInstantSearchUiState({ query });
@@ -269,7 +270,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 
       return (uiState && uiState[INSTANT_SEARCH_INDEX_NAME]) || {};
     }
-
+    
     const searchPageState = getInstantSearchUiState();
 
     let skipInstantSearchUiStateUpdate = false;
@@ -301,14 +302,20 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
         }
         skipInstantSearchUiStateUpdate = false;
       },
+      navigator: {
+        navigate() {
+          // We don't navigate to a new page because we leverage the InstantSearch
+          // UI state API.
+        },
+      },
     })
 
     // This keeps Autocomplete aware of state changes coming from routing
     // and updates its query accordingly
-    window.addEventListener('popstate', () => {
-      skipInstantSearchUiStateUpdate = true;
-      setQuery(search.helper?.state.query || '');
-    });
+    // window.addEventListener('popstate', () => {
+    //   skipInstantSearchUiStateUpdate = true;
+    //   setQuery(search.helper?.state.query || '');
+    // });
 
 
     const searchResultActive = () => {
@@ -326,10 +333,13 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 
         $('body').on('input', 'input.algolia-search__text-field', function(e) {
             e.preventDefault();
+        })        
+        $('body').on('submit', '.aa-Form', function(e) {
+            e.preventDefault();
         })
 
         $(document).on('click', function(e) {
-          if ($(e.target).closest(".algolia-search__result-entry").length === 0 && !$(e.target).hasClass('algolia-search__text-field') && !$(e.target).hasClass('aa-SubmitButton')) {
+          if ($(e.target).closest(".algolia-search__result-entry").length === 0 && !$(e.target).hasClass('algolia-search__text-field') && !$(e.target).closest('.aa-Panel').length && !$(e.target).closest('.algolia-search-container').length) {
             document.body.classList.remove('__algolia-search-result-active')
           }
         });

@@ -16,7 +16,7 @@ if($data_age_gate['bh_remember_age_gate']) {
 <div class="wrapper-age-gate-custom">
     <div class="overlay-custom-age-gate"></div>
     <div class="overlay-custom-age-gate-new"></div>
-    <div class="inamate-loading-age-gate">
+    <!-- <div class="inamate-loading-age-gate">
         <svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
             <circle fill="currentColor" stroke="none" cx="6" cy="50" r="6">
                 <animateTransform attributeName="transform" dur="1s" type="translate" values="0 15 ; 0 -15; 0 15" repeatCount="indefinite" begin="0.1"></animateTransform>
@@ -28,7 +28,7 @@ if($data_age_gate['bh_remember_age_gate']) {
                 <animateTransform attributeName="transform" dur="1s" type="translate" values="0 5 ; 0 -5; 0 5" repeatCount="indefinite" begin="0.3"></animateTransform>
             </circle>
         </svg>  
-    </div>
+    </div> -->
     <input type="hidden" class="remember-length-age-gate" value="<?php echo  $length_remember?>" />
     <div class="age-gate-note-content">
     <?php 

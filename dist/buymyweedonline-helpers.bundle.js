@@ -12218,6 +12218,9 @@ __webpack_require__.r(__webpack_exports__);
   'use strict';
 
   var age_gate_main_action = function age_gate_main_action() {
+    if ($('.wrapper-age-gate-custom').length <= 0) {
+      return;
+    }
     var time_length_init = Number($('.remember-length-age-gate').val());
     if (time_length_init <= 0) {
       localStorage.time_expired = undefined;
@@ -12246,16 +12249,16 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
       var link_redirect = $(this).data('redirect');
       if (link_redirect) {
-        $('.inamate-loading-age-gate').css('display', 'flex');
+        // $('.inamate-loading-age-gate').css('display','flex');
         setTimeout(function () {
-          $('.inamate-loading-age-gate').css('display', 'none');
+          // $('.inamate-loading-age-gate').css('display','none');
           $('.text-age-gate-error').show();
           window.location.href = link_redirect;
         }, 1000);
       } else {
-        $('.inamate-loading-age-gate').css('display', 'flex');
+        // $('.inamate-loading-age-gate').css('display','flex');
         setTimeout(function () {
-          $('.inamate-loading-age-gate').css('display', 'none');
+          // $('.inamate-loading-age-gate').css('display','none');
           $('.text-age-gate-error').show();
         }, 1000);
       }
@@ -12265,18 +12268,18 @@ __webpack_require__.r(__webpack_exports__);
       var time_remember = Number($('.remember-length-age-gate').val());
       if (typeof Storage !== 'undefined') {
         if (time_remember > 0) {
-          $('.inamate-loading-age-gate').css('display', 'flex');
+          // $('.inamate-loading-age-gate').css('display','flex');
           setTimeout(function () {
-            $('.inamate-loading-age-gate').css('display', 'none');
+            // $('.inamate-loading-age-gate').css('display','none');
             $('.wrapper-age-gate-custom').hide();
             $('body').removeClass('age-gate-active');
             var time_expired = Date.now() + time_remember * 24 * 60 * 60 * 1000;
             localStorage.setItem("time_expired", time_expired);
           }, 1000);
         } else {
-          $('.inamate-loading-age-gate').css('display', 'flex');
+          // $('.inamate-loading-age-gate').css('display','flex');
           setTimeout(function () {
-            $('.inamate-loading-age-gate').css('display', 'none');
+            // $('.inamate-loading-age-gate').css('display','none');
             $('.wrapper-age-gate-custom').hide();
             $('body').removeClass('age-gate-active');
             localStorage.setItem('not_time_remember', '1');

@@ -518,4 +518,16 @@ form.woocommerce-ordering {
             }
         }
     }
+    @media (max-width: 768px){
+      .woobt-title{
+          .single-product-variable-items {
+              .variable-item {
+                  &.image-variable-item {
+                      width: 50px !important;
+                      height: 50px !important;
+                 }
+              }
+          }
+      }
+    }
 }

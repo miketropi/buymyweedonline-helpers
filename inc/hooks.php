@@ -62,3 +62,7 @@ function b_helpers_algolia_search_hit_wp_template() {
 }
 
 add_action('wp_footer', 'b_helpers_algolia_search_hit_wp_template');
+
+
+
+

@@ -1,7 +1,15 @@
 .algolia-search {
 
   &__inner {
-
+    .aa-InputWrapperSuffix, .aa-SubmitButton,.aa-LoadingIndicator{
+      display: none;
+    }
+    .aa-Form{
+      border: none;
+      &:focus-within{
+        box-shadow: none;
+      }
+    }
   }
 
   &__text-field {
@@ -176,4 +184,11 @@ body .wp-block-column.right-col-online-dispensary.is-layout-flow {
   padding-right: 20px;
   margin-left: 0px;
   margin-right: 0;
+}
+
+/* Autocomplete */
+
+body .aa-Panel {
+  position: fixed;
+  z-index: 999999;
 }

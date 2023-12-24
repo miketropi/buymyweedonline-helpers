@@ -12,6 +12,8 @@ $cart_total = WC()->cart->total;
     <ul class="free-gift__products">
       <?php if($freegift_products && count($freegift_products) > 0) : 
         foreach($freegift_products as $_index => $_p) :
+          if(empty($_p['select_product_for_freegift'])) continue;
+          
           $_product = wc_get_product($_p['select_product_for_freegift']);
           $type = $_product->get_type();
           $unlocked = $cart_total <= $_p['unlock_amount'] ? false : true;
@@ -19,40 +21,40 @@ $cart_total = WC()->cart->total;
 
           $product_id = ($type == 'variation') ? $_product->get_parent_id() : $_product->get_id();
           $variation_id = ($type == 'variation') ? $_product->get_id() : 0;
-        ?>
-        <li class="<?php echo implode(' ', $classes); ?>">
-          <div class="free-gift__product">
-            <div class="free-gift__product-thumbnail">
-              <?php echo $_product->get_image('thumbnail'); ?>
-            </div>
-            <div class="free-gift__product-title">
-              <span class="free-gift__unlock-amount"><?php _e('Spend', 'b_helpers') ?> <?php echo wc_price($_p['unlock_amount']) ?>+</span>
-              <h4><?php echo $_p['name']; // $_product->get_title(); ?></h4>
-              <div class="free-gift__product-price">
-                <?php echo $_product->get_price_html(); ?> - <span class="free-gift__free-text"><?php _e('Free', 'b_helpers') ?></span>
+          ?>
+          <li class="<?php echo implode(' ', $classes); ?>">
+            <div class="free-gift__product">
+              <div class="free-gift__product-thumbnail">
+                <?php echo $_product->get_image('thumbnail'); ?>
+              </div>
+              <div class="free-gift__product-title">
+                <span class="free-gift__unlock-amount"><?php _e('Spend', 'b_helpers') ?> <?php echo wc_price($_p['unlock_amount']) ?>+</span>
+                <h4><?php echo $_p['name']; // $_product->get_title(); ?></h4>
+                <div class="free-gift__product-price">
+                  <?php echo $_product->get_price_html(); ?> - <span class="free-gift__free-text"><?php _e('Free', 'b_helpers') ?></span>
+                </div>
+              </div>
+              <div class="free-gift__product-unlock-status">
+                <?php 
+                if($unlocked == true) {
+                  ?> 
+                  <a 
+                    href="<?php echo $_product->add_to_cart_url(); ?>" 
+                    class="free-gift__product-add-to-cart" 
+                    data-product-type="<?php echo $type; ?>" 
+                    data-product-variation-id="<?php echo $variation_id ?>" 
+                    data-product-id="<?php echo $product_id ?>"> 
+                    <?php _e('Add to Cart', 'b_helpers'); ?>
+                  </a> 
+                  <?php
+                } else {
+                  echo '<span class="free-gift__product-lock-icon">'. $lock_icon .'</span>'; 
+                }
+                ?>
               </div>
             </div>
-            <div class="free-gift__product-unlock-status">
-              <?php 
-              if($unlocked == true) {
-                ?> 
-                <a 
-                  href="<?php echo $_product->add_to_cart_url(); ?>" 
-                  class="free-gift__product-add-to-cart" 
-                  data-product-type="<?php echo $type; ?>" 
-                  data-product-variation-id="<?php echo $variation_id ?>" 
-                  data-product-id="<?php echo $product_id ?>"> 
-                  <?php _e('Add to Cart', 'b_helpers'); ?>
-                </a> 
-                <?php
-              } else {
-                echo '<span class="free-gift__product-lock-icon">'. $lock_icon .'</span>'; 
-              }
-              ?>
-            </div>
-          </div>
-        </li>
-        <?php
+          </li>
+          <?php
         endforeach;
       endif; ?>
     </ul>

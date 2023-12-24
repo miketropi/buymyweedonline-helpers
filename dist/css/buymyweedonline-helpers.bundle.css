@@ -1897,6 +1897,7 @@ form.woocommerce-ordering select[name=orderby] {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-height: 18px !important;
 }
 @media (max-width: 768px) {
   .single-product .woobt-title .variations .single-product-variable-items .variable-item .variable-item-contents .variable-item-span {

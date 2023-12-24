@@ -98,25 +98,16 @@ function bt_intercept_wc_template( $template, $template_name, $template_path ) {
 	return $template;
 
 }
-// fil
-add_filter('woo_variation_swatches_image_attribute_template', 'bt_woo_variation_swatches_image_attribute_template', 10, 4);
-function bt_woo_variation_swatches_image_attribute_template($template, $data, $attribute_type, $variation_data){
-  if ( is_product() ){
-    $attribute_name = $data['attribute_name'];
-    $option_name = $data['option_slug'];
-    $variation_id = $variation_data[$attribute_name][$option_name]['variation_id'];
-    $variation_obj = wc_get_product($variation_id);
-    $template .= "<span class='option_name'>".$data['option_name']."<label>".$variation_obj->get_price_html()."</label></span>";
-  }
-  return $template;
-}
+
+
+// get available variants of products
 function bt_get_variation_data_by_attribute_name( $available_variations, $attribute_name ) {
-  $assigned       = array();
+  $assigned = array();
   foreach ( $available_variations as $variation ) {
       $attrs = $variation[ 'attributes' ];
       $value = $attrs[ $attribute_name ];
-      if ( ! isset( $assigned[ $attribute_name ][ $value ] ) && ! empty( $value ) ) {
-          $assigned[ $attribute_name ][ $value ] = array(
+      if ( ! isset( $assigned[ $attribute_name ][ sanitize_title($value) ] ) && ! empty( $value ) ) {
+          $assigned[ $attribute_name ][ ($value) ] = array(
               'image_id'     => $variation[ 'variation_image_id' ],
               'variation_id' => $variation[ 'variation_id' ],
               'type'         => empty( $variation[ 'variation_image_id' ] ) ? 'button' : 'image',
@@ -126,6 +117,30 @@ function bt_get_variation_data_by_attribute_name( $available_variations, $attrib
   
   return $assigned;
 }
+// template swatch image
+add_filter('woo_variation_swatches_image_attribute_template', 'bt_woo_variation_swatches_image_attribute_template', 10, 4);
+function bt_woo_variation_swatches_image_attribute_template($template, $data, $attribute_type, $variation_data){
+  if ( is_product() ){
+    $attribute_name = $data['attribute_name'];
+    $option_name = $data['option_name'];
+    $option_slug = $data['option_slug'];
+    if(!$variation_data){
+      $product = $data['args']['product'];
+      $available_variations = $product->get_available_variations();
+      $variation_data = bt_get_variation_data_by_attribute_name($available_variations, $attribute_name);
+    }
+    $variation_id = isset($variation_data[$attribute_name][sanitize_title($option_name)]) ? $variation_data[$attribute_name][sanitize_title($option_name)]['variation_id'] : $variation_data[$attribute_name][$option_name]['variation_id'];
+    $template .= "<span class='option_name'>".$data['option_name']."</span>";
+    if($variation_id){
+      $variation_obj = wc_get_product($variation_id);
+      if($variation_obj){
+        $template .= "<span class='option_name'>".$data['option_name']."<label>".$variation_obj->get_price_html()."</label></span>";
+      }
+    }
+  }
+  return $template;
+}
+// template swatch button
 add_filter('woo_variation_swatches_button_attribute_template', 'bt_woo_variation_swatches_button_attribute_template', 10, 4);
 function bt_woo_variation_swatches_button_attribute_template($template, $data, $attribute_type, $variation_data){
   if ( is_product() ){
@@ -136,9 +151,13 @@ function bt_woo_variation_swatches_button_attribute_template($template, $data, $
       $available_variations = $product->get_available_variations();
       $variation_data = bt_get_variation_data_by_attribute_name($available_variations, $attribute_name);
     }
-    $variation_id = $variation_data[$attribute_name][$option_name]['variation_id'];
-    $variation_obj = wc_get_product($variation_id);
-    $template = '<span class="variable-item-span variable-item-span-button">%s<label>'.$variation_obj->get_price_html().'</label></span>';
+    $variation_id = isset($variation_data[$attribute_name][sanitize_title($option_name)]) ? $variation_data[$attribute_name][sanitize_title($option_name)]['variation_id'] : $variation_data[$attribute_name][$option_name]['variation_id'];
+    if($variation_id){
+      $variation_obj = wc_get_product($variation_id);
+      if($variation_obj){
+        $template = '<span class="variable-item-span variable-item-span-button">%s<label>'.$variation_obj->get_price_html().'</label></span>';
+      }
+    }
   }
   return $template;
 }
@@ -148,3 +167,23 @@ function bt_algolia_post_product_shared_attributes($shared_attributes, $post){
   $shared_attributes['total_sales'] = (int)get_post_meta( $post->ID, 'total_sales', true );
   return $shared_attributes;
 }
+// fix query
+add_filter('generate_elements_custom_args', 'bt_generate_elements_custom_args');
+function bt_generate_elements_custom_args($args){
+  $args['suppress_filters'] = true;
+   return $args;
+}
+
+
+// age gate app
+
+add_action('wp_head','custom_template_age_gate');
+function custom_template_age_gate() {
+  b_helpers_load_template('age-gate');
+}
+
+
+
+
+
+

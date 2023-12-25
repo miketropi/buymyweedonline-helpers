@@ -65,4 +65,10 @@ add_action('wp_footer', 'b_helpers_algolia_search_hit_wp_template');
 
 
 
+// age gate app
+
+add_action('wp_head','b_custom_template_age_gate');
+
+
+
 

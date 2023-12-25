@@ -762,7 +762,7 @@ table.shop_table td {
 }
 .wrapper-age-gate-custom .age-gate-note-content .icon-logo-age {
   width: 100px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 .wrapper-age-gate-custom .age-gate-note-content .content-restrict-age-gate h2 {
   font-size: 35px;
@@ -1952,6 +1952,14 @@ form.woocommerce-ordering select[name=orderby] {
   }
   .single-product.woocommerce .woobt-availability .form-group.center-block {
     margin: 0 -12px 10px -12px;
+  }
+  .single-product.woocommerce .woobt-availability .cwgstock_output .cwginstocksuccess {
+    font-size: 14px;
+    margin: 0 -12px;
+  }
+  .single-product.woocommerce .woobt-availability .cwgstock_output .cwginstockerror {
+    font-size: 14px;
+    margin: 0 -12px;
   }
 }
 @media (max-width: 380px) {

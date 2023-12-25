@@ -44,7 +44,17 @@
             .form-group.center-block {
                 margin: 0 -12px 10px -12px;
             }
-           
+            .cwgstock_output {
+                .cwginstocksuccess {
+                    font-size: 14px;
+                    margin: 0 -12px;
+                }
+                .cwginstockerror {
+                    font-size: 14px;
+                    margin: 0 -12px;
+                }
+            }
+
         }
         @media(max-width:380px) {
             max-width: 136%;

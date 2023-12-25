@@ -707,7 +707,7 @@ table.shop_table td {
   justify-content: center;
   margin-left: 27px;
 }
-.wrapper-age-gate-custom .overlay-custom-age-gate {
+.wrapper-age-gate-custom .overlay-custom-age-gate-bg {
   height: calc(100vh - var(--vh-offset, 0px));
   left: 0;
   position: fixed;
@@ -719,7 +719,7 @@ table.shop_table td {
   z-index: 1;
   opacity: 1;
 }
-.wrapper-age-gate-custom .overlay-custom-age-gate-new {
+.wrapper-age-gate-custom .overlay-custom-age-gate {
   height: calc(100vh - var(--vh-offset, 0px));
   left: 0;
   position: fixed;
@@ -1912,5 +1912,60 @@ form.woocommerce-ordering select[name=orderby] {
   .single-product .woobt-title .variations .single-product-variable-items .variable-item.image-variable-item {
     width: 50px !important;
     height: 50px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .single-product.woocommerce div#product_specs {
+    padding-bottom: 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .single-product.woocommerce div.product .woocommerce-tabs .panel {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+  .single-product.woocommerce #reviews-bottom .reviews-slider-heading {
+    margin-top: 30px;
+  }
+}
+@media (max-width: 450px) {
+  .single-product.woocommerce .woobt-availability {
+    width: 140%;
+  }
+  .single-product.woocommerce .woobt-availability .panel-heading.cwginstock-panel-heading h4 {
+    font-size: 14px;
+    font-weight: 700 !important;
+  }
+  .single-product.woocommerce .woobt-availability .cwgstock_button {
+    font-size: 14px;
+    text-wrap: balance;
+    line-height: 1.1;
+    padding: 11px 1px;
+  }
+  .single-product.woocommerce .woobt-availability .cwgstock_email {
+    padding: 6px 3px;
+    border-radius: 0 !important;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .single-product.woocommerce .woobt-availability .form-group.center-block {
+    margin: 0 -12px 10px -12px;
+  }
+}
+@media (max-width: 380px) {
+  .single-product.woocommerce .woobt-availability {
+    max-width: 136%;
+  }
+}
+@media (max-width: 450px) {
+  .single-product.woocommerce .woobt-price .price {
+    font-size: 16px;
+  }
+}
+@media (max-width: 450px) {
+  .single-product.woocommerce .woobt-wrap-responsive .woobt-products .woobt-product {
+    align-items: flex-start;
   }
 }

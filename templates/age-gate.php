@@ -14,8 +14,8 @@ if($data_age_gate['bh_remember_age_gate']) {
 }
 ?>
 <div class="wrapper-age-gate-custom">
+    <div class="overlay-custom-age-gate-bg"></div>
     <div class="overlay-custom-age-gate"></div>
-    <div class="overlay-custom-age-gate-new"></div>
     <!-- <div class="inamate-loading-age-gate">
         <svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
             <circle fill="currentColor" stroke="none" cx="6" cy="50" r="6">
@@ -57,7 +57,7 @@ if($data_age_gate['bh_remember_age_gate']) {
     </div>
     <div class="text-age-gate-error">
         <?php 
-        echo $data_age_gate['bh_age_gate_failed_error'];
+            echo $data_age_gate['bh_age_gate_failed_error'];
         ?>
     </div>
     </div>

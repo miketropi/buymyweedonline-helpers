@@ -780,7 +780,7 @@ table.shop_table {
 			margin-left: 27px;
 		}
 	}
-	.overlay-custom-age-gate {
+	.overlay-custom-age-gate-bg {
 		height: calc(100vh - var(--vh-offset, 0px));
 		left: 0;
 		position: fixed;
@@ -792,7 +792,7 @@ table.shop_table {
 		z-index: 1;
 		opacity:1;
 	}
-	.overlay-custom-age-gate-new {
+	.overlay-custom-age-gate {
 		height: calc(100vh - var(--vh-offset, 0px));
 		left: 0;
 		position: fixed;
@@ -800,7 +800,7 @@ table.shop_table {
 		width: 100%;
 		background: #000;
 		z-index: 2;
-		opacity: 0.7;
+		opacity: 0.7; 
 	}
 	.inamate-loading-age-gate {
 		background: rgba(0,0,0,.4);

@@ -12294,7 +12294,7 @@ __webpack_require__.r(__webpack_exports__);
     age_gate_main_action();
   });
   $(window).on('resize', function () {});
-  $(window).on("scroll", function () {});
+  $(window).on('scroll', function () {});
   $(window).on('load', function () {});
   $(window).unload(function () {
     localStorage.not_time_remember = undefined;

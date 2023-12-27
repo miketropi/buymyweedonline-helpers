@@ -15,7 +15,7 @@
         }
         var time_current_load_page_init = Date.now();
         var time_expired_init = Number(localStorage.getItem("time_expired"));
-        var time_not_re_rem = localStorage.getItem('not_time_remember');
+        var time_not_remember = localStorage.getItem('not_time_remember');
         if (time_expired_init) {
             if (time_current_load_page_init>time_expired_init) {
                 $('.wrapper-age-gate-custom').css('display','flex');
@@ -25,7 +25,7 @@
                 $('body').removeClass('age-gate-active');
             }
         } else {
-            if (time_not_re_rem=='1') {
+            if (time_not_remember=='1') {
                 $('.wrapper-age-gate-custom').hide();
                 $('body').removeClass('age-gate-active');
             } else {

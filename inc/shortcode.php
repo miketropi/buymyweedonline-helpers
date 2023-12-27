@@ -6,7 +6,8 @@
 function b_helpers_algolia_search_func($atts = []) {
   $a = shortcode_atts([
     'classes' => '',
-    'display' => 'desktop', // both, mobile, desktop
+    'display' => 'desktop',// both, mobile, desktop
+    'page_404'=>'false' 
   ], $atts );
 
   set_query_var('atts', $a);
@@ -25,11 +26,17 @@ add_shortcode('bh_algolia_search', 'b_helpers_algolia_search_func');
 function b_helpers_algolia_search_func_mb($atts = []) {
   $a = shortcode_atts([
     'classes' => '',
-    'display' => 'desktop', // both, mobile, desktop
+    'display' => 'desktop',// both, mobile, desktop
+    'page_404'=>'false' 
   ], $atts );
 
   set_query_var('atts', $a);
 
+  if($atts['page_404']=='true') {
+    if(is_404()) {
+      return;
+    }
+  }
   ob_start();
   ?>
   <div id="ALGOLIA_SEARCH_MB" class="algolia-search algolia-search-container">
@@ -66,3 +73,5 @@ function b_helpers_algolia_search_func_mb($atts = []) {
 }
 
 add_shortcode('bh_algolia_search_mb', 'b_helpers_algolia_search_func_mb');
+
+

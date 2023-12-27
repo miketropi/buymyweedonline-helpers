@@ -14,6 +14,13 @@ if($atts['display'] == 'both'){
   }
 }
 if(!$render_search) return;
+
+if($atts['page_404']=='true') {
+  if(is_404()) {
+    return;
+  }
+}
+
 ?>
 <div id="ALGOLIA_SEARCH" class="algolia-search algolia-search-container">
   <div class="algolia-search__inner">

@@ -24,6 +24,18 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
     const virtualSearchBox = connectSearchBox(() => {});
     const instantSearchRouter = historyRouter();
     const searchClient = algoliasearch(APP_ID, API_KEY);
+    // const algoliaClient = algoliasearch(APP_ID, API_KEY);
+
+    // const searchClient = {
+    //   ...algoliaClient,
+    //   search(requests) {
+    //     if (requests.every(({ params }) => !params.query)) {
+    //       return;
+    //     }
+    
+    //     return algoliaClient.search(requests);
+    //   },
+    // };
     const search = instantsearch({
         indexName: 'wp_posts_product',
         searchClient,
@@ -278,6 +290,7 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
       container: is_mobile ? '#searchbox_MB' : '#searchbox',
       showReset: false,
       showSubmit: false,
+      debug: true,
       placeholder: 'Search...',
       classNames: {
         input: 'algolia-search__text-field',
@@ -312,10 +325,10 @@ import { index, searchBox, hits, configure } from 'instantsearch.js/es/widgets';
 
     // This keeps Autocomplete aware of state changes coming from routing
     // and updates its query accordingly
-    // window.addEventListener('popstate', () => {
-    //   skipInstantSearchUiStateUpdate = true;
-    //   setQuery(search.helper?.state.query || '');
-    // });
+    window.addEventListener('popstate', () => {
+      skipInstantSearchUiStateUpdate = true;
+      setQuery(search.helper?.state.query || '');
+    });
 
 
     const searchResultActive = () => {

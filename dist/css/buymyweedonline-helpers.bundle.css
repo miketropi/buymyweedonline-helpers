@@ -1330,7 +1330,7 @@ body .wp-block-column.right-col-online-dispensary.is-layout-flow {
 
 /* Autocomplete */
 body .aa-Panel {
-  position: fixed;
+  position: absolute;
   z-index: 999999;
 }
 

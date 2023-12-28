@@ -40,7 +40,7 @@ function b_helpers_get_woo_products_choices() {
       }
     }
   }
-  
+
   return $choices;
 }
 /* fix sale badge */
@@ -69,11 +69,11 @@ function bt_update_variation_info(){
     if ($product->is_type('variable')) {
         // Output an empty container for variation info
         echo '<div class="var_info"><span class="price">Price:  </span> <span class="variation-info"></span></div>';
-        
+
         // Enqueue JavaScript to handle variation change
         wc_enqueue_js("
             jQuery(document).on('found_variation', 'form.cart', function( event, variation ) {
-                jQuery('.var_info .variation-info').html(variation.price_html); 
+                jQuery('.var_info .variation-info').html(variation.price_html);
             });
         ");
     }
@@ -114,7 +114,7 @@ function bt_get_variation_data_by_attribute_name( $available_variations, $attrib
           );
       }
   }
-  
+
   return $assigned;
 }
 // template swatch image
@@ -180,8 +180,109 @@ function b_custom_template_age_gate() {
   b_helpers_load_template('age-gate');
 }
 
+//Optimize site
+function remove_wp_enqueue_styles(){
+    $styles = array();
 
+    //Home page
+    if(is_home() || is_front_page()){
+        $styles = array(
+          'cwginstock_bootstrap',
+          'cwginstock_frontend_css',
+          'bellows',
+          'bellows-font-awesome',
+          'bellows-vanilla',
+          'delicious-recipe-styles',
+          'delicious-recipes-pro-new',
+          'delicious-recipes-pro-public',
+          'delicious-recipes-pro',
+          'jquery-rateyo',
+          'light-gallery',
+          'owl-carousel',
+          'toastr'.
+          'fgf-frontend-css',
+          'lightcase',
+          'pwb-styles-frontend',
+          'woobt-frontend',
+          'woo-stickers-by-webline',
+          'berocket_aapf_widget-style',
+          'select2',
+          'woocommerce-dynamic-pricing-and-discount',
+          'wc-mnm-checkout-blocks',
+          'wc-mnm-frontend',
+          'wpcsb-frontend'
+    		);
+    }
 
+    if(is_product_category()){
+        $styles = array(
+          'cwginstock_bootstrap',
+          'cwginstock_frontend_css',
+          'bellows',
+          'bellows-font-awesome',
+          'bellows-vanilla',
+          'delicious-recipe-styles',
+          'delicious-recipes-pro-new',
+          'delicious-recipes-pro-public',
+          'delicious-recipes-pro',
+          'jquery-rateyo',
+          'light-gallery',
+          'owl-carousel',
+          'toastr'.
+          'fgf-frontend-css',
+          'lightcase',
+          'pwb-styles-frontend',
+          'woobt-frontend',
+          'woo-stickers-by-webline',
+          //'berocket_aapf_widget-style',
+          'select2',
+          'woocommerce-dynamic-pricing-and-discount',
+          'wc-mnm-checkout-blocks',
+          'wc-mnm-frontend',
+          'wpcsb-frontend'
+        );
+    }
 
+    if(is_singular('product')){
+        $styles = array(
+          // 'cwginstock_bootstrap',
+          // 'cwginstock_frontend_css',
+          'bellows',
+          'bellows-font-awesome',
+          'bellows-vanilla',
+          'delicious-recipe-styles',
+          'delicious-recipes-pro-new',
+          'delicious-recipes-pro-public',
+          'delicious-recipes-pro',
+          'jquery-rateyo',
+          'light-gallery',
+          'owl-carousel',
+          'toastr'.
+          //'fgf-frontend-css',
+          'lightcase',
+          //'pwb-styles-frontend',
+          //'woobt-frontend',
+          'woo-stickers-by-webline',
+          //'berocket_aapf_widget-style',
+          //'select2',
+          //'woocommerce-dynamic-pricing-and-discount',
+          //'wc-mnm-checkout-blocks',
+          //'wc-mnm-frontend',
+          'wpcsb-frontend'
+        );
+    }
 
+    foreach ($styles as $style) {
+      wp_dequeue_style($style);
+      wp_deregister_style($style);
+    }
+}
 
+add_action('wp_head' , 'add_css_fix_bg_white' );
+function add_css_fix_bg_white(){
+  ?>
+  <style media="screen">
+    html.async-hide { opacity: 1 !important}
+  </style>
+  <?php
+}

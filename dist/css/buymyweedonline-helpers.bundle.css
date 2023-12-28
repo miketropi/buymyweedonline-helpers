@@ -1915,6 +1915,13 @@ form.woocommerce-ordering select[name=orderby] {
   }
 }
 
+body img.miscpic-listing-image.rounded {
+  height: 60px;
+}
+body #generate-slideout-menu {
+  top: 0;
+}
+
 @media (max-width: 767px) {
   .single-product.woocommerce div#product_specs {
     padding-bottom: 0 !important;

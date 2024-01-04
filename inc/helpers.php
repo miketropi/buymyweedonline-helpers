@@ -262,13 +262,13 @@ function remove_wp_enqueue_styles(){
           'lightcase',
           //'pwb-styles-frontend',
           //'woobt-frontend',
-          'woo-stickers-by-webline',
+          //'woo-stickers-by-webline',
           //'berocket_aapf_widget-style',
           //'select2',
           //'woocommerce-dynamic-pricing-and-discount',
           //'wc-mnm-checkout-blocks',
           //'wc-mnm-frontend',
-          'wpcsb-frontend'
+          //'wpcsb-frontend'
         );
     }
 

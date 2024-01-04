@@ -443,13 +443,15 @@ add_action('woocommerce_widget_shopping_cart_buttons', function() {
 // Fix get opts algolia cat page (NOT DELETE)
 add_action('init', function() {
   $al_opts = get_field('bh_algolia_app', 'option');
+  $active_age_gate_all = get_field('active_age_gate','option');
+  $al_age_gate_opts = get_field('bh_age_gate_app', 'option');
 });
 
 //Hook show Bougth Together by Category Product
 add_filter('woobt_get_ids' , 'woo_custom_woobt_get_ids' , 10 , 3);
 function woo_custom_woobt_get_ids($ids, $product_id, $context){
 
-  if(empty($ids)){
+  if(empty($ids) && !is_admin()){
     $terms = get_the_terms ( $product_id , 'product_cat' );
     $ids = [];
 

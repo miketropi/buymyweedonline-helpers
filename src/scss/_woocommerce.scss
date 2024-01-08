@@ -569,6 +569,21 @@ form.woocommerce-ordering {
         }
       }
     }
+    table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"]{
+      .product-quantity{
+        .quantity{
+           .minus,.plus{
+             display: none;
+           }
+           input[type="checkbox"]{
+             border: navajowhite;
+            -webkit-appearance: checkbox;
+            width: 18px !important;
+            margin-right: 5px !important;
+           }
+        }
+      }
+    }
 }
 
 body{

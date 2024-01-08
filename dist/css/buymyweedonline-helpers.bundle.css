@@ -1914,6 +1914,15 @@ form.woocommerce-ordering select[name=orderby] {
     height: 50px !important;
   }
 }
+.single-product table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"] .product-quantity .quantity .minus, .single-product table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"] .product-quantity .quantity .plus {
+  display: none;
+}
+.single-product table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"] .product-quantity .quantity input[type=checkbox] {
+  border: navajowhite;
+  -webkit-appearance: checkbox;
+  width: 18px !important;
+  margin-right: 5px !important;
+}
 
 body img.miscpic-listing-image.rounded {
   height: 60px;

@@ -1925,6 +1925,11 @@ form.woocommerce-ordering select[name=orderby] {
   width: 18px !important;
   margin-right: 5px !important;
 }
+.single-product.woocommerce #respond input#submit, .single-product.woocommerce a.button, .single-product.woocommerce button.button, .single-product.woocommerce input.button {
+  color: #fff !important;
+  background-color: #63b723 !important;
+  font-weight: 400 !important;
+}
 @media (max-width: 768px) {
   .single-product.woocommerce #content div.product div.images, .single-product.woocommerce div.product div.images, .single-product.woocommerce-page #content div.product div.images, .single-product.woocommerce-page div.product div.images, .single-product.woocommerce #content div.product div.summary, .single-product.woocommerce div.product div.summary, .single-product.woocommerce-page #content div.product div.summary, .single-product.woocommerce-page div.product div.summary {
     width: 100% !important;

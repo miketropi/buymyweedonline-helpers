@@ -584,6 +584,18 @@ form.woocommerce-ordering {
         }
       }
     }
+    @media (max-width: 768px){
+      &.woocommerce #content div.product div.images,
+      &.woocommerce div.product div.images,
+      &.woocommerce-page #content div.product div.images,
+      &.woocommerce-page div.product div.images,
+      &.woocommerce #content div.product div.summary,
+      &.woocommerce div.product div.summary,
+      &.woocommerce-page #content div.product div.summary,
+      &.woocommerce-page div.product div.summary{
+        width: 100% !important;
+      }
+    }
 }
 
 body{

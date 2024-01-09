@@ -128,7 +128,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
+    margin: 0;
+    padding: 0;
     > .ais-Hits-item {
       width: calc(50% - 20px);
     }

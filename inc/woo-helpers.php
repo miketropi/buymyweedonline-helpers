@@ -475,3 +475,15 @@ function woo_custom_woobt_get_ids($ids, $product_id, $context){
 
   return $ids;
 }
+
+//Change text "Add 1" to "1 left"
+add_filter('wc_mnm_child_item_quantity_input_args' , 'custom_text_wc_mnm_child_item_quantity_input_args' , 10 , 2);
+function custom_text_wc_mnm_child_item_quantity_input_args($input_args, $child_item){
+  $checkbox_label = sprintf(
+		_x( '%1$d left <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+		$child_item->get_quantity( 'max' ),
+		wp_strip_all_tags( $child_item->get_product()->get_name() )
+	);
+  $input_args['checkbox_label'] = $checkbox_label;
+  return $input_args;
+}

@@ -1276,6 +1276,8 @@ body.active-mini-cart .over-lay-custom-mini-cart {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 #ALGOLIA_SEARCH_RESULT_PRODUCT .ais-Hits-list > .ais-Hits-item, #ALGOLIA_SEARCH_RESULT_PRODUCT_MB .ais-Hits-list > .ais-Hits-item {
   width: calc(50% - 20px);
@@ -1922,6 +1924,11 @@ form.woocommerce-ordering select[name=orderby] {
   -webkit-appearance: checkbox;
   width: 18px !important;
   margin-right: 5px !important;
+}
+@media (max-width: 768px) {
+  .single-product.woocommerce #content div.product div.images, .single-product.woocommerce div.product div.images, .single-product.woocommerce-page #content div.product div.images, .single-product.woocommerce-page div.product div.images, .single-product.woocommerce #content div.product div.summary, .single-product.woocommerce div.product div.summary, .single-product.woocommerce-page #content div.product div.summary, .single-product.woocommerce-page div.product div.summary {
+    width: 100% !important;
+  }
 }
 
 body img.miscpic-listing-image.rounded {

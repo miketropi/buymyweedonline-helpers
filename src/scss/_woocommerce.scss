@@ -584,10 +584,7 @@ form.woocommerce-ordering {
         }
       }
     }
-    &.woocommerce #respond input#submit,
-    &.woocommerce a.button,
-    &.woocommerce button.button,
-    &.woocommerce input.button{
+    &.woocommerce #respond input#submit{
       color: #fff !important;
       background-color: #63b723 !important;
       font-weight: 400 !important;

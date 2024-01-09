@@ -1925,7 +1925,7 @@ form.woocommerce-ordering select[name=orderby] {
   width: 18px !important;
   margin-right: 5px !important;
 }
-.single-product.woocommerce #respond input#submit, .single-product.woocommerce a.button, .single-product.woocommerce button.button, .single-product.woocommerce input.button {
+.single-product.woocommerce #respond input#submit {
   color: #fff !important;
   background-color: #63b723 !important;
   font-weight: 400 !important;

@@ -274,7 +274,8 @@ function remove_wp_enqueue_styles(){
           //'wc-mnm-frontend',
           //'wpcsb-frontend'
           'ywpar_frontend',
-          'delicious-recipes-single'
+          'delicious-recipes-single',
+          'select2'
         );
     }
 

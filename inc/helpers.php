@@ -199,7 +199,7 @@ function remove_wp_enqueue_styles(){
           'jquery-rateyo',
           'light-gallery',
           'owl-carousel',
-          'toastr'.
+          'toastr',
           'fgf-frontend-css',
           'lightcase',
           'pwb-styles-frontend',
@@ -210,7 +210,9 @@ function remove_wp_enqueue_styles(){
           'woocommerce-dynamic-pricing-and-discount',
           'wc-mnm-checkout-blocks',
           'wc-mnm-frontend',
-          'wpcsb-frontend'
+          'wpcsb-frontend',
+          'ywpar_frontend',
+          'delicious-recipes-single'
     		);
     }
 
@@ -228,7 +230,7 @@ function remove_wp_enqueue_styles(){
           'jquery-rateyo',
           'light-gallery',
           'owl-carousel',
-          'toastr'.
+          'toastr',
           'fgf-frontend-css',
           'lightcase',
           'pwb-styles-frontend',
@@ -239,7 +241,9 @@ function remove_wp_enqueue_styles(){
           'woocommerce-dynamic-pricing-and-discount',
           'wc-mnm-checkout-blocks',
           'wc-mnm-frontend',
-          'wpcsb-frontend'
+          'wpcsb-frontend',
+          'ywpar_frontend',
+          'delicious-recipes-single'
         );
     }
 
@@ -257,7 +261,7 @@ function remove_wp_enqueue_styles(){
           'jquery-rateyo',
           'light-gallery',
           'owl-carousel',
-          'toastr'.
+          'toastr',
           //'fgf-frontend-css',
           'lightcase',
           //'pwb-styles-frontend',
@@ -269,6 +273,8 @@ function remove_wp_enqueue_styles(){
           //'wc-mnm-checkout-blocks',
           //'wc-mnm-frontend',
           //'wpcsb-frontend'
+          'ywpar_frontend',
+          'delicious-recipes-single'
         );
     }
 

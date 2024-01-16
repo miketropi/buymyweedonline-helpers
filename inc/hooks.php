@@ -26,8 +26,8 @@ function b_helpers_add_modified_time( $src ) {
   return $src;
 }
 
-add_filter('style_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
-add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
+// add_filter('style_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
+// add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
 
 function b_helpers_algolia_search_hit_wp_template() {
   ?>
@@ -72,6 +72,7 @@ add_action('wp_head','b_custom_template_age_gate');
 //optimize site
 {
   add_action('wp_print_styles','remove_wp_enqueue_styles',999);
+  add_action('wp_print_scripts','remove_wp_enqueue_scripts',999);
 
   add_action( 'init', 'disable_embeds_code_init_mealprep', 9999 );
   function disable_embeds_code_init_mealprep() {
@@ -112,4 +113,9 @@ add_action('wp_head','b_custom_template_age_gate');
   	}
   	return $rules;
   }
+
+  //Remove skip link
+  add_action( 'after_setup_theme', function() {
+      remove_action( 'generate_before_header', 'generate_do_skip_to_content_link', 2 );
+  }, 50 );
 }

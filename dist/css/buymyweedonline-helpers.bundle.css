@@ -18,6 +18,163 @@
   background-repeat: no-repeat;
 }
 
+[data-icon]:before {
+  font-family: "untitled-font-1" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^=icon-]:before,
+[class*=" icon-"]:before {
+  font-family: "untitled-font-1" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-group-1:before {
+  content: "b";
+}
+
+.icon-icon-5-1:before {
+  content: "f";
+}
+
+.icon-icon2:before {
+  content: "g";
+}
+
+.icon-icon21:before {
+  content: "h";
+}
+
+.icon-icon-3-1:before {
+  content: "i";
+}
+
+.icon-icon-4-1-1-1:before {
+  content: "j";
+}
+
+.icon-icon-7:before {
+  content: "k";
+}
+
+.icon-icon-11:before {
+  content: "m";
+}
+
+.icon-icon-7-1:before {
+  content: "n";
+}
+
+.icon-cannabis:before {
+  content: "o";
+}
+
+.icon-icon-9:before {
+  content: "p";
+}
+
+.icon-icon-10:before {
+  content: "q";
+}
+
+.icon-icon-11-1:before {
+  content: "a";
+}
+
+.icon-icon-13:before {
+  content: "b";
+}
+
+.icon-icon-14:before {
+  content: "c";
+}
+
+.icon-icon-20:before {
+  content: "d";
+}
+
+.icon-icon-12:before {
+  content: "e";
+}
+
+.icon-personal-care-ico-2-2:before {
+  content: "r";
+}
+
+.icon-pre-rolls-icon-1-ai:before {
+  content: "l";
+}
+
+.icon-check:before {
+  content: "s";
+}
+
+.icon-gg-circle:before {
+  content: "u";
+}
+
+.icon-safari:before {
+  content: "t";
+}
+
+.icon-zoom-in:before {
+  content: "w";
+}
+
+.icon-vynil:before {
+  content: "v";
+}
+
+.icon-search:before {
+  content: "x";
+}
+
+.icon-binoculars:before {
+  content: "y";
+}
+
+.icon-telescope:before {
+  content: "z";
+}
+
+.icon-group-10:before {
+  content: "A";
+}
+
+#First-banner-section .img-product-cart-wrapper,
+#First-banner-section .img-product-cart-wrapper-2 {
+  width: auto !important;
+}
+
+#First-banner-section .img-product-cart-wrapper-2 {
+  margin-right: 5px;
+}
+
+section#First-banner-section span.your-safety {
+  max-width: 280px;
+  display: block;
+}
+@media (max-width: 768px) {
+  section#First-banner-section span.your-safety {
+    max-width: 250px;
+  }
+}
+
 @keyframes fsl-animate-stripes {
   0% {
     background-position: 0 0;

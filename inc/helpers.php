@@ -8,7 +8,13 @@ function b_helpers_load_template($name, $require_once = false) {
 }
 
 function b_helpers_get_woo_products_choices() {
+
   $choices = [];
+
+  if( !is_admin() || !isset($_GET['page'])) return $choices;
+
+  if(isset($_GET['page']) && $_GET['page'] != 'buymyweedonline-helpers') return $choices;
+
   $args = [
     'post_type'       => 'product',
     'posts_per_page'  => -1,
@@ -19,16 +25,13 @@ function b_helpers_get_woo_products_choices() {
 
   if(!$_posts || count($_posts) <= 0) return $choices;
   $choices['Simple Products'] = [];
+
   foreach($_posts as $index => $p) {
     $_product = wc_get_product($p->ID);
 
     if($_product->is_type('simple')) {
       $choices['Simple Products'][$p->ID] = $p->post_title . ' (#'. $p->ID .')';
     }
-  }
-
-  foreach($_posts as $index => $p) {
-    $_product = wc_get_product($p->ID);
 
     if($_product->is_type('variable')) {
       $children_ids = $_product->get_children();
@@ -39,6 +42,7 @@ function b_helpers_get_woo_products_choices() {
         $choices[$group_name][$child_id] = get_the_title($child_id) . ' (#'. $child_id .')';
       }
     }
+
   }
 
   return $choices;
@@ -212,7 +216,10 @@ function remove_wp_enqueue_styles(){
           'wc-mnm-frontend',
           'wpcsb-frontend',
           'ywpar_frontend',
-          'delicious-recipes-single'
+          'delicious-recipes-single',
+          'affwp-forms',
+          'metorik-css',
+          'generate-woocommerce-mobile'
     		);
     }
 
@@ -243,7 +250,10 @@ function remove_wp_enqueue_styles(){
           'wc-mnm-frontend',
           'wpcsb-frontend',
           'ywpar_frontend',
-          'delicious-recipes-single'
+          'delicious-recipes-single',
+          'affwp-forms',
+          'metorik-css',
+          'generate-woocommerce-mobile'
         );
     }
 
@@ -275,7 +285,10 @@ function remove_wp_enqueue_styles(){
           //'wpcsb-frontend'
           'ywpar_frontend',
           'delicious-recipes-single',
-          'select2'
+          'select2',
+          'affwp-forms',
+          'metorik-css',
+          'generate-woocommerce-mobile'
         );
     }
 
@@ -283,6 +296,27 @@ function remove_wp_enqueue_styles(){
       wp_dequeue_style($style);
       wp_deregister_style($style);
     }
+}
+
+function remove_wp_enqueue_scripts(){
+
+  $scripts = array();
+
+  //Home page
+  if(is_home() || is_front_page() || is_product_category() || is_singular('product')){
+    $scripts = array(
+      'dr-pro-usr-dashboard',
+      'delicious-recipes-single',
+      'delicious-recipes-pro',
+      'cwginstock_js'
+    );
+  }
+
+  foreach ($scripts as $script) {
+    wp_dequeue_script($script);
+    wp_deregister_script($script);
+  }
+
 }
 
 add_action('wp_head' , 'add_css_fix_bg_white' );
@@ -293,3 +327,4 @@ function add_css_fix_bg_white(){
   </style>
   <?php
 }
+/* End Optimize Site */

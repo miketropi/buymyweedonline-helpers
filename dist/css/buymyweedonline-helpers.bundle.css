@@ -1388,6 +1388,10 @@ body.active-mini-cart .over-lay-custom-mini-cart {
 .algolia-search__result-entry .col-2 {
   width: calc(40% - 40px);
 }
+.algolia-search__result-entry .result-entry-item ol, .algolia-search__result-entry .result-entry-item ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
 .algolia-search__result-entry .result-entry-item li {
   margin: 0;
   padding: 0;

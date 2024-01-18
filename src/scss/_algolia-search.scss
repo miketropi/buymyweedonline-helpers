@@ -62,7 +62,10 @@
     }
 
     .result-entry-item {
-      ol {}
+      ol,ul{
+        padding: 0 !important;
+        margin: 0 !important;
+      }
 
       li {
         margin: 0;

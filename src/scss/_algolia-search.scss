@@ -145,6 +145,12 @@
   .algolia-search__result-entry{
     display: block;
     padding: 10px;
+
+    ol,ul{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
     .result-entry-item{
       > h4{
         text-align: left;

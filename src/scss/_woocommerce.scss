@@ -569,7 +569,8 @@ form.woocommerce-ordering {
         }
       }
     }
-    table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"]{
+    table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1"],
+    table.products.mnm_child_products.tabular.mnm_table.shop_table .mnm_item[data-max_stock="1.5"]{
       .product-quantity{
         .quantity{
            .minus,.plus{

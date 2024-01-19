@@ -1602,11 +1602,15 @@ table.cart td.product-quantity input.qty {
   border: 1px solid #E66D57;
 }
 
-.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+.woocommerce a.button.mnm_reset, .woocommerce button.button.mnm_reset, .woocommerce input.button.mnm_reset {
   color: #ffffff;
   background-color: #63b723;
   font-weight: normal;
   text-transform: none;
+}
+
+.single-product button.single_add_to_cart_button.button.alt {
+  background-color: #b723ad !important;
 }
 
 body #page #content ul.products.columns-4 {

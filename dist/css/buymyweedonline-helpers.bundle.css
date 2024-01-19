@@ -1579,6 +1579,36 @@ table.cart td.product-quantity input.qty {
 /**
  * Products list ul
  */
+.product-type-mix-and-match .mnm_message.woocommerce-message {
+  background-color: #63b723 !important;
+  color: #ffffff !important;
+}
+
+.woocommerce .comment-form-rating .star-rating span:before, .woocommerce .comment-form-rating p.stars:hover a::before {
+  color: #ffac2f !important;
+}
+
+.woocommerce-notices-wrapper .woocommerce-error {
+  background-color: #e8626d !important;
+  color: #ffffff !important;
+}
+
+.product-type-mix-and-match .mnm_message.woocommerce-message.woocommerce-error {
+  border-radius: 5px;
+  padding: 12px 20px;
+  margin-bottom: 10px !important;
+  background-color: rgba(230, 109, 87, 0.1019607843);
+  color: #E66D57;
+  border: 1px solid #E66D57;
+}
+
+.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+  color: #ffffff;
+  background-color: #63b723;
+  font-weight: normal;
+  text-transform: none;
+}
+
 body #page #content ul.products.columns-4 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

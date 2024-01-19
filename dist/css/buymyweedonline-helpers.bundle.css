@@ -1589,8 +1589,8 @@ table.cart td.product-quantity input.qty {
 }
 
 .woocommerce-notices-wrapper .woocommerce-error {
-  background-color: #e8626d !important;
-  color: #ffffff !important;
+  background-color: #e8626d;
+  color: #ffffff;
 }
 
 .product-type-mix-and-match .mnm_message.woocommerce-message.woocommerce-error {

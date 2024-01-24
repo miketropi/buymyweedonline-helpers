@@ -118,4 +118,57 @@ add_action('wp_head','b_custom_template_age_gate');
   add_action( 'after_setup_theme', function() {
       remove_action( 'generate_before_header', 'generate_do_skip_to_content_link', 2 );
   }, 50 );
+
+  //Render css single product
+  add_action('wp_head' , 'be_optimize_render_css_single_product', 999999 );
+  function be_optimize_render_css_single_product(){
+
+    if(is_singular('product')):
+      ?>
+      <style media="screen">
+        .wpcsb-wrapper.wpcsb-active{
+          display: none;
+        }
+        .products_ingredients_cbd_thc span.strain-value {
+            font-size: 16px !important;
+            color: #000;
+            position: relative;
+            top: 3px;
+            font-weight: 800;
+        }
+        .products_ingredients_cbd_thc span.strain-name {
+            font-size: 12px !important;
+            color: #000;
+        }
+        .products_ingredients_cbd_thc canvas {
+            position: absolute;
+            margin-left: -55px !important;
+            margin-top: -43px !important;
+            width: 85px !important;
+            height: 85px !important;
+        }
+        @media (max-width: 768px){
+          .do-quantity-buttons form .quantity:not(.buttons-added):not(.hidden):after, .do-quantity-buttons form .quantity:not(.buttons-added):not(.hidden):before, .woocommerce form .quantity.buttons-added .minus, .woocommerce form .quantity.buttons-added .plus, .woocommerce form .quantity.buttons-added .qty {
+              width: 30px !important;
+          }
+          .wpcsb-wrapper.wpcsb-active{
+            display: block;
+          }
+        }
+      </style>
+    <?php
+    endif;
+
+    if(is_product_category()){
+      ?>
+      <style media="screen">
+        .woocommerce ul.products li.product .price, .woocommerce div.product p.price {
+          color: #222222 !important;
+        }
+      </style>
+      <?php
+    }
+
+  }
+
 }

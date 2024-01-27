@@ -646,3 +646,20 @@ body{
     top: 0;
   }
 }
+
+
+.post-template-default.single.single-post{
+  .best_selling_on_post{
+    ul.products.columns-3{
+      @media (max-width: 768px){
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        li{
+          height: auto;
+        }
+      }
+      @media (max-width: 480px){
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  }
+}

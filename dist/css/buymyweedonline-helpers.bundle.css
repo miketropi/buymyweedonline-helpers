@@ -2145,6 +2145,20 @@ body #generate-slideout-menu {
   top: 0;
 }
 
+@media (max-width: 768px) {
+  .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 li {
+    height: auto;
+  }
+}
+@media (max-width: 480px) {
+  .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 767px) {
   .single-product.woocommerce div#product_specs {
     padding-bottom: 0 !important;

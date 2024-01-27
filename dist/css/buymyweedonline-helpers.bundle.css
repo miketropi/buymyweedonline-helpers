@@ -2152,6 +2152,10 @@ body #generate-slideout-menu {
   .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 li {
     height: auto;
   }
+  .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 li .woosticker.custom_sticker_image {
+    top: 0 !important;
+    right: 0 !important;
+  }
 }
 @media (max-width: 480px) {
   .post-template-default.single.single-post .best_selling_on_post ul.products.columns-3 {

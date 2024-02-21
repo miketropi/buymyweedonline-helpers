@@ -253,13 +253,14 @@ function remove_wp_enqueue_styles(){
           'delicious-recipes-single',
           'affwp-forms',
           'metorik-css',
-          'generate-woocommerce-mobile'
+          'generate-woocommerce-mobile',
+          'wp-block-library'
         );
     }
 
     if(is_singular('product')){
         $styles = array(
-          // 'cwginstock_bootstrap',
+          'cwginstock_bootstrap',
           // 'cwginstock_frontend_css',
           'bellows',
           'bellows-font-awesome',
@@ -272,15 +273,15 @@ function remove_wp_enqueue_styles(){
           'light-gallery',
           'owl-carousel',
           'toastr',
-          //'fgf-frontend-css',
+          'fgf-frontend-css',
           'lightcase',
           //'pwb-styles-frontend',
           //'woobt-frontend',
-          //'woo-stickers-by-webline',
+          'woo-stickers-by-webline',
           //'berocket_aapf_widget-style',
-          //'select2',
-          //'woocommerce-dynamic-pricing-and-discount',
-          //'wc-mnm-checkout-blocks',
+          'select2',
+          'woocommerce-dynamic-pricing-and-discount',
+          'wc-mnm-checkout-blocks',
           //'wc-mnm-frontend',
           //'wpcsb-frontend'
           'ywpar_frontend',
@@ -288,7 +289,14 @@ function remove_wp_enqueue_styles(){
           'select2',
           'affwp-forms',
           'metorik-css',
-          'generate-woocommerce-mobile'
+          'generate-woocommerce-mobile',
+          'wp-block-library',
+          'buttons',
+          'editor-buttons',
+          // 'generate-blog-images',
+          // 'generate-offside',
+          // 'generate-navigation-branding',
+          // 'generate-woocommerce'
         );
     }
 
@@ -308,7 +316,12 @@ function remove_wp_enqueue_scripts(){
       'dr-pro-usr-dashboard',
       'delicious-recipes-single',
       'delicious-recipes-pro',
-      'cwginstock_js'
+      'cwginstock_js',
+      'math-min',
+      'delicious-recipes-infiniteScroll',
+      'jquery-rateyo',
+      'v4-shims',
+      'pintrest'
     );
   }
 

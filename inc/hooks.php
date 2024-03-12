@@ -172,3 +172,13 @@ add_action('wp_head','b_custom_template_age_gate');
   }
 
 }
+
+
+//Custom template recipe
+add_filter('wp_delicious_get_template' , 'custom_wp_delicious_get_template', 10 , 2 );
+function custom_wp_delicious_get_template($template , $template_name){
+  if($template_name == "recipes-list.php"){
+    $template = B_HELPERS_DIR . 'templates/recipe-list.php';
+  }
+  return $template;
+}

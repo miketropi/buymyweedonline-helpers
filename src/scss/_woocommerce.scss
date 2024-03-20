@@ -667,3 +667,99 @@ body{
     }
   }
 }
+
+
+/* Strain Info page START */
+
+#filter-taxonomy-composite,#filter-taxonomy-thc{
+  margin-right: 20px;
+  // .slider-heading{
+  //   font-weight: 700;
+  //   border: 1px solid #eee;
+  //   background-color: #eee;
+  //   padding-left: 20px;
+  //   cursor: pointer;
+  //   padding-right: 12px;
+  //   display: block;
+  //   margin-bottom: 60px;
+  // }
+  .slider,.slider-thc {
+      position: relative;
+      width: 100%;
+      height: 10px;
+      background-color: #666;
+      margin-bottom: 25px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, .15);
+      background-color: #fff;
+     background-image: none;
+     border: 1px solid rgba(0, 0, 0, .15);
+     margin-top: 60px;
+     display: none;
+    .ui-slider-handle {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 100%;
+      box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .2);
+      cursor: pointer;
+      outline: none;
+    }
+  }
+
+  .ui-slider-range {
+    background-color: #63b723;
+    background-image: none;
+    border: 1px solid rgba(0, 0, 0, .15);
+    position: relative;
+    border-radius: 6px;
+    height: 10px;
+  }
+
+  .value {
+    display: block;
+    position: absolute;
+    padding: 7px;
+    background-color: #63b723;
+    border-radius: 5px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .value::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      border: solid transparent;
+      height: 0;
+      width: 0;
+      pointer-events: none;
+      border-color: rgba(194,225,245,0);
+      border-top-color: #676f73;
+      border-width: 5px;
+      margin-left: -5px;
+    }
+
+  .ui-state-focus,
+  .ui-state-hover{
+    border-color: transparent !important;
+  }
+}
+
+#filter-taxonomy-composite,#filter-taxonomy-thc{
+  margin-top: 30px;
+}
+
+// .filter-container #filters-all-left-sidebar #filter-taxonomy-1{
+//   margin-top: 30px !important;
+// }
+/* Strain Info page END */

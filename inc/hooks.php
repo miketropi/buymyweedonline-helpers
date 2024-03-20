@@ -26,8 +26,8 @@ function b_helpers_add_modified_time( $src ) {
   return $src;
 }
 
-// add_filter('style_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
-// add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
+add_filter('style_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
+add_filter('script_loader_src', 'b_helpers_add_modified_time', 99999999, 1);
 
 function b_helpers_algolia_search_hit_wp_template() {
   ?>
@@ -181,4 +181,47 @@ function custom_wp_delicious_get_template($template , $template_name){
     $template = B_HELPERS_DIR . 'templates/recipe-list.php';
   }
   return $template;
+}
+
+//Create Strain Info post type
+function bmwo_custom_post_product() {
+  $labels = array(
+    'name'               => _x( 'Strain Info', 'buymyweedonline' ),
+    'singular_name'      => _x( 'Strain Info', 'buymyweedonline' ),
+    'add_new'            => _x( 'Add New', 'buymyweedonline' ),
+    'add_new_item'       => __( 'Add New Strain Info' ),
+    'edit_item'          => __( 'Edit Strain Info' ),
+    'new_item'           => __( 'New Strain Info' ),
+    'all_items'          => __( 'All Strain Info' ),
+    'view_item'          => __( 'View Strain Info' ),
+    'search_items'       => __( 'Search Strain Info' ),
+    'not_found'          => __( 'No Strain Info found' ),
+    'not_found_in_trash' => __( 'No Strain Info found in the Trash' ),
+    'parent_item_colon'  => ’,
+    'menu_name'          => 'Strain Info'
+  );
+  $args = array(
+    'labels'        => $labels,
+    'public'        => true,
+    'menu_position' => 5,
+    'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+    'has_archive'   => true,
+    'show_in_rest' => true,
+    'rewrite' => array('slug' => 'strain-info')
+  );
+  register_post_type( 'strain-info', $args );
+}
+add_action( 'init', 'bmwo_custom_post_product' );
+
+/*
+* Custom body class
+*/
+
+add_filter( 'body_class', 'bmwo_custom_class' );
+function bmwo_custom_class( $classes ) {
+	if ( is_singular('strain-info') ) {
+        global $post;
+        $classes[] = 'page-id-'.$post->ID;
+    }
+	return $classes;
 }

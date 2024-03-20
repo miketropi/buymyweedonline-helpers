@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Static
  */
@@ -7,7 +7,7 @@ function b_helpers_enqueue_scripts() {
   wp_enqueue_script( 'wp-util' );
   wp_enqueue_style('b_helpers_css', B_HELPERS_URI . '/dist/css/buymyweedonline-helpers.bundle.css', false, B_HELPERS_VERSION);
   wp_enqueue_script('b_helpers_js', B_HELPERS_URI . '/dist/buymyweedonline-helpers.bundle.js', ['jquery'], B_HELPERS_VERSION, true);
-  
+
   wp_enqueue_script('wc-cart-fragments');
 
   $algolia_app = get_field('bh_algolia_app', 'option');

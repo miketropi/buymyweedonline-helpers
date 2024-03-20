@@ -4,7 +4,7 @@
 
 ;((w, $) => {
     'use strict';
-    
+
     var age_gate_main_action = function () {
         if ($('.wrapper-age-gate-custom').length<=0) {
             return;
@@ -100,5 +100,5 @@
     $(window).unload(function() {
         localStorage.not_time_remember=undefined;
     });
-    
+
 })(window, jQuery)

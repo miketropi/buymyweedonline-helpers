@@ -225,3 +225,19 @@ function bmwo_custom_class( $classes ) {
     }
 	return $classes;
 }
+
+/**
+ * Add a sidebar for category pages.
+ */
+function bmwo_theme_slug_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Category Products Sidebar', 'textdomain' ),
+		'id'            => 'sidebar-category-product',
+		'description'   => __( 'Widgets in this area will be shown on category product pages.', 'bmwo' ),
+		'before_widget' => '<li id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</li>',
+		'before_title'  => '<h2 class="widgettitle">',
+		'after_title'   => '</h2>',
+	) );
+}
+add_action( 'widgets_init', 'bmwo_theme_slug_widgets_init' );

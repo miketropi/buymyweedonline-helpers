@@ -94,6 +94,59 @@
     });
 
     $(window).on('load', function() {
+        var is_trigger = false;
+        $('.wcapf-filter-title').on('click',function(e){
+            //console.log('test!!');
+            if(!is_trigger){
+              //wcapf
+              //e.preventDefault();
+              var filter_n = $(this).closest('.wcapf-filter');
+              var id_current = filter_n.find('.wcapf-filter-inner').attr('id');
+              var option     = filter_n.find('.wcapf-filter-inner');
+
+              $('.wcapf-filter').each(function(){
+                  var filter = $(this);
+                  var option = filter.find('.wcapf-filter-inner');
+                  var button = filter.find('.wcapf-filter-title');
+                  var id     = filter.find('.wcapf-filter-inner').attr('id');
+                  //option
+                  if(option.css('display') == 'block' && id_current != id){
+                    is_trigger = true;
+                    button.click();
+                  }
+              });
+
+              is_trigger = false;
+            }
+
+        });
+
+        $(document).on('change','input[name="_woo-price"]',function(){
+           var val = $(this).val();
+           // if(val != 'custom'){
+           //   var price = val.split('-');
+           //   var min_price = price[0];
+           //   var max_price = price[1];
+           //   $(document).find('.wcapf-range-slider').data('min-value',min_price);
+           //   $(document).find('.wcapf-range-slider').data('max-value',max_price);
+           //   $(document).find('.max-value').trigger('input');
+           // }
+
+           if(val === 'custom'){
+             $(document).find('.wcapf-filter-price .range-values').css('display','flex');
+           }else{
+             $(document).find('.wcapf-filter-price .range-values').css('display','none');
+           }
+        });
+
+        // $(document).on('wcapf_before_updating_products',function(){
+        //     //console.log('test!!!');
+        //     var uri = window.location.toString();
+        //     if (uri.indexOf("?") > 0) {
+        //         var clean_uri = uri.substring(0, uri.indexOf("?"));
+        //         window.history.replaceState({}, document.title, clean_uri);
+        //     }
+        // })
 
     });
 

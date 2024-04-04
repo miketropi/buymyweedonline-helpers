@@ -241,3 +241,171 @@ function bmwo_theme_slug_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'bmwo_theme_slug_widgets_init' );
+
+add_action( 'init' , 'update_taxonomy_for_all_products' );
+function update_taxonomy_for_all_products(){
+  if(isset($_GET['update_tax']) && $_GET['update_tax']){
+     $pro_id = isset($_GET['id']) ? $_GET['id'] : 0;
+     $limit = 100;
+     $paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
+     if($pro_id){
+        $args = array(
+          'post_type' => 'product',
+          'post_status' => 'publish',
+          'p' => $pro_id
+        );
+     }else{
+       $args = array(
+         'post_type' => 'product',
+         'post_status' => 'publish',
+         'posts_per_page' => $limit,
+         'paged' => $paged
+       );
+     }
+
+     $products = get_posts($args);
+
+     foreach ($products as $product) {
+       // code...
+       //echo $product->ID . '<br>';
+       $p_id = $product->ID;
+       $strains = $effects = $flavours = $cbds = $thcs = array();
+       $product_specs = get_field('product_specs',$p_id);
+       $strain_key = $effect_key = $effect_key = $flavour_key = $cbd_key = $thc_key = array();
+       $terms = get_the_terms( $p_id , 'product_cat' );
+
+       foreach ($terms as $term) {
+         if($term->name == 'Balanced Hybrids'){
+           $strains[] = 'Hybrid';
+         }
+         if($term->name == 'Indica Cannabis Strains'){
+           $strains[] = 'Indica Dominant';
+         }
+         if($term->name == 'Sativa Cannabis Strains'){
+           $strains[] = 'Sativa Dominant';
+         }
+       }
+
+       foreach ($product_specs as $key => $value) {
+
+          $name = trim(strtolower($value));
+          //Strains
+          // if($name == 'strain lineage'){
+          //   $strain_key[] = str_replace('name','value',$key);
+          //   $strain_key[] = str_replace('specs_name','_specs_value',$key);
+          // }
+          // if(in_array($key,$strain_key)){
+          //   $strains = explode(',',$value);
+          // }
+
+          //Effects
+          if($name == 'effects' || $name == 'effect'){
+            $effect_key[] = str_replace('name','value',$key);
+            $effect_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$effect_key)){
+            $effects = explode(',',$value);
+          }
+
+          //Flavours
+          if($name == 'flavours' || $name == 'flavour' || $name == 'flavors' || $name == 'flavor'){
+            $flavour_key[] = str_replace('name','value',$key);
+            $flavour_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$flavour_key)){
+            $flavours = explode(',',$value);
+          }
+
+          //CBD
+          if(strpos(trim($name),'cbd')){
+            $cbd_key[] = str_replace('name','value',$key);
+            $cbd_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$cbd_key)){
+            $cbds[] = trim($value);
+          }
+
+          //THC
+          if($name =='strain thc %'){
+            $thc_key[] = str_replace('name','value',$key);
+            $thc_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$thc_key)){
+            $thcs[] = trim($value);
+          }
+
+       }
+
+       if(!empty($strains)){
+         wp_set_object_terms($p_id, array() ,'woo-strains', false); //reset
+         foreach ($strains as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $strains[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $strains ,'woo-strains', true); //add
+       }
+
+       if(!empty($effects)){
+         wp_set_object_terms($p_id, array() ,'woo-effects', false); //reset
+         foreach ($effects as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $effects[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $effects ,'woo-effects', true); //add
+       }
+
+       if(!empty($flavours)){
+         wp_set_object_terms($p_id, array() ,'woo-flavours', false); //reset
+         foreach ($flavours as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $flavours[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $flavours ,'woo-flavours', true); //add
+       }
+
+       if(!empty($cbds)){
+         wp_set_object_terms($p_id, array() ,'woo-cbds', false); //reset
+         foreach ($cbds as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $cbds[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $cbds ,'woo-cbds', true); //add
+       }
+       if(!empty($thcs)){
+         wp_set_object_terms($p_id, array() ,'thc', false); //reset
+         $thc_terms = [];
+         foreach ($thcs as $key => $thc) {
+           $items = explode('-',$thc);
+           foreach ($items as $item) {
+             $item = trim(str_replace('%','',$item));
+             if($item <= 15){
+               $thc_terms[] = '0% – 15%';
+             }
+
+             if($item >= 15 && $item <= 20){
+               $thc_terms[] = '15% – 20%';
+             }
+
+             if($item >= 20 && $item <= 25){
+               $thc_terms[] = '20% – 25%';
+             }
+
+             if($item >= 25 && $item <= 30){
+               $thc_terms[] = '25% – 30%';
+             }
+
+             if($item >= 30){
+               $thc_terms[] = '30%+';
+             }
+
+           }
+         }
+         wp_set_object_terms($p_id, $thc_terms ,'thc', true); //add
+       }
+
+
+     }
+
+    echo 'ok!'; die;
+  }
+}

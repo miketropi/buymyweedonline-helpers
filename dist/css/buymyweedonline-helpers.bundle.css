@@ -2327,6 +2327,7 @@ body #generate-slideout-menu {
     border-radius: 5px;
     padding: 15px !important;
     margin-top: 10px;
+    z-index: 999;
   }
   .woocommerce-page .woocommerce-archive-wrapper .wcapf-filter .wcapf-filter-inner .wcapf-list-wrapper {
     padding-top: 0;

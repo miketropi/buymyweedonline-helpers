@@ -421,11 +421,11 @@ function update_taxonomy_for_all_products(){
                 }
               }
             }
-            if(!$parent){
-              foreach ($list_ids as $key => $id) {
-                  if($id == $term['term_id']) unset($list_ids[$key]);
-              }
-            }
+            // if(!$parent){
+            //   foreach ($list_ids as $key => $id) {
+            //       if($id == $term['term_id']) unset($list_ids[$key]);
+            //   }
+            // }
             //echo $term['term_id'] . ' - ' . $parent . '<br>';
             wp_update_term( $term['term_id'], 'woo-effects', array(
               'parent' => $parent
@@ -467,11 +467,11 @@ function update_taxonomy_for_all_products(){
               }
             }
 
-            if(!$parent){
-              foreach ($list_ids as $key => $id) {
-                  if($id == $term['term_id']) unset($list_ids[$key]);
-              }
-            }
+            // if(!$parent){
+            //   foreach ($list_ids as $key => $id) {
+            //       if($id == $term['term_id']) unset($list_ids[$key]);
+            //   }
+            // }
             //echo $term['term_id'] . ' - ' . $parent . '<br>';
             wp_update_term( $term['term_id'], 'woo-flavours', array(
               'parent' => $parent

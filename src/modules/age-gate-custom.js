@@ -139,14 +139,19 @@
            }
         });
 
-        // $(document).on('wcapf_before_updating_products',function(){
-        //     //console.log('test!!!');
-        //     var uri = window.location.toString();
-        //     if (uri.indexOf("?") > 0) {
-        //         var clean_uri = uri.substring(0, uri.indexOf("?"));
-        //         window.history.replaceState({}, document.title, clean_uri);
-        //     }
-        // })
+        $(document).on('wcapf_after_updating_products',function($res){
+            //$(document).find('.wcapf-form .wcapf-filter-inner').hide();
+            $(document).find('.wcapf-filter').each(function(){
+                var filter = $(this);
+                var option = filter.find('.wcapf-filter-inner');
+                var button = filter.find('.wcapf-filter-title');
+                var id     = filter.find('.wcapf-filter-inner').attr('id');
+                //option
+                if(option.css('display') == 'block'){
+                  button.click();
+                }
+            });
+        })
 
     });
 

@@ -529,3 +529,39 @@ function update_taxonomy_for_all_products(){
     echo 'ok!'; die;
   }
 }
+
+add_filter('wpseo_title' , 'the_title_custom' );
+function the_title_custom($title){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Explore Premium Cannabis Strains | BuyMyWeedOnline.cc';
+   }
+   return $title;
+}
+
+add_filter('wpseo_opengraph_title' , 'wpseo_opengraph_title_custom' );
+function wpseo_opengraph_title_custom($title){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Explore Premium Cannabis Strains';
+   }
+   return $title;
+}
+
+add_filter('wpseo_metadesc' , 'wpseo_metadesc_custom' );
+function wpseo_metadesc_custom($decs){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Discover a diverse selection of top-quality weed strains at BuyMyWeedOnline.cc. Find the perfect cannabis strains for your needs today!';
+   }
+   return $decs;
+}
+
+//Custom choose filters
+add_filter('cs_filter_lable' , 'cs_filter_lable', 10);
+function cs_filter_lable($label){
+  $lb = str_replace('&nbsp;','',$label);
+  $lb = str_replace('$','',$lb);
+  $check_lb = explode('–',$lb);
+  if(!empty($check_lb) && count($check_lb) > 1 && $check_lb[0] == '400.00' && $check_lb[1] == '999,999.00'){
+    return "$400+";
+  }
+  return $label;
+}

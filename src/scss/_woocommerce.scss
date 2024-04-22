@@ -834,56 +834,13 @@ body{
     .inside-article{
       padding: 16px;
     }
-    .wcapf-filter{
-      margin-bottom: 20px;
-      .wcapf-filter-title{
-        background: #eee;
-        padding: 5px 20px;
-        font-size: 18px;
-        min-width: 140px;
-        border-radius: 30px;
-        margin-right: 15px;
-        font-weight: 600 !important;
-        font-family: 'Lato' !important;
-        @media (max-width: 768px){
-          margin-right: 0;
-          border-radius: 0;
-        }
-      }
-      .wcapf-filter-inner{
-        max-height: 300px;
-        overflow: auto;
-        min-width: 140px;
-        @media(min-width: 768px - 0.01){
-          position: absolute;
-          //width: 100%;
-          //left: 0;
-          background: #fff;
-          z-index: 1;
-          box-shadow: 0 3px 6px #00000029;
-          border: 1px solid #dadada;
-          border-radius: 5px;
-          padding: 15px !important;
-          margin-top: 10px;
-          z-index: 999;
-          .wcapf-list-wrapper{
-            padding-top: 0;
-            .wcapf-filter-options{
-             //  columns: 3;
-             // -webkit-columns: 3;
-             // -moz-columns: 3;
-            }
-          }
-        }
-      }
-    }
-    .wcapf-active-filters-before-shop-loop{
-      display: none;
-    }
+    // .wcapf-active-filters-before-shop-loop{
+    //   display: none;
+    // }
     .wcapf-filter-clear-btn{
       background: #b723ad;
       color: #fff;
-      width: 100%;
+      // width: 100%;
       text-align: center;
       font-size: 16px;
       padding: 5px 14px;
@@ -900,6 +857,49 @@ body{
        flex-wrap: wrap;
        @media (max-width: 768px){
          display: none;
+       }
+       .wcapf-filter{
+         margin-bottom: 20px;
+         .wcapf-filter-title{
+           background: #eee;
+           padding: 5px 20px;
+           font-size: 18px;
+           min-width: 140px;
+           border-radius: 30px;
+           margin-right: 15px;
+           font-weight: 600 !important;
+           font-family: 'Lato' !important;
+           @media (max-width: 768px){
+             margin-right: 0;
+             border-radius: 0;
+           }
+         }
+         .wcapf-filter-inner{
+           max-height: 300px;
+           overflow: auto;
+           min-width: 140px;
+           @media(min-width: 768px - 0.01){
+             position: absolute;
+             //width: 100%;
+             //left: 0;
+             background: #fff;
+             z-index: 1;
+             box-shadow: 0 3px 6px #00000029;
+             border: 1px solid #dadada;
+             border-radius: 5px;
+             padding: 15px !important;
+             margin-top: 10px;
+             z-index: 999;
+             .wcapf-list-wrapper{
+               padding-top: 0;
+               .wcapf-filter-options{
+                //  columns: 3;
+                // -webkit-columns: 3;
+                // -moz-columns: 3;
+               }
+             }
+           }
+         }
        }
        .wcapf-filter-taxonomy-woo-effects,
        .wcapf-filter-taxonomy-woo-flavours,

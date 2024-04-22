@@ -136,6 +136,60 @@ if ( 'input_field' === $display_values_as || 'justified' === $alignment ) {
 ?>
 
 <div class="<?php echo esc_attr( $range_wrapper_classes ); ?>" <?php echo $attrs; ?>>
+
+    <div class="wcapf-list-wrapper layout-list">
+       <div class="wcapf-filter-prices">
+         <div class="wcapf-filter-item">
+                  <label for="_woo-price-1">
+                      <input type="radio" id="_woo-price-1" name="_woo-price" <?php echo ($min_value == 0 && $max_value == 50) ? 'checked="checked"' : ''; ?> value="0-50">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">$0 - $50</span>
+                        </span>
+				 </label>
+    		 </div>
+             <div class="wcapf-filter-item">
+                  <label for="_woo-price-2">
+                      <input type="radio" id="_woo-price-2" name="_woo-price" <?php echo ($min_value == 50 && $max_value == 100) ? 'checked="checked"' : ''; ?> value="50-100">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">$50 - $100</span>
+                        </span>
+				  </label>
+    		 </div>
+             <div class="wcapf-filter-item">
+                  <label for="_woo-price-3">
+                      <input type="radio" id="_woo-price-3" name="_woo-price" <?php echo ($min_value == 100 && $max_value == 200) ? 'checked="checked"' : ''; ?> value="100-200">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">$100 - $200</span>
+                        </span>
+				  </label>
+    		 </div>
+             <div class="wcapf-filter-item">
+                  <label for="_woo-price-4">
+                      <input type="radio" id="_woo-price-4" name="_woo-price" <?php echo ($min_value == 200 && $max_value == 400) ? 'checked="checked"' : ''; ?> value="200-400">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">$200 - $400</span>
+                        </span>
+				  </label>
+    		 </div>
+              <div class="wcapf-filter-item">
+                  <label for="_woo-price-5">
+                      <input type="radio" id="_woo-price-5" name="_woo-price" <?php echo ($min_value == 400) ? 'checked="checked"' : ''; ?> value="400-999999">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">$400+</span>
+                        </span>
+				  </label>
+    		 </div>
+             <div class="wcapf-filter-item">
+                  <label for="_woo-price-5">
+                      <input type="radio" id="_woo-price-5" name="_woo-price" value="custom">
+                        <span class="wcapf-filter-item-label">
+                            <span class="wcapf-nav-item-text">Custom</span>
+                        </span>
+				  </label>
+    		 </div>
+       </div>
+    </div>
+    
 	<div class="<?php echo esc_attr( $wrapper_classes ); ?>">
 		<span class="wcapf-range-start">
 			<?php if ( $text_before_min_value ) : ?>
@@ -199,6 +253,4 @@ if ( 'input_field' === $display_values_as || 'justified' === $alignment ) {
 	<?php if ( 'range_slider' === $display_type ) : ?>
 		<div id="<?php echo esc_attr( $slider_id ); ?>" class="wcapf-noui-slider"></div>
 	<?php endif; ?>
-
-  
 </div>

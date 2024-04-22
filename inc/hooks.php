@@ -241,3 +241,327 @@ function bmwo_theme_slug_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'bmwo_theme_slug_widgets_init' );
+
+add_action( 'init' , 'update_taxonomy_for_all_products' );
+function update_taxonomy_for_all_products(){
+  if(isset($_GET['update_tax']) && $_GET['update_tax']){
+
+     //Values
+     $pro_id = isset($_GET['id']) ? $_GET['id'] : 0;
+     $limit = 100;
+     $paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
+
+     //Terms  Effects
+     $parent_cats = [];
+     $relation_effect_terms = array(
+       'Positive Mood' => '"Happy", "Uplifted", "Uplifted Mood", "Mental Euphoria", "Happines", "Upliftment", "Motivation", "Boost of Happiness", "happy relaxation calm body buzz sleepy", "Body Buzz"',
+       'Relaxation &amp; Calm' => '"Relax", "Relaxation", "Relaxation Upliftment", "relax tranquil euphoric energetic buzz", "Relaxed High"',
+       'Social &amp; Sociability' => '"Sociable", "conversation enhancer"',
+       'Physical Relaxation' => '"Relaxed", "Sleepy", "Body High", "Relax", "Relaxation", "Relaxation Upliftment", "relax tranquil euphoric energetic buzz", "Relaxed high"',
+       'Euphoria &amp; Pleasure' => '"Euphoria", "Euphoric", "Euphoric Happy", "High Pleasure", "Psychoactive", "Increased Euphoria"',
+       'Creativity &amp; Focus' => '"Creative", "Focus", "Focused", "Creativity", "Energy Creativity", "Increased Creativity", "Creative Uplifted", "Enhanced Cognitive Physical Functioning"',
+       'Energy &amp; Productivity' => '"Energizing", "Energy", "Energetic", "Boost Energy", "Energized", "High Energy", "Motivation", "concentration enhancer"',
+       'Medical &amp; Therapeutic' => '"anti-inflammatory", "good for chronic pain", "pain reliever", "good for pain", "Chronic Pain", "Alleviating Symptoms Of Epilepsy", "Reduces anxiety depression", "inflammation"',
+       'Appetite &amp; Digestive Health' => '"Hungry", "Increase Appetite", "Increased Appetite", "Good for Appetite", "Appetite loss"',
+       'Pain Relief' => '"anti-inflammatory", "good for chronic pain", "pain reliever", "good for pain", "Chronic Pain"",Pain Relief", "Relief Pain"',
+       'Mental Health' => '"Reduces anxiety depression", "Stress management Induce appetite", "Anxiety", "stress anxiety reduction", "Stress relief", "Stress"',
+       //'Digestive &amp; Appetite' => '"Hungry", "Increase Appetite", "Increased Appetite", "Good for appetite", "Appetite loss"',
+       'Neurological Benefits' => '"Alleviating Symptoms Of Epilepsy"',
+       'Inflammation &amp; Immunity' => '"inflammation", "Anti-inflammatory", "good for inflammatory pain"',
+       'Sleep Aid' => '"Insomnia", "Sleep management", "Induces sleepiness", "Sedative Lazy", "Sleepiness", "Sedative"',
+       'Skin Health' => '"Moisturize skin", "Cold Therapy"',
+       'Pet Health' => '"Enhance your pet’s health vitality"',
+       'General Wellness' => '"Boost Health", "Everyday wellness", "Comfort support", "Overall calm", "Well-being"'
+     );
+
+     $relation_flavour_terms = array(
+       'Fruit' => '"Grape", "Fruity", "Orange", "Lemon", "Mango", "Grapefruit", "fresh berries", "lime", "granny smith apple", "Strawberry", "Tangerine", "Peach", "Watermelon", "Kiwi", "Apple", "Blueberry", "Berry", "Blackberry"',
+       'Citrus' => '"Lemon", "Grapefruit", "Orange", "Citrus", "Lime", "Lemon ginger", "Citrus Spice", "Tangerine", "Lemon Aid"',
+       'Sweet &amp; Sugary' => '"Sweet", "Vanilla", "Honey", "Sugary", "Sweet vanilla", "Sweet fruity notes and hints of fresh berries", "Sweet Fruity Strawberries", "Sweet Sherbet", "Sweet Sour Citrus"',
+       'Spicy &amp; Herbal' => '"Spicy herbal notes", "Spicy", "Herbal", "Peppery", "Mint", "Menthol", "Peppery Sage"',
+       'Woody &amp; Earthy' => '"Woody", "Pine", "Earthy", "Wood", "Earthy undertones", "Sweet Earthy", "Earthy Notes", "Earthy Berries"',
+       'Tropical' => '"Tropical", "Mango", "Pineapple", "tropical fruity flavors", "Tropical citrus sour berries galore"',
+       'Dessert' => '"Cake Batter", "Cookie", "Marshmallow", "Cheesecake", "Banana", "Chocolate Mint", "Cream", "Vanilla Pine"',
+       'Miscellaneous' => '"Wedding Cake", "Pungent spicy", "Chemical", "Diesel", "Rubber", "Bubble Gum", "Skunky", "Coffee", "Creamy Vanilla"'
+     );
+
+     $list_terms = array('woo-effects','woo-flavours');
+     foreach ($list_terms as $name_term ) {
+       $data_terms = get_terms( array('taxonomy'   => $name_term ,'hide_empty' => false));
+       foreach ($data_terms as $data_term) {
+          $parent_cats[$data_term->name] = $data_term->term_id;
+       }
+     }
+
+     //Query
+     if($pro_id){
+        $args = array(
+          'post_type' => 'product',
+          'post_status' => 'publish',
+          'p' => $pro_id
+        );
+     }else{
+       $args = array(
+         'post_type' => 'product',
+         'post_status' => 'publish',
+         'posts_per_page' => $limit,
+         'paged' => $paged
+       );
+     }
+
+     $products = get_posts($args);
+
+     foreach ($products as $product) {
+       // code...
+       //echo $product->ID . '<br>';
+       $p_id = $product->ID;
+       $strains = $effects = $flavours = $cbds = $thcs = array();
+       $product_specs = get_field('product_specs',$p_id);
+       $strain_key = $effect_key = $effect_key = $flavour_key = $cbd_key = $thc_key = array();
+       $terms = get_the_terms( $p_id , 'product_cat' );
+
+       foreach ($terms as $term) {
+         if($term->name == 'Balanced Hybrids'){
+           $strains[] = 'Hybrid';
+         }
+         if($term->name == 'Indica Cannabis Strains'){
+           $strains[] = 'Indica Dominant';
+         }
+         if($term->name == 'Sativa Cannabis Strains'){
+           $strains[] = 'Sativa Dominant';
+         }
+       }
+
+       foreach ($product_specs as $key => $value) {
+
+          $name = trim(strtolower($value));
+          //Strains
+          // if($name == 'strain lineage'){
+          //   $strain_key[] = str_replace('name','value',$key);
+          //   $strain_key[] = str_replace('specs_name','_specs_value',$key);
+          // }
+          // if(in_array($key,$strain_key)){
+          //   $strains = explode(',',$value);
+          // }
+
+          //Effects
+          if($name == 'effects' || $name == 'effect'){
+            $effect_key[] = str_replace('name','value',$key);
+            $effect_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$effect_key)){
+            $effects = explode(',',$value);
+          }
+
+          //Flavours
+          if($name == 'flavours' || $name == 'flavour' || $name == 'flavors' || $name == 'flavor'){
+            $flavour_key[] = str_replace('name','value',$key);
+            $flavour_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$flavour_key)){
+            $flavours = explode(',',$value);
+          }
+
+          //CBD
+          if(strpos(trim($name),'cbd')){
+            $cbd_key[] = str_replace('name','value',$key);
+            $cbd_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$cbd_key)){
+            $cbds[] = trim($value);
+          }
+
+          //THC
+          if($name =='strain thc %'){
+            $thc_key[] = str_replace('name','value',$key);
+            $thc_key[] = str_replace('specs_name','_specs_value',$key);
+          }
+          if(in_array($key,$thc_key)){
+            $thcs[] = trim($value);
+          }
+
+       }
+
+       if(!empty($strains)){
+         wp_set_object_terms($p_id, array() ,'woo-strains', false); //reset
+         foreach ($strains as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $strains[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $strains ,'woo-strains', true); //add
+       }
+
+       if(!empty($effects)){
+         //Reset option product
+         wp_set_object_terms($p_id, array() ,'woo-effects', false); //reset
+         foreach ($effects as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $value = trim(str_replace('.','',$value));
+           $value = trim(str_replace('  ',' ',$value));
+           $effects[$key] = trim(str_replace('And','',$value));
+           //echo $value . '<br>';
+         }
+         $list_ids = wp_set_object_terms($p_id, $effects ,'woo-effects', true); //add
+
+         //Update rules child category
+         foreach ($effects as $effect) {
+            $term = term_exists( $effect , 'woo-effects' );
+            $effect_check = trim(strtolower($effect));
+            $parent = 0;
+            foreach ($relation_effect_terms as $n => $relation_term) {
+              $list_child = strtolower($relation_term);
+              if(strpos($list_child , '"'.$effect_check.'"') !== false && isset($parent_cats[$n])){
+                $parent = $parent_cats[$n];
+                $list_ids[] = $parent;
+                // if($effect == 'Creative Uplifted')
+                //   echo $list_child . '<br>';
+                $parent_infor = get_term_by('id', $parent , 'woo-effects' );
+                if(!empty($parent_infor) && $parent_infor->parent > 0){
+                  $list_ids[] = $parent_infor->parent;
+                }
+              }
+            }
+            if(!$parent){
+              foreach ($list_ids as $key => $id) {
+                  if($id == $term['term_id']) unset($list_ids[$key]);
+              }
+            }
+            //echo $term['term_id'] . ' - ' . $parent . '<br>';
+            wp_update_term( $term['term_id'], 'woo-effects', array(
+              'parent' => $parent
+            ) );
+         }
+         //print_r($list_ids);
+         $list_ids = array_filter( array_map( 'intval', (array) $list_ids ) );
+         wp_set_object_terms( $p_id, $list_ids , 'woo-effects' );
+
+       }
+
+       if(!empty($flavours)){
+         //Reset option product
+         wp_set_object_terms($p_id, array() ,'woo-flavours', false); //reset
+         foreach ($flavours as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $value = trim(str_replace('.','',$value));
+           $value = trim(str_replace('  ',' ',$value));
+           $flavours[$key] = trim(str_replace('And','',$value));
+         }
+         $list_ids = wp_set_object_terms($p_id, $flavours ,'woo-flavours', true); //add
+
+         //Update rules child category
+         foreach ($flavours as $flavour) {
+
+            $term = term_exists( $flavour , 'woo-flavours' );
+            $flavour_check = trim(strtolower($flavour));
+            $parent = 0;
+
+            foreach ($relation_flavour_terms as $n => $relation_term) {
+              $list_child = strtolower($relation_term);
+              if(strpos($list_child , '"'.$flavour_check.'"') !== false && isset($parent_cats[$n])){
+                $parent = $parent_cats[$n];
+                $list_ids[] = $parent;
+                $parent_infor = get_term_by('id', $parent , 'woo-flavours' );
+                if(!empty($parent_infor) && $parent_infor->parent > 0){
+                  $list_ids[] = $parent_infor->parent;
+                }
+              }
+            }
+
+            if(!$parent){
+              foreach ($list_ids as $key => $id) {
+                  if($id == $term['term_id']) unset($list_ids[$key]);
+              }
+            }
+            //echo $term['term_id'] . ' - ' . $parent . '<br>';
+            wp_update_term( $term['term_id'], 'woo-flavours', array(
+              'parent' => $parent
+            ));
+
+         }
+         $list_ids = array_filter( array_map( 'intval', (array) $list_ids ) );
+         wp_set_object_terms( $p_id, $list_ids , 'woo-flavours' );
+
+       }
+
+       if(!empty($cbds)){
+         wp_set_object_terms($p_id, array() ,'woo-cbds', false); //reset
+         foreach ($cbds as $key => $value) {
+           $value = trim(str_replace('and','',$value));
+           $cbds[$key] = trim(str_replace('And','',$value));
+         }
+         wp_set_object_terms($p_id, $cbds ,'woo-cbds', true); //add
+       }
+       if(!empty($thcs)){
+         wp_set_object_terms($p_id, array() ,'thc', false); //reset
+         $thc_terms = [];
+         foreach ($thcs as $key => $thc) {
+           $items = explode('-',$thc);
+           foreach ($items as $item) {
+             $item = trim(str_replace('%','',$item));
+             if($item <= 15){
+               $thc_terms[] = '0% – 15%';
+             }
+
+             if($item >= 15 && $item <= 20){
+               $thc_terms[] = '15% – 20%';
+             }
+
+             if($item >= 20 && $item <= 25){
+               $thc_terms[] = '20% – 25%';
+             }
+
+             if($item >= 25 && $item <= 30){
+               $thc_terms[] = '25% – 30%';
+             }
+
+             if($item >= 30){
+               $thc_terms[] = '30%+';
+             }
+
+           }
+         }
+         wp_set_object_terms($p_id, $thc_terms ,'thc', true); //add
+       }
+
+
+     }
+
+    echo 'ok!'; die;
+  }
+}
+
+add_filter('wpseo_title' , 'the_title_custom' );
+function the_title_custom($title){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Explore Premium Cannabis Strains | BuyMyWeedOnline.cc';
+   }
+   return $title;
+}
+
+add_filter('wpseo_opengraph_title' , 'wpseo_opengraph_title_custom' );
+function wpseo_opengraph_title_custom($title){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Explore Premium Cannabis Strains';
+   }
+   return $title;
+}
+
+add_filter('wpseo_metadesc' , 'wpseo_metadesc_custom' );
+function wpseo_metadesc_custom($decs){
+  if ( is_post_type_archive( 'strain-info' ) ) {
+        return 'Discover a diverse selection of top-quality weed strains at BuyMyWeedOnline.cc. Find the perfect cannabis strains for your needs today!';
+   }
+   return $decs;
+}
+
+//Custom choose filters
+add_filter('cs_filter_lable' , 'cs_filter_lable', 10);
+function cs_filter_lable($label){
+  $lb = str_replace('&nbsp;','',$label);
+  $lb = str_replace('$','',$lb);
+  $check_lb = explode('–',$lb);
+  if(!empty($check_lb) && count($check_lb) > 1 && $check_lb[0] == '400.00' && $check_lb[1] == '999,999.00'){
+    return "$400+";
+  }
+  return $label;
+}

@@ -2240,6 +2240,177 @@ body #generate-slideout-menu {
 }
 
 /* Strain Info page END */
+/* Category Page */
+.bmwo-template-woo-archive .bmwo-sidebar-left {
+  padding-top: 20px;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .bmwo-template-woo-archive .bmwo-sidebar-left {
+    width: 100%;
+  }
+}
+.bmwo-template-woo-archive .bmwo-sidebar-left #toggleFilters {
+  display: none !important;
+  background: transparent;
+  color: #000;
+  font-family: "Lato";
+  border: 1px solid #dedede;
+  border-bottom: 2px solid #63b723;
+  width: 100%;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .bmwo-template-woo-archive .bmwo-sidebar-left #toggleFilters {
+    display: block !important;
+  }
+}
+.bmwo-template-woo-archive .bmwo-sidebar-left #toggleFilters img {
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+}
+@media (max-width: 768px) {
+  .bmwo-template-woo-archive .bmwo-sidebar-left > .wcapf-form {
+    display: none;
+  }
+}
+.bmwo-template-woo-archive .bmwo-sidebar-right .woocommerce-notices-wrapper {
+  display: none;
+}
+@media (max-width: 768px) {
+  .bmwo-template-woo-archive .bmwo-sidebar-right {
+    width: 100%;
+  }
+}
+
+.woocommerce-page .woocommerce-archive-wrapper .inside-article {
+  padding: 16px;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-filter-clear-btn {
+  background: #b723ad;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px 14px;
+  border-radius: 30px;
+  border-color: #b723ad;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-filter-clear-btn:hover {
+  border-color: #b723ad;
+  background: #b723ad;
+  color: #fff !important;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .woocommerce-page .woocommerce-archive-wrapper .wcapf-form {
+    display: none;
+  }
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter {
+  margin-bottom: 20px;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter .wcapf-filter-title {
+  background: #eee;
+  padding: 5px 20px;
+  font-size: 18px;
+  min-width: 140px;
+  border-radius: 30px;
+  margin-right: 15px;
+  font-weight: 600 !important;
+  font-family: "Lato" !important;
+}
+@media (max-width: 768px) {
+  .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter .wcapf-filter-title {
+    margin-right: 0;
+    border-radius: 0;
+  }
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter .wcapf-filter-inner {
+  max-height: 300px;
+  overflow: auto;
+  min-width: 140px;
+}
+@media (min-width: 767.99px) {
+  .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter .wcapf-filter-inner {
+    position: absolute;
+    background: #fff;
+    z-index: 1;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1607843137);
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 15px !important;
+    margin-top: 10px;
+    z-index: 999;
+  }
+  .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter .wcapf-filter-inner .wcapf-list-wrapper {
+    padding-top: 0;
+  }
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds {
+  display: none;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .range-values input[type=text] {
+  font-size: 14px;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-filter-inner {
+  left: inherit;
+  width: auto;
+  min-width: 280px;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-filter-inner .wcapf-noui-slider {
+  display: none;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-range-wrapper {
+  padding: 0;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-range-wrapper .wcapf-filter-prices {
+  margin: 0;
+  list-style: none;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-range-wrapper .wcapf-filter-prices .wcapf-filter-item .wcapf-filter-item-label {
+  margin-left: 5px;
+  font-size: 16px;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .wcapf-range-wrapper .range-values {
+  margin-bottom: 0;
+  margin-top: 10px;
+  display: none;
+}
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form > p {
+  display: none;
+}
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains {
+  display: block;
+}
+.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains {
+  display: block;
+}
+.woocommerce-page.term-198 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page.term-198 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds {
+  display: block;
+}
+@media (max-width: 500px) {
+  .woocommerce-page.archive .wc-columns-container.wc-tablet-columns-2 .products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 @media (max-width: 767px) {
   .single-product.woocommerce div#product_specs {
     padding-bottom: 0 !important;

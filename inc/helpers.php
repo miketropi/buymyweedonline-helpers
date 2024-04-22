@@ -341,3 +341,14 @@ function add_css_fix_bg_white(){
   <?php
 }
 /* End Optimize Site */
+
+
+/* Custom template price of woo */
+add_filter('wcapf_get_template_location', 'custom_wcapf_get_template_location_price', 10 , 2);
+function custom_wcapf_get_template_location_price($located, $template){
+  if($template == 'range.php'){
+    $located = B_HELPERS_DIR . '/templates/price-woo.php';
+  }
+  return $located;
+}
+/* Custom template price of woo */

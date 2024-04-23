@@ -551,6 +551,9 @@ function wpseo_metadesc_custom($decs){
   if ( is_post_type_archive( 'strain-info' ) ) {
         return 'Discover a diverse selection of top-quality weed strains at BuyMyWeedOnline.cc. Find the perfect cannabis strains for your needs today!';
    }
+   if(is_singular('recipe')){
+     return false;
+   }
    return $decs;
 }
 

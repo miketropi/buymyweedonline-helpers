@@ -2359,7 +2359,8 @@ body #generate-slideout-menu {
 .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
 .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
 .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds {
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds,
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc {
   display: none;
 }
 .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .range-values input[type=text] {
@@ -2394,15 +2395,8 @@ body #generate-slideout-menu {
 }
 .woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
 .woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
-.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains {
-  display: block;
-}
-.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
-.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains {
-  display: block;
-}
-.woocommerce-page.term-198 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
-.woocommerce-page.term-198 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds {
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc {
   display: block;
 }
 @media (max-width: 500px) {

@@ -904,7 +904,8 @@ body{
        .wcapf-filter-taxonomy-woo-effects,
        .wcapf-filter-taxonomy-woo-flavours,
        .wcapf-filter-taxonomy-woo-strains,
-       .wcapf-filter-taxonomy-woo-cbds{
+       .wcapf-filter-taxonomy-woo-cbds,
+       .wcapf-filter-taxonomy-thc{
          display: none;
        }
        .wcapf-filter-price{
@@ -950,32 +951,33 @@ body{
       .wcapf-form{
          .wcapf-filter-taxonomy-woo-effects,
          .wcapf-filter-taxonomy-woo-flavours,
-         .wcapf-filter-taxonomy-woo-strains{
+         .wcapf-filter-taxonomy-woo-strains,
+         .wcapf-filter-taxonomy-thc{
            display: block;
          }
       }
     }
   }
-  &.term-25{
-    .woocommerce-archive-wrapper{
-      .wcapf-form{
-         .wcapf-filter-taxonomy-woo-effects,
-         .wcapf-filter-taxonomy-woo-strains{
-           display: block;
-         }
-      }
-    }
-  }
-  &.term-198{
-    .woocommerce-archive-wrapper{
-      .wcapf-form{
-         .wcapf-filter-taxonomy-woo-effects,
-         .wcapf-filter-taxonomy-woo-cbds{
-           display: block;
-         }
-      }
-    }
-  }
+  // &.term-25{
+  //   .woocommerce-archive-wrapper{
+  //     .wcapf-form{
+  //        .wcapf-filter-taxonomy-woo-effects,
+  //        .wcapf-filter-taxonomy-woo-strains{
+  //          display: block;
+  //        }
+  //     }
+  //   }
+  // }
+  // &.term-198{
+  //   .woocommerce-archive-wrapper{
+  //     .wcapf-form{
+  //        .wcapf-filter-taxonomy-woo-effects,
+  //        .wcapf-filter-taxonomy-woo-cbds{
+  //          display: block;
+  //        }
+  //     }
+  //   }
+  // }
   &.archive{
     .wc-columns-container.wc-tablet-columns-2 .products{
       @media (max-width: 500px){

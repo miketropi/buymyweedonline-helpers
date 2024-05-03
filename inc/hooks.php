@@ -242,6 +242,51 @@ function bmwo_theme_slug_widgets_init() {
 }
 add_action( 'widgets_init', 'bmwo_theme_slug_widgets_init' );
 
+add_action( 'init' , 'update_taxonomy_brand_for_all_products' );
+function update_taxonomy_brand_for_all_products(){
+  if(isset($_GET['update_brand']) && $_GET['update_brand']){
+
+     //Values
+     $pro_id = isset($_GET['id']) ? $_GET['id'] : 0;
+     $limit = 100;
+     $paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
+
+     //Query
+     if($pro_id){
+        $args = array(
+          'post_type' => 'product',
+          'post_status' => 'publish',
+          'p' => $pro_id
+        );
+     }else{
+       $args = array(
+         'post_type' => 'product',
+         'post_status' => 'publish',
+         'posts_per_page' => -1,
+         //'paged' => $paged
+       );
+     }
+
+     $products = get_posts($args);
+     $count = 1;
+     $brands = array('Craft Cannabis');
+     foreach ($products as $key => $product) {
+        $p_id = $product->ID;
+        $brands = get_the_terms( $p_id , 'pwb-brand' );
+        if(empty($brands)){
+          echo $count. ': ' .$p_id . '<br>';
+          wp_set_object_terms($p_id, 'Craft Cannabis' ,'pwb-brand', true);
+          $count++;
+        }
+        // echo "<pre>";
+        // print_r($brands);
+        // echo "</pre>";
+     }
+
+     die;
+  }
+}
+
 add_action( 'init' , 'update_taxonomy_for_all_products' );
 function update_taxonomy_for_all_products(){
   if(isset($_GET['update_tax']) && $_GET['update_tax']){

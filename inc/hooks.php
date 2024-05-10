@@ -613,3 +613,92 @@ function cs_filter_lable($label){
   }
   return $label;
 }
+
+
+//Widget
+function p_sidebar_registration() {
+    $shared_args = array(
+		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
+		'after_title'   => '</h2>',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'after_widget'  => '</div></div>',
+	);
+    // Footer top bar.
+    register_sidebar(
+        array_merge(
+            $shared_args,
+            array(
+                'name'        => __( 'Footer Top Bar', 'p' ),
+                'id'          => 'footer-top-bar',
+                'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'p' ),
+            )
+        )
+    );
+    // Footer #6.
+    register_sidebar(
+        array_merge(
+            $shared_args,
+            array(
+                'name'        => __( 'Footer Widget 6', 'p' ),
+                'id'          => 'footer-6',
+                'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'p' ),
+            )
+        )
+    );
+}
+
+add_action( 'widgets_init', 'p_sidebar_registration' );
+
+add_action('generate_footer', 'fr_myplugin_footer');
+
+function fr_myplugin_footer() { ?>
+    <div id="footer-widgets" class="site footer-widgets">
+				<div class="footer-widgets-container grid-container">
+    				<div class="top-footer-widgets">
+    					<?php if ( is_active_sidebar( 'footer-top-bar' ) ) { ?>
+                            <div class="footer-widget-top">
+                                <?php dynamic_sidebar( 'footer-top-bar' ); ?>
+                            </div>
+                        <?php } ?>
+    				</div>
+					<div class="inside-footer-widgets">
+						<?php if ( is_active_sidebar( 'footer-1' ) ) { ?>
+                            <div class="footer-widget-1">
+                                <?php dynamic_sidebar( 'footer-1' ); ?>
+                            </div>
+                        <?php } ?>
+
+                        <?php if ( is_active_sidebar( 'footer-2' ) ) { ?>
+                            <div class="footer-widget-2">
+                                <?php dynamic_sidebar( 'footer-2' ); ?>
+                            </div>
+                        <?php } ?>
+
+                        <?php if ( is_active_sidebar( 'footer-3' ) ) { ?>
+                            <div class="footer-widget-3">
+                                <?php dynamic_sidebar( 'footer-3' ); ?>
+                            </div>
+                        <?php } ?>
+
+                        <?php if ( is_active_sidebar( 'footer-4' ) ) { ?>
+                            <div class="footer-widget-4">
+                                <?php dynamic_sidebar( 'footer-4' ); ?>
+                            </div>
+                        <?php } ?>
+
+                        <?php if ( is_active_sidebar( 'footer-5' ) ) { ?>
+                            <div class="footer-widget-5">
+                                <?php dynamic_sidebar( 'footer-5' ); ?>
+                            </div>
+                        <?php } ?>
+
+                        <?php if ( is_active_sidebar( 'footer-6' ) ) { ?>
+                            <div class="footer-widget-6">
+                                <?php dynamic_sidebar( 'footer-6' ); ?>
+                            </div>
+                        <?php } ?>
+
+					</div>
+				</div>
+		</div>
+<?php }

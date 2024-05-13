@@ -702,3 +702,43 @@ function fr_myplugin_footer() { ?>
 				</div>
 		</div>
 <?php }
+
+//Notify Loop Item
+add_action('woocommerce_after_shop_loop_item', 'add_notify_popup_button_in_catalog_page', 9999 );
+function add_notify_popup_button_in_catalog_page(){
+    global $product;
+		if ($product) {
+			$get_option = get_option('cwginstocksettings');
+			$visibility_backorder = isset($get_option['show_on_backorders']) && '1' == $get_option['show_on_backorders'] ? true : false;
+			$display_popup = isset($get_option['show_subscribe_button_catalog']) && '1' == $get_option['show_subscribe_button_catalog'] ? true : false;
+			$id = $product->get_id();
+			$product = wc_get_product($id);
+			$variation = array();
+			//$is_not_variation = $product && $product->is_type('variation') || $product->is_type('variable') ? false : true;
+
+			$check_guest_visibility = isset($get_option['hide_form_guests']) && '' != $get_option['hide_form_guests'] && !is_user_logged_in() ? false : true;
+			$check_member_visibility = isset($get_option['hide_form_members']) && '' != $get_option['hide_form_members'] && is_user_logged_in() ? false : true;
+			$product_id = $product->get_id();
+			$variation_class = '';
+			$variation_id = 0;
+
+      if ($display_popup && ( !$variation && !$product->is_in_stock() || ( ( !$variation && ( ( $product->managing_stock() && $product->backorders_allowed() && $product->is_on_backorder(1) ) || $product->is_on_backorder(1) ) && $visibility_backorder ) ) )) {
+        /**
+         * Trigger the 'cwginstock_custom_form' action hook to display a custom form for product availability
+         *
+         * @since 1.0.0
+         */
+        do_action('cwginstock_custom_form', $product, $variation);
+      }
+		}
+}
+
+add_action('cwg_instock_before_subscribe_form' , 'custom_template_send_user_notify');
+function custom_template_send_user_notify(){
+  //print_r($_POST);
+  if(isset($_POST['product_id'])):
+    ?>
+    <h3 class="cwg-product-title"><?php echo get_the_title($_POST['product_id']) ?></h3>
+    <?php
+  endif;
+}

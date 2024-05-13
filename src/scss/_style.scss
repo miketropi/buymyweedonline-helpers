@@ -1074,3 +1074,82 @@ body.age-gate-active {
   }
 }
 /* Menu main */
+
+
+/* Notify */
+
+.woocommerce-shop div#page.site{
+  max-width: 100% !important;
+  .content-area{
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
+
+.single-product .cwg_popup_submit {
+  margin-bottom: 15px;
+}
+ul.products li.product .cwg_popup_submit{
+  opacity: 1 !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #407717;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 4px;
+  line-height: inherit;
+  border: none;
+}
+
+.cwg-product-title{
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.cwginstock-subscribe-form {
+  text-align: left;
+  .panel-heading{
+    h4{
+      text-align: left !important;
+      font-weight: 600 !important;
+      margin-bottom: 13px !important;
+      line-height: 20px;
+      color: #545454;
+    }
+  }
+  .panel-body{
+    .form-group {
+      text-align: left !important;
+      margin-bottom: 0;
+      .cwgstock_email{
+        text-align: left !important;
+        border-radius: 0 !important;
+      }
+      .cwgstock_button {
+        width: 100%;
+        text-transform: uppercase;
+        font-size: 15px;
+        letter-spacing: 1.1px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px){
+  .swal2-container{
+    .swal2-content{
+      padding: 0;
+    }
+  }
+  .cwginstock-subscribe-form .panel-heading h4{
+    font-size: 16px;
+  }
+}
+
+/* Notify */

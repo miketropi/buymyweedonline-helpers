@@ -223,7 +223,7 @@ function remove_wp_enqueue_styles(){
     		);
     }
 
-    if(is_product_category()){
+    if(is_product_category() || is_shop()){
         $styles = array(
           'cwginstock_bootstrap',
           'cwginstock_frontend_css',
@@ -311,12 +311,26 @@ function remove_wp_enqueue_scripts(){
   $scripts = array();
 
   //Home page
-  if(is_home() || is_front_page() || is_product_category() || is_singular('product')){
+  if(is_home() || is_front_page()){
     $scripts = array(
       'dr-pro-usr-dashboard',
       'delicious-recipes-single',
       'delicious-recipes-pro',
       'cwginstock_js',
+      'math-min',
+      'delicious-recipes-infiniteScroll',
+      'jquery-rateyo',
+      'v4-shims',
+      'pintrest'
+    );
+  }
+
+  //Home page
+  if(is_singular('product') || is_product_category() || is_shop()){
+    $scripts = array(
+      'dr-pro-usr-dashboard',
+      'delicious-recipes-single',
+      'delicious-recipes-pro',
       'math-min',
       'delicious-recipes-infiniteScroll',
       'jquery-rateyo',

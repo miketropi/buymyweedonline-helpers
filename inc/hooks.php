@@ -585,17 +585,17 @@ function the_title_custom($title){
 
 add_filter('wpseo_opengraph_title' , 'wpseo_opengraph_title_custom' );
 function wpseo_opengraph_title_custom($title){
-  if ( is_post_type_archive( 'strain-info' ) ) {
-        return 'Explore Premium Cannabis Strains';
-   }
+  // if ( is_post_type_archive( 'strain-info' ) ) {
+  //       return 'Explore Premium Cannabis Strains';
+  //  }
    return $title;
 }
 
 add_filter('wpseo_metadesc' , 'wpseo_metadesc_custom' );
 function wpseo_metadesc_custom($decs){
-  if ( is_post_type_archive( 'strain-info' ) ) {
-        return 'Discover a diverse selection of top-quality weed strains at BuyMyWeedOnline.cc. Find the perfect cannabis strains for your needs today!';
-   }
+  // if ( is_post_type_archive( 'strain-info' ) ) {
+  //       return 'Discover a diverse selection of top-quality weed strains at BuyMyWeedOnline.cc. Find the perfect cannabis strains for your needs today!';
+  //  }
    if(is_singular('recipe')){
      return false;
    }

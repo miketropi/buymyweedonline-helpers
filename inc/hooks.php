@@ -742,3 +742,14 @@ function custom_template_send_user_notify(){
     <?php
   endif;
 }
+
+
+add_filter( 'woocommerce_product_get_rating_html', 'be_show_rating_count_on_product_archive', 20, 3 );
+function be_show_rating_count_on_product_archive( $html, $rating, $count ) {
+	global $product;
+	$rating_count = $product->get_rating_count();
+	if ( (is_product_category() || is_shop()) && $rating_count > 0) {
+		$html .= "<div class='rating-count'>(" . $product->get_rating_count() . ")</div>";
+	}
+	return $html;
+}

@@ -747,6 +747,9 @@ function custom_template_send_user_notify(){
 add_filter( 'woocommerce_product_get_rating_html', 'be_show_rating_count_on_product_archive', 9999 , 3 );
 function be_show_rating_count_on_product_archive( $html, $rating, $count ) {
 	global $product;
+
+  if(is_singular('product')) return $html;
+
   if(!empty($product)){
   	$rating_count = $product->get_rating_count();
   	if ( $rating_count > 0 ) {

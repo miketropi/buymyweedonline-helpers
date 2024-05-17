@@ -744,14 +744,18 @@ function custom_template_send_user_notify(){
 }
 
 
-add_filter( 'woocommerce_product_get_rating_html', 'be_show_rating_count_on_product_archive', 20, 3 );
+add_filter( 'woocommerce_product_get_rating_html', 'be_show_rating_count_on_product_archive', 9999 , 3 );
 function be_show_rating_count_on_product_archive( $html, $rating, $count ) {
 	global $product;
-  if(!is_home() && !is_front_page()):
+  if(!empty($product)){
   	$rating_count = $product->get_rating_count();
-  	if ( (is_product_category() || is_shop()) && $rating_count > 0) {
+  	if ( $rating_count > 0 ) {
   		$html .= "<div class='rating-count'>(" . $product->get_rating_count() . ")</div>";
   	}
-  endif;
+  }else{
+    if($count > 0){
+      $html .= "<div class='rating-count'>(" . $count . ")</div>";
+    }
+  }
 	return $html;
 }

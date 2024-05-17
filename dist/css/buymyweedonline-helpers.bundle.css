@@ -1107,6 +1107,10 @@ ul.products li.product .cwg_popup_submit {
   color: #63b723;
 }
 
+#mega-menu-wrap-primary #mega-menu-primary li.mega-menu-item a .rating-count {
+  display: none;
+}
+
 /* Rating Count */
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;

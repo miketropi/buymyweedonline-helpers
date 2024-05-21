@@ -762,3 +762,15 @@ function be_show_rating_count_on_product_archive( $html, $rating, $count ) {
   }
 	return $html;
 }
+
+//Redirect
+function be_redirect_specific_page() {
+  if (is_404()) {
+    $slug = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+    if($slug == '/strain-info/pink-kush-3/'){
+      wp_redirect(home_url('/strain-info/pink-kush-strain/'), 301);
+      exit;
+    }
+  }
+}
+add_action('template_redirect', 'be_redirect_specific_page');

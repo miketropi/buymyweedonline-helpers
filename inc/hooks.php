@@ -197,7 +197,7 @@ function bmwo_custom_post_product() {
     'search_items'       => __( 'Search Strain Info' ),
     'not_found'          => __( 'No Strain Info found' ),
     'not_found_in_trash' => __( 'No Strain Info found in the Trash' ),
-    'parent_item_colon'  => ’,
+    'parent_item_colon'  => __( 'Parent Strain Info' ),
     'menu_name'          => 'Strain Info'
   );
   $args = array(

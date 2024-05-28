@@ -366,3 +366,14 @@ function custom_wcapf_get_template_location_price($located, $template){
   return $located;
 }
 /* Custom template price of woo */
+
+/* add recapcha to register and account forms */
+add_action('woocommerce_register_form' , 'add_recapcha_form');
+function add_recapcha_form(){
+  ob_start();
+  ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <div class="g-recaptcha" data-sitekey="6Ld2i-8iAAAAAPek8DQi1qGgWbs6e30kVULh6tuQ"></div>
+  <?php
+  echo ob_get_clean();
+}

@@ -1112,6 +1112,10 @@ ul.products li.product .cwg_popup_submit {
 }
 
 /* Rating Count */
+.alpus-aprs-wrapper .alpus-aprs-summary-label, .alpus-aprs-wrapper .alpus-aprs-pros-label, .alpus-aprs-wrapper .alpus-aprs-cons-label {
+  font-weight: bold;
+}
+
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;
   opacity: 0.3;

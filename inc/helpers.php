@@ -377,3 +377,17 @@ function add_recapcha_form(){
   <?php
   echo ob_get_clean();
 }
+
+//custom function to override default sort by category
+function be_custom_default_catalog_orderby() {
+
+  //choose categories where default sorting will be changed
+  if (is_product_category( array( 'cheap-weed-canada' ) ) ) {
+  	return 'price'; // sort by latest
+  }else{
+    return 'popularity'; // sort by popularity as the default
+  } // end if statement
+
+} //end function
+
+add_filter( 'woocommerce_default_catalog_orderby', 'be_custom_default_catalog_orderby' ); //add the filter

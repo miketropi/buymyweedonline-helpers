@@ -395,12 +395,23 @@ add_filter( 'woocommerce_default_catalog_orderby', 'be_custom_default_catalog_or
 
 function  be_filter_canonical_brands( $canonical ) {
 
-  $slugs = explode("/", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH));
   if ( is_tax( 'pwb-brand' , 'craft-cannabis' ) ) {
-    $canonical = 'https://buymyweedonline.cc/product-category/craft-cannabis/';
+    $canonical = str_replace('brand' , 'product-category', $canonical);
   }
   return $canonical;
 
 }
 
 add_filter( 'wpseo_canonical', 'be_filter_canonical_brands' );
+
+add_filter( 'wpseo_next_rel_link', 'be_change_wpseo_next_prev' );
+add_filter( 'wpseo_prev_rel_link', 'be_change_wpseo_next_prev' );
+
+function be_change_wpseo_next_prev( $link ) {
+
+  if ( is_tax( 'pwb-brand' , 'craft-cannabis' ) ) {
+    $link = str_replace('brand' , 'product-category', $link);
+  }
+
+  return $link;
+}

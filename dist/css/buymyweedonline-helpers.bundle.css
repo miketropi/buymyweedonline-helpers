@@ -2481,11 +2481,7 @@ body #generate-slideout-menu {
     padding-top: 0;
   }
 }
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds,
-.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc {
+.woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-cbds {
   display: none;
 }
 .woocommerce-page .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-price .range-values input[type=text] {
@@ -2521,8 +2517,14 @@ body #generate-slideout-menu {
 .woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
 .woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
 .woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
-.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc {
-  display: block;
+.woocommerce-page.term-10 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc, .woocommerce-page.term-20 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page.term-20 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
+.woocommerce-page.term-20 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
+.woocommerce-page.term-20 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc, .woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-effects,
+.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-flavours,
+.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-woo-strains,
+.woocommerce-page.term-25 .woocommerce-archive-wrapper .wcapf-form .wcapf-filter-taxonomy-thc {
+  display: none;
 }
 @media (max-width: 500px) {
   .woocommerce-page.archive .wc-columns-container.wc-tablet-columns-2 .products {

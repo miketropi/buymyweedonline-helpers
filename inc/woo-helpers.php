@@ -486,11 +486,3 @@ function custom_text_wc_mnm_child_item_quantity_input_args($input_args, $child_i
   $input_args['checkbox_label'] = $checkbox_label;
   return $input_args;
 }
-
-// add_action('woocommerce_after_mini_cart',function(){
-//   if(isset($_GET['minhtest'])){
-//     print_r(get_field('bh_freegift_products', 'option'));
-//     echo 'test';
-//     die;
-//   }
-// });

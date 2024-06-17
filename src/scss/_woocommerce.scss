@@ -901,14 +901,11 @@ body{
            }
          }
        }
-       // .wcapf-filter-taxonomy-woo-effects,
-       // .wcapf-filter-taxonomy-woo-flavours,
-       // .wcapf-filter-taxonomy-woo-strains,
-       // .wcapf-filter-taxonomy-woo-cbds,
-       // .wcapf-filter-taxonomy-thc{
-       //   display: none;
-       // }
-       .wcapf-filter-taxonomy-woo-cbds{
+       .wcapf-filter-taxonomy-woo-effects,
+       .wcapf-filter-taxonomy-woo-flavours,
+       .wcapf-filter-taxonomy-woo-strains,
+       .wcapf-filter-taxonomy-woo-cbds,
+       .wcapf-filter-taxonomy-thc{
          display: none;
        }
        .wcapf-filter-price{
@@ -949,19 +946,26 @@ body{
        }
     }
   }
-  &.term-10,&.term-20,&.term-25{
+  &.term-10,&.term-20,&.term-25,&.term-198,
+  &.term-11,&.term-18,&.term-19,&.term-41,&.term-42,&.term-43,&.term-95,
+  &.term-24,&.term-21,&.term-29590,&.term-23,&.term-175,&.term-22,
+  &.term-29524,&.term-29530,&.term-29514,&.term-29527,&.term-29523,&.term-29533,&.term-29534,
+  &.term-29529,&.term-29531,&.term-203{
     .woocommerce-archive-wrapper{
       .wcapf-form{
-         // .wcapf-filter-taxonomy-woo-effects,
-         // .wcapf-filter-taxonomy-woo-flavours,
-         // .wcapf-filter-taxonomy-woo-strains,
-         // .wcapf-filter-taxonomy-thc{
-         //   display: block;
-         // }
          .wcapf-filter-taxonomy-woo-effects,
          .wcapf-filter-taxonomy-woo-flavours,
          .wcapf-filter-taxonomy-woo-strains,
          .wcapf-filter-taxonomy-thc{
+           display: block;
+         }
+      }
+    }
+  }
+  &.term-11,&.term-18,&.term-19{
+    .woocommerce-archive-wrapper{
+      .wcapf-form{
+         .wcapf-filter-taxonomy-woo-strains{
            display: none;
          }
       }

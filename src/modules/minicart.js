@@ -52,7 +52,7 @@
     $(document.body).on( 'added_to_cart',  () => {
       $(document.body).addClass('active-mini-cart');
     });
-    
+
 
     $(document.body).on('click','.over-lay-custom-mini-cart', (e) => {
       $(document.body).removeClass('active-mini-cart');
@@ -60,14 +60,14 @@
 
     $(document.body).on('click', '.inside-top-bar .et-cart-info', (e) => {
       e.preventDefault();
-      $(document.body).addClass('active-mini-cart');  
+      $(document.body).addClass('active-mini-cart');
     });
 
     $('body').on('click touchend', '.uwcc-open-cart-4010401', e => {
-      e.preventDefault(); 
-      $(document.body).addClass('active-mini-cart'); 
+      e.preventDefault();
+      $(document.body).addClass('active-mini-cart');
     })
-    
+
     $(document.body).on('click', '.ic-cart-header-btn-close', (e) => {
       $(document.body).removeClass('active-mini-cart');
     });

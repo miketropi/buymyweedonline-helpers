@@ -1313,3 +1313,110 @@ ul.products li.product .cwg_popup_submit{
     margin-bottom: 3px;
   }
 }
+
+.total-star-rating {
+    unicode-bidi: bidi-override;
+    display: inline-block;
+}
+
+.total-star-rating .star {
+    font-size: 24px;
+    color: #ccc;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.total-star-rating .star:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: gold;
+    display: block;
+    overflow: hidden;
+    width: 0;
+}
+
+.total-star-rating .star.full:before,
+.total-star-rating .star.half:before {
+    width: 100%;
+}
+
+.total-star-rating .star.half:before {
+    width: 50%;
+}
+
+.template-total-reviews{
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  padding: 20px;
+  background: #F9F9F9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 auto 20px;
+
+  @media (max-width: 600px){
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .total-star-rating{
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100%;
+    @media (max-width: 600px){
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    line-height: normal;
+    .num-rating{
+      font-size: 50px;
+      font-weight: bold;
+      margin-right: 10px;
+      line-height: normal;
+      @media (max-width: 600px){
+        font-size: 40px;
+      }
+    }
+    .text-rating{
+      display: block;
+    }
+  }
+  .list-total-star-num{
+    width: 60%;
+    padding-left: 20px;
+    border-left: 1px solid #ccc;
+    @media (max-width: 600px){
+      width: 100%;
+      border-left: none;
+      padding-left: 0;
+    }
+    .num-rating-star{
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      .__percent{
+        display: block;
+        height: 18px;
+        background: #C1C1C1;
+        position: relative;
+        width: 100%;
+        max-width: 150px;
+        margin: 0 10px;
+        i{
+          position: absolute;
+          display: block;
+          left: 0;
+          top: 0;
+          height: 100%;
+          z-index: 1;
+          background: #63B724;
+        }
+      }
+    }
+  }
+}

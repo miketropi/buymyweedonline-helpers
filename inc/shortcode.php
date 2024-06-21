@@ -83,12 +83,20 @@ function be_display_all_product_reviews($atts) {
     ), $atts, 'all_product_reviews');
 
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $path_star_img = '/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/';
 
     $args = array(
         'post_type' => 'product',
         'status'    => 'approve',
         'number'    => $atts['reviews_per_page'],
-        'offset'    => ($paged - 1) * $atts['reviews_per_page']
+        'offset'    => ($paged - 1) * $atts['reviews_per_page'],
+        'meta_query' => array(
+             array(
+                 'key'     => 'rating',
+                 'value'   => '0',
+                 'compare' => '>'
+             )
+         )
     );
 
     $comments = get_comments($args);
@@ -96,20 +104,61 @@ function be_display_all_product_reviews($atts) {
     $all_reviews = get_comments(array(
          'post_type' => 'product',
          'status'    => 'approve',
-         'number'    => 0 // Get all comments
+         'number'    => 0, // Get all comments
+         'meta_query' => array(
+              array(
+                  'key'     => 'rating',
+                  'value'   => '0',
+                  'compare' => '>'
+              )
+          )
     ));
     $total_comments = count($all_reviews);
     $total_pages = ceil($total_comments / $atts['reviews_per_page']);
     $total_rating = 0;
-
+    $num_stars = array('5' => 0,'4' => 0,'3' => 0,'2' => 0,'1' => 0);
     foreach ($all_reviews as $review) {
         $rating = intval(get_comment_meta($review->comment_ID, 'rating', true));
         $total_rating += $rating;
+        $num_stars[$rating] += 1;
     }
 
-    $average_rating = $total_comments ? number_format($total_rating / $total_comments) : 0;
+    $average_rating = $total_comments ? number_format($total_rating / $total_comments,1) : 0;
     if ($comments) {
-        echo '<div class="average-total-reviews"><img src="/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/stars_'.$average_rating.'_yellow.png" alt="rating '.$average_rating.'" />  Based on '.$total_comments.' Reviews</div>';
+        ?>
+        <style media="screen">
+           <?php
+            for ($i=1; $i <=5 ; $i++) {
+               $width = 100;
+               if($average_rating < $i){
+                 $num = 1-($i - $average_rating);
+                 if($num < 1 && $num > 0){
+                   $width = $num*100;
+                 }else{
+                   $width = 0;
+                 }
+               }
+               ?>.star.star-<?php echo $i; ?>::before{width: <?php echo $width; ?>%;}<?php
+            }
+            ?>
+        </style>
+        <div class="template-total-reviews">
+          <div class="total-star-rating">
+              <span class="num-rating"><?php echo $average_rating ?></span>
+              <?php for ($i=1; $i <= 5; $i++) {
+                ?><span class="star star-<?php echo $i; ?>">&#9733;</span><?php
+              } ?>
+              <span class="text-rating">Based on <?php echo $total_comments; ?> Reviews</span>
+          </div>
+          <div class="list-total-star-num">
+            <?php for ($i=5; $i >= 1; $i--) {
+              $percent = ($num_stars[$i] * 100) / $total_comments;
+              echo '<div class="num-rating-star num-rating-star-'.$i.'"><img src="'.$path_star_img.'stars_'.$i.'_yellow.png" alt="num start '.$i.'" /> <span class="__percent"><i style="width:'.$percent.'%"></i></span>('.$num_stars[$i].')</div>';
+            } ?>
+          </div>
+        </div>
+        <?php
+        //echo '<div class="average-total-reviews"><img src="/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/stars_'.$average_rating.'_yellow.png" alt="rating '.$average_rating.'" />  Based on '.$total_comments.' Reviews</div>';
         echo '<div class="all-product-reviews">';
         foreach ($comments as $comment) {
 
@@ -136,7 +185,7 @@ function be_display_all_product_reviews($atts) {
 
             echo '<div class="single-review">';
             echo '<p class="review-date">'.$comment_date.'</p>';
-            echo '<p class="review-rating"><img src="/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/stars_'.$rating.'_yellow.png" alt="rating '.$rating.'" /></p>';
+            echo '<p class="review-rating"><img src="'.$path_star_img.'stars_'.$rating.'_yellow.png" alt="rating '.$rating.'" /></p>';
             echo '<p id="less-more-cmt-'.$comment_id.'" class="review-content">' . wp_trim_words( $comment->comment_content , 24, '... <a href="#show-comment-'.$comment_id.'" class="read-more-btn" title="Read more">Read more</a>' ). '</p>';
             ?>
             <div id="show-comment-<?php echo $comment_id ?>" class="review-quote">

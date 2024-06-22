@@ -81,49 +81,89 @@ function be_display_all_product_reviews($atts) {
     $atts = shortcode_atts(array(
         'reviews_per_page' => 24 // Default number of reviews per page
     ), $atts, 'all_product_reviews');
-
+    global $post;
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
     $path_star_img = '/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/';
+    $rating_filter = isset($_GET['rating_filter']) ? intval($_GET['rating_filter']) : 0;
 
     $args = array(
         'post_type' => 'product',
         'status'    => 'approve',
         'number'    => $atts['reviews_per_page'],
-        'offset'    => ($paged - 1) * $atts['reviews_per_page'],
-        'meta_query' => array(
-             array(
-                 'key'     => 'rating',
-                 'value'   => '0',
-                 'compare' => '>'
-             )
-         )
+        'offset'    => ($paged - 1) * $atts['reviews_per_page']
     );
+
+    if ($rating_filter) {
+        $args['meta_query'] = array(
+            array(
+                'key' => 'rating',
+                'value' => $rating_filter,
+                'compare' => '='
+            )
+        );
+    }else{
+      $args['meta_query'] = array(
+          array(
+              'key' => 'rating',
+              'value' => '0',
+              'compare' => '>'
+          )
+      );
+    }
 
     $comments = get_comments($args);
     // Calculate average rating
-    $all_reviews = get_comments(array(
+
+    $args_all = array(
          'post_type' => 'product',
          'status'    => 'approve',
-         'number'    => 0, // Get all comments
-         'meta_query' => array(
-              array(
-                  'key'     => 'rating',
-                  'value'   => '0',
-                  'compare' => '>'
-              )
+         'number'    => 0
+    );
+    if ($rating_filter) {
+        $args_all['meta_query'] = array(
+            array(
+                'key' => 'rating',
+                'value' => $rating_filter,
+                'compare' => '='
+            )
+        );
+    }else{
+      $args_all['meta_query'] = array(
+          array(
+              'key' => 'rating',
+              'value' => '0',
+              'compare' => '>'
           )
-    ));
-    $total_comments = count($all_reviews);
+      );
+    }
+    $all_reviews_current = get_comments($args_all);
+    $total_comments = count($all_reviews_current);
     $total_pages = ceil($total_comments / $atts['reviews_per_page']);
     $total_rating = 0;
     $num_stars = array('5' => 0,'4' => 0,'3' => 0,'2' => 0,'1' => 0);
+
+    //Show all
+    $all_reviews = get_comments(array(
+         'post_type' => 'product',
+         'status'    => 'approve',
+         'number'    => 0,
+         'meta_query' => array(
+           array(
+               'key' => 'rating',
+               'value' => '0',
+               'compare' => '>'
+           )
+         )
+    ));
     foreach ($all_reviews as $review) {
         $rating = intval(get_comment_meta($review->comment_ID, 'rating', true));
         $total_rating += $rating;
         $num_stars[$rating] += 1;
     }
 
-    $average_rating = $total_comments ? number_format($total_rating / $total_comments,1) : 0;
+    $total_count_reviews = count($all_reviews);
+    $average_rating = $total_count_reviews ? number_format($total_rating / $total_count_reviews,1) : 0;
+
     if ($comments) {
         ?>
         <style media="screen">
@@ -148,17 +188,25 @@ function be_display_all_product_reviews($atts) {
               <?php for ($i=1; $i <= 5; $i++) {
                 ?><span class="star star-<?php echo $i; ?>">&#9733;</span><?php
               } ?>
-              <span class="text-rating">Based on <?php echo $total_comments; ?> Reviews</span>
+              <span class="text-rating">Based on <?php echo $total_count_reviews; ?> Reviews</span>
           </div>
           <div class="list-total-star-num">
             <?php for ($i=5; $i >= 1; $i--) {
-              $percent = ($num_stars[$i] * 100) / $total_comments;
+              $percent = ($num_stars[$i] * 100) / $total_count_reviews;
               echo '<div class="num-rating-star num-rating-star-'.$i.'"><img src="'.$path_star_img.'stars_'.$i.'_yellow.png" alt="num start '.$i.'" /> <span class="__percent"><i style="width:'.$percent.'%"></i></span>('.$num_stars[$i].')</div>';
             } ?>
           </div>
         </div>
         <?php
-        //echo '<div class="average-total-reviews"><img src="/wp-content/plugins/review-slider-for-woocommerce/public/partials/imgs/stars_'.$average_rating.'_yellow.png" alt="rating '.$average_rating.'" />  Based on '.$total_comments.' Reviews</div>';
+        echo '<form action="/'.$post->post_name.'/" method="get" class="rating-filter-form">';
+           echo '<label for="rating_filter">Filter by Rating:</label>';
+           echo '<select name="rating_filter" id="rating_filter" onchange="this.form.submit()">';
+           echo '<option value="">All Ratings</option>';
+           for ($i = 5; $i >= 1; $i--) {
+               echo '<option value="' . $i . '"' . selected($rating_filter, $i, false) . '>' . $i . ' Stars</option>';
+           }
+           echo '</select>';
+           echo '</form>';
         echo '<div class="all-product-reviews">';
         foreach ($comments as $comment) {
 

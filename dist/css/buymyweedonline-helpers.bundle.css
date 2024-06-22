@@ -1364,6 +1364,24 @@ ul.products li.product .cwg_popup_submit {
   background: #63B724;
 }
 
+.rating-filter-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.rating-filter-form label[for=rating_filter] {
+  white-space: nowrap;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.rating-filter-form #rating_filter {
+  width: auto;
+  padding: 5px 20px 5px 10px;
+  height: 40px;
+  font-family: Lato !important;
+}
+
 .widget_shopping_cart_content .wrapper-list-product-promo .list-product .item-enable .unlock-add-to-cart .button.add_to_cart_button.ajax_add_to_cart.loading {
   background: #fff;
   opacity: 0.3;

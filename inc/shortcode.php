@@ -267,8 +267,8 @@ function be_display_all_product_reviews($atts) {
 
         // Pagination
         $pagination_args = array(
-            'base' => @add_query_arg('paged', '%#%'),
-            'format' => '?paged=%#%',
+            'base' => get_pagenum_link(1) . '%_%',
+            'format' => 'page/%#%/',
             'current' => max(1, $paged),
             'total' => $total_pages,
             'prev_text' => __('«'),
@@ -296,3 +296,9 @@ function be_display_all_product_reviews($atts) {
     return ob_get_clean();
 }
 add_shortcode('all_product_reviews', 'be_display_all_product_reviews');
+
+//Add AI Review Summary
+//add_action('woocommerce_after_single_product_summary','show_ai_product_review_summary',1);
+function show_ai_product_review_summary(){
+  echo do_shortcode('[alpus_aprs_ai_summary]');
+}

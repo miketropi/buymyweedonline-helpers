@@ -12281,7 +12281,7 @@ __webpack_require__.r(__webpack_exports__);
             // $('.inamate-loading-age-gate').css('display','none');
             $('.wrapper-age-gate-custom').hide();
             $('body').removeClass('age-gate-active');
-            var time_expired = Date.now() + time_remember * 24 * 60 * 60 * 1000;
+            var time_expired = Date.now() + 7 * 24 * 60 * 60 * 1000;
             localStorage.setItem("time_expired", time_expired);
           }, 1000);
         } else {

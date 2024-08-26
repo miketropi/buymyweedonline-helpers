@@ -51,9 +51,9 @@ if($enable_new_style){
 										'product'   => $product,
 									)
 								);
-						
+
 								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
-							
+
 
 $id_counter = 1;
 
@@ -76,7 +76,10 @@ foreach ($variations as $variation) {
         if (is_float($attribute_value_1)) {
             // Calculate the adjusted price
             $adjusted_price = $base_price / $attribute_value_1;
-            $saved_pergram_price = (($base_price - $adjusted_price) / $base_price) * 100;
+						$saved_pergram_price = 0;
+						if($base_price > 0){
+							$saved_pergram_price = (($base_price - $adjusted_price) / $base_price) * 100;
+						}
 
             echo "<span class='variation-price variation-id-" . $id_counter . "'>" . $variation_obj->get_price_html();
             echo "<span class='variation-per-unit-price'>" . wc_price($adjusted_price) . "/g" . "</span></span>";

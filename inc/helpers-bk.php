@@ -416,3 +416,321 @@ function be_change_wpseo_next_prev( $link ) {
 
   return $link;
 }
+
+/* Google Sheet API */
+
+  /**
+   * Google Sheet API
+   */
+  use Google\Client;
+  use Google\Service\Sheets;
+  use GuzzleHttp\Exception\RequestException;
+
+  class BeGoogleSheetAPI
+  {
+
+    public $spreadsheetId = '1FCgRf1CO_20RJXuJ8m_sJ4NmMy08hGpkJ7THaZTS8bc';
+    public $range         = 'BMWO!F2:01000';
+    public $klaviyo_key   = 'pk_b0031f8c0a159566fb0b374fa578db2972';
+
+    function __construct()
+    {
+      //Hooks
+      add_filter('cron_schedules', array( $this , 'add_ten_minute_cron_schedule') );
+      add_action('wp', array($this,'setup_five_minute_cron'));
+      add_action('be_send_link_payment_interac_to_customer' , array($this, 'sendLinkPaymentInterac' ));
+      add_action('be_update_status_order_after_payment_interac' , array($this,'updateStatusOrderAfterPaymentInterac'));
+      add_action('init', array($this,'testapi'));
+    }
+
+    public function testapi(){
+         if($_GET['apitest']){
+           $email = 'thanhminh1602@gmail.com';
+           echo $profile_id = $this->getProfileIdFromEmail($email);
+           die;
+         }
+    }
+
+    //Add new cron schedules
+    public function add_ten_minute_cron_schedule($schedules) {
+        $schedules['every_ten_minutes'] = array(
+            'interval' => 600,
+            'display' => __('Every Ten Minutes')
+        );
+        $schedules['every_fifteen_minutes'] = array(
+            'interval' => 900,
+            'display' => __('Every Fifteen Minutes')
+        );
+        return $schedules;
+    }
+
+    //Run cronjob
+    public function setup_five_minute_cron() {
+        //Send link Interac
+        if (!wp_next_scheduled('be_send_link_payment_interac_to_customer')) {
+            wp_schedule_event(time(), 'every_ten_minutes', 'be_send_link_payment_interac_to_customer');
+        }
+
+        //Update Status Order
+        if (!wp_next_scheduled('be_update_status_order_after_payment_interac')) {
+            wp_schedule_event(time(), 'every_fifteen_minutes', 'be_update_status_order_after_payment_interac');
+        }
+
+    }
+
+    //Cronjob 1: Send Link Payment Interac to Customer
+    public function sendLinkPaymentInterac(){
+
+        $lists = $this->getListOrdersCustomers();
+        $orderIDSent = get_option('listOrderSent');
+        if(empty($orderIDSent)) $orderIDSent = array();
+
+        foreach ($lists as $key => $row) {
+            if(isset($row[7]) && isset($row[6])){
+
+                //data
+                $name         = $row[2];
+                $link_payment = $row[7];
+                $emailto      = $row[5];
+                $orderID      = $row[3];
+                $status       = strtolower($row[6]);
+
+                //check send email
+                if($status == 'pending' && !in_array($orderID, $orderIDSent)){
+                  $htmlEmailTemplate = $this->emailSendPaymentInterac($name,$link_payment);
+                  $headers = array('Content-Type: text/html; charset=UTF-8');
+                  $is_sent = wp_mail($emailto,'Complete Your Payment Easily with BMWO!',$htmlEmailTemplate,$headers);
+                  if($is_sent){
+                    array_push( $orderIDSent, $orderID );
+                    update_option('listOrderSent',$orderIDSent);
+                  }else{
+                    error_log('Error: Can\'t sent email to customer ' . $emailto . ' - OrderID: '. $orderID);
+                  }
+                }
+            }
+        }
+    }
+
+    //Cronjob 2: Update Status of Orders follow Google Sheet
+    public function updateStatusOrderAfterPaymentInterac(){
+        $lists = $this->getListOrdersCustomers();
+        $orderIDUpdated = get_option('listOrderUpdated');
+        if(empty($orderIDUpdated)) $orderIDUpdated = array();
+        foreach ($lists as $key => $row) {
+            if(isset($row[7]) && isset($row[6])){
+
+                //data
+                $name         = $row[2];
+                $link_payment = $row[7];
+                $emailto      = $row[5];
+                $orderID      = $row[3];
+                $status       = strtolower($row[6]);
+
+                //check update status
+                if($status == 'paid' && !in_array($orderID, $orderIDUpdated)){
+                  $order = new WC_Order( $orderID );
+                  if($order->update_status('completed')){
+                    array_push( $orderIDUpdated, $orderID );
+                    update_option('listOrderUpdated',$orderIDUpdated);
+                  }else{
+                    error_log('Error: Update status to order ID ' . $orderID . ' not success!');
+                  }
+                }
+            }
+        }
+    }
+
+    //Send email payment to customer
+    public function emailSendPaymentInterac($name,$link_payment){
+      ob_start();
+      ?>
+        <!DOCTYPE html>
+        <html>
+        <body>
+
+        <div class="email-container" style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+            <div class="header" style="text-align: center; color: #28a745; font-size: 24px; margin-bottom: 20px;">Complete Your Payment Easily with BMWO!</div>
+
+            <div class="content" style="font-size: 16px; color: #333; line-height: 1.5;">
+                <p style="margin-bottom: 15px;">Hello <?php echo $name; ?>,</p>
+
+                <p style="margin-bottom: 15px;">Thank you for your recent order with BMWO. To complete your purchase, please use our fast and efficient payment method by clicking the link below:</p>
+
+                <a href="<?php echo $link_payment ?>" class="cta-button" style="display: inline-block; padding: 10px 20px; margin: 20px 0; font-size: 16px; color: white; background-color: #28a745; text-align: center; text-decoration: none; border-radius: 5px;">Click Here to Pay Now</a>
+
+                <p style="margin-bottom: 15px;">We highly recommend using this method for a quicker and more convenient experience. If you prefer to pay manually, you can still do so.</p>
+
+                <p style="margin-bottom: 15px;">If you have any questions or need assistance, our customer support team is here to help. You can reach us via <a href="mailto:info@buymyweedonline.cc">info@buymyweedonline.cc</a>.</p>
+
+                <p class="footer" style="margin-bottom: 15px;">Thank you for choosing BMWO.</p>
+
+                <p class="footer" style="margin-bottom: 15px;margin-top: 20px; font-size: 14px; color: #555;">Best regards,<br>
+                The Buy My Weed Online Customer Care Team <br>
+                <a href="https://buymyweedonline.cc">Buymyweedonline.cc</a>
+            </div>
+        </div>
+
+        </body>
+        </html>
+      <?php
+      return ob_get_clean();
+    }
+
+    //Get data google sheet
+    public function getListOrdersCustomers(){
+      // Get the data
+      $data = $this->getSheetData($this->spreadsheetId, $this->range);
+      return $data;
+    }
+
+    //Config
+    public function getClient() {
+        $client = new Client();
+        $client->setApplicationName('Google Sheets API PHP Quickstart');
+        $client->setScopes([Google\Service\Sheets::SPREADSHEETS_READONLY]);
+        $client->setAuthConfig( B_HELPERS_DIR . '/src/config/bmwo-428807-662c5acf8457.json');
+        $client->setAccessType('offline');
+        return $client;
+    }
+
+    // Function to get data from a Google Sheet
+    public function getSheetData($sheetID, $r) {
+        $client = $this->getClient();
+        $service = new Sheets($client);
+
+        // Retrieve data from the specified range
+        $response = $service->spreadsheets_values->get($sheetID, $r);
+        $values = $response->getValues();
+
+        return $values;
+    }
+
+    function getProfileIdFromEmail($email){
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://a.klaviyo.com/api/profiles/?filter=equals(email,"'.$email.'")', [
+            'headers' => [
+              'Authorization' => 'Klaviyo-API-Key '.$this->klaviyo_key,
+              'accept' => 'application/json',
+              'revision' => '2024-07-15',
+            ],
+        ]);
+        $response_body = json_decode($response->getBody(), true);
+        $profiles = $response_body['data'];
+        $profile_id = 0;
+        if(count($profiles) > 0){
+            $profile_id = $profiles[0]['id'];
+        }
+        return $profile_id;
+
+    }
+
+    function createCustomerKlaviyo($profiles){
+
+        $post_data = array(
+            'data' => array(
+                'type' => "profile",
+                'attributes' => $profiles
+            )
+        );
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', 'https://a.klaviyo.com/api/profiles/', [
+            'body' => json_encode($post_data),
+            'headers' => [
+                'Authorization' => 'Klaviyo-API-Key '.$this->klaviyo_key,
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+                'revision' => '2024-06-15',
+            ]
+        ]);
+
+        $response_body = json_decode($response->getBody(), true);
+        //If the Klaviyo API returns a code anything other than OK, log it!
+        $profile_id = 0;
+        if(isset($response_body['errors'])) {
+            if($response_body['errors'][0]['code'] == 'duplicate_profile'){
+                $profile_id = $response_body['errors'][0]['meta']['duplicate_profile_id'];
+            }else{
+                // $this->log_error( __METHOD__ . '(): Could not create user' );
+                // $this->log_error( __METHOD__ . '(): response => ' . print_r( $response, true ) );
+            }
+        }else{
+            $profile_id = $response_body['data']['id'];
+        }
+        return $profile_id;
+    }
+
+    function updateProfileOnKlaviyo($profile_id, $properties){
+        $post_data = array(
+            'data' => array(
+                'type' => "profile",
+                'id' => $profile_id,
+                'attributes' => array(
+                    'properties' => $properties
+                )
+            )
+        );
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('PATCH', 'https://a.klaviyo.com/api/profiles/'.$profile_id.'/', [
+            'body' => json_encode($post_data),
+            'headers' => [
+                'Authorization' => 'Klaviyo-API-Key '.$this->klaviyo_key,
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+                'revision' => '2024-06-15',
+            ]
+        ]);
+    }
+
+    function updatePropertiesCustomer($customerData){
+        $Customer = new Customer();
+        $Customer->updateCustomer($customerData);
+        // klaviyo
+        $profiles = array(
+            "email"  => $requestBody['email'],
+            "first_name"  => $requestBody['first_name'],
+            "last_name"  => $requestBody['last_name']
+        );
+        $profile_id = $Customer->getProfileIdFromEmail($requestBody['email']);
+        if(!$profile_id){
+            $profile_id = $Customer->createCustomerKlaviyo($profiles);
+        }
+        $properties = array(
+            'prescription_expiry' => $prescription_expiry,
+            'renewal_date' => $renewal_date
+        );
+        $Customer->updateProfileOnKlaviyo($profile_id, $properties);
+    }
+
+    public function getListSegments(){
+        $client = new \GuzzleHttp\Client();
+        try {
+          $response = $client->request('GET', 'https://a.klaviyo.com/api/v2/list/YhRHvp/members', [
+              'headers' => [
+                  'api-key' =>  $this->klaviyo_key,
+                  'content-type' => 'application/json'
+              ]
+          ]);
+          if ($response->getStatusCode() === 200) {
+            $segments = json_decode($response->getBody(), true);
+
+            print_r($segments);
+          } else {
+              echo "Failed to retrieve segments. HTTP Code: " . $response->getStatusCode();
+          }
+      } catch (RequestException $e) {
+        echo 'Error: ' . $e->getMessage();
+        if ($e->hasResponse()) {
+            echo ' Response: ' . $e->getResponse()->getBody();
+        }
+      }
+      die;
+    }
+
+  }new BeGoogleSheetAPI();
+
+/* Google Sheet API */

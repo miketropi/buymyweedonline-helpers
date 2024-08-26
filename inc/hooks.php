@@ -774,3 +774,52 @@ function be_redirect_specific_page() {
   }
 }
 add_action('template_redirect', 'be_redirect_specific_page');
+
+//Remove tidio Chat on home page
+add_filter('option_tidio-async-load','custom_option_tidiochat_async');
+function custom_option_tidiochat_async($value){
+  return false;
+}
+
+//Hook customizer schema Product page
+add_filter('wpseo_schema_product' , 'be_custom_wpseo_schema_product', 10 , 2);
+function be_custom_wpseo_schema_product($data){
+
+  //Non-Variant
+  if(isset($data['hasVariant'])){
+    $data_variants = [];
+    foreach ($data['hasVariant'] as $variant) {
+        $sku = explode('-',$variant['sku']);
+        $variant_id = !empty($sku) ? $sku[1] : '';
+        $variation_obj = new WC_Product_variation($variant_id);
+        $stock_quantity = $variation_obj->get_stock_quantity();
+        $status_Stock = 'InStock';
+        if($stock_quantity < 1) $status_Stock = 'OutOfStock';
+        if(isset($variant['offers'])){
+          if(!isset($variant['offers']['availability'])) $variant['offers']['availability'] = 'http://schema.org/' . $status_Stock;
+          if(!isset($variant['offers']['priceValidUntil'])) $variant['offers']['priceValidUntil'] = current_datetime()->format('Y-m-d');
+        }
+        $data_variants[] = $variant;
+    }
+    $data['hasVariant'] = $data_variants;
+  }else{
+    if(isset($data['offers'])){
+      $data_variants = [];
+      $product_id = $data['sku'];
+      $product = wc_get_product($product_id);
+      $stock_quantity = get_post_meta($product_id, '_stock', true);
+      $status_Stock = 'InStock';
+      if(!$product->is_in_stock()) $status_Stock = 'OutOfStock';
+      foreach ($data['offers'] as $offer) {
+          if(isset($offer['@type']) && $offer['@type'] == 'Offer'){
+            if(!isset($offer['availability'])) $offer['availability'] = 'http://schema.org/' . $status_Stock;
+            if(!isset($offer['priceValidUntil'])) $offer['priceValidUntil'] = current_datetime()->format('Y-m-d');
+          }
+          $data_variants[] = $offer;
+      }
+      $data['offers'] = $data_variants;
+    }
+  }
+
+  return $data;
+}

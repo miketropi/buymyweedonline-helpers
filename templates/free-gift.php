@@ -10,7 +10,7 @@ $cart_total = WC()->cart->total;
   <div class="free-gift__inner">
     <div class="free-gift__message"><?php echo b_helpers_free_gift_message(); ?></div>
     <ul class="free-gift__products">
-      <?php if($freegift_products && count($freegift_products) > 0) :
+      <?php if($freegift_products && is_array($freegift_products)) :
         foreach($freegift_products as $_index => $_p) :
           if(empty($_p['select_product_for_freegift'])) continue;
 

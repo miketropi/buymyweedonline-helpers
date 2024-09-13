@@ -823,3 +823,141 @@ function be_custom_wpseo_schema_product($data){
 
   return $data;
 }
+
+
+add_filter('woocommerce_structured_data_product' , 'custom_data_review_single_product' , 9 , 2);
+function custom_data_review_single_product($markup, $product){
+  if ( $product->get_rating_count() && wc_review_ratings_enabled() ) {
+		$markup['aggregateRating'] = array(
+			'@type'       => 'AggregateRating',
+			'ratingValue' => $product->get_average_rating(),
+			'reviewCount' => $product->get_review_count(),
+		);
+
+		// Markup 5 most recent rating/review.
+		$comments = get_comments(
+			array(
+				//'number'      => '',
+				'post_id'     => $product->get_id(),
+				'status'      => 'approve',
+				'post_status' => 'publish',
+				'post_type'   => 'product',
+				'parent'      => 0,
+				'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => 'rating',
+						'type'    => 'NUMERIC',
+						'compare' => '>',
+						'value'   => 0,
+					),
+				),
+			)
+		);
+
+		if ( $comments ) {
+			$markup['review'] = array();
+			foreach ( $comments as $comment ) {
+				$markup['review'][] = array(
+					'@type'         => 'Review',
+					'reviewRating'  => array(
+						'@type'       => 'Rating',
+						'bestRating'  => '5',
+						'ratingValue' => get_comment_meta( $comment->comment_ID, 'rating', true ),
+						'worstRating' => '1',
+					),
+					'author'        => array(
+						'@type' => 'Person',
+						'name'  => get_comment_author( $comment ),
+					),
+					'reviewBody'    => get_comment_text( $comment ),
+					'datePublished' => get_comment_date( 'c', $comment ),
+				);
+			}
+		}
+	}
+  return $markup;
+}
+
+
+//add shippingDetails
+add_filter( 'woocommerce_structured_data_product', 'custom_woocommerce_product_shipping_schema', 10, 2 );
+function custom_woocommerce_product_shipping_schema( $markup, $product ) {
+
+    // Get shipping rate dynamically
+    $shipping_rate = custom_get_shipping_rate();
+
+    // Shipping details
+    $shipping_details = array(
+          '@type' => 'OfferShippingDetails',
+          'shippingDestination' => array(
+              '@type' => 'DefinedRegion',
+              'name' => 'Worldwide', // Adjust based on your shipping zones
+              "addressCountry" => "CA"
+          ),
+          'deliveryTime' => array(
+              '@type' => 'ShippingDeliveryTime',
+              'handlingTime' => array(
+                  '@type' => 'QuantitativeValue',
+                  'minValue' => 1,
+                  'maxValue' => 2,
+                  'unitCode' => 'd' // days
+              ),
+              'transitTime' => array(
+                  '@type' => 'QuantitativeValue',
+                  'minValue' => 3,
+                  'maxValue' => 7,
+                  'unitCode' => 'd' // days
+              )
+          ),
+          'shippingRate' => array(
+              '@type' => 'MonetaryAmount',
+              'value' => $shipping_rate,
+              'currency' => get_woocommerce_currency() // Get the store's currency
+          )
+    );
+
+    if ( isset( $markup['offers'] ) ) {
+          $markup['offers'][0]['shippingDetails'] = $shipping_details;
+    }
+
+    return $markup;
+}
+
+// Function to get the dynamic shipping rate
+function custom_get_shipping_rate() {
+    $shipping_cost = '0.00';
+
+    // Get available shipping methods for the current customer or session
+    $packages = WC()->shipping->get_packages();
+    foreach ( $packages as $package ) {
+        foreach ( $package['rates'] as $rate ) {
+            $shipping_cost = $rate->cost;
+            break; // For simplicity, we use the first shipping method
+        }
+    }
+
+    return $shipping_cost;
+}
+
+
+// add MerchantReturnPolicy
+add_filter( 'woocommerce_structured_data_product', 'custom_woocommerce_product_return_policy_schema', 10, 2 );
+function custom_woocommerce_product_return_policy_schema( $markup, $product ) {
+
+    // Define the return policy details
+    $return_policy = array(
+        '@type' => 'MerchantReturnPolicy',
+        'name' => '7-10 Business Days', // Name of your return policy
+        'returnPolicyCategory' => 'http://schema.org/MerchantReturnFiniteReturnWindow', // Could be Refundable or Refundable
+        'merchantReturnDays' => 10, // Number of days for return
+        'returnMethod' => 'http://schema.org/ReturnInStore', // Return method: ReturnByMail, ReturnInStore, etc.
+        'returnFees' => 'http://schema.org/FreeReturn', // If returns are free, use FreeReturn. Otherwise, specify return fees
+        'applicableCountry' => 'CA'
+    );
+
+    if ( isset( $markup['offers'] ) ) {
+        $markup['offers'][0]['hasMerchantReturnPolicy'] = $return_policy;
+    }
+
+    return $markup;
+}

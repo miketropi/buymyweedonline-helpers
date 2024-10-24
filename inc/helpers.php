@@ -314,7 +314,7 @@ function remove_wp_enqueue_scripts(){
   if(is_home() || is_front_page()){
     $scripts = array(
       'dr-pro-usr-dashboard',
-      'delicious-recipes-single',
+      //'delicious-recipes-single',
       'delicious-recipes-pro',
       'cwginstock_js',
       'math-min',
@@ -330,7 +330,7 @@ function remove_wp_enqueue_scripts(){
   if(is_singular('product') || is_product_category() || is_shop()){
     $scripts = array(
       'dr-pro-usr-dashboard',
-      'delicious-recipes-single',
+      //'delicious-recipes-single',
       'delicious-recipes-pro',
       'math-min',
       'delicious-recipes-infiniteScroll',
